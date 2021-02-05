@@ -1,0 +1,35 @@
+{
+  "name": "luna-starter-theme",
+  "version": "0.0.0",
+  "description": "93Digital's development starter theme, the boilerplate for all our WordPress projects",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "wp-scripts build js/index.js js/blocks/blocks.js",
+    "watch": "wp-scripts start"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@bitbucket.org/93developers/luna-starter-theme.git"
+  },
+  "keywords": [
+    "93digital",
+    "starter",
+    "theme",
+    "boilerplate"
+  ],
+  "author": "93Devs",
+  "license": "ISC",
+  "homepage": "https://bitbucket.org/93developers/luna-starter-theme#readme",
+  "devDependencies": {
+    "@wordpress/eslint-plugin": "^8.0.2",
+    "@wordpress/scripts": "^13.0.2",
+    "eslint": "^7.19.0",
+    "eslint-plugin-react": "^7.22.0",
+    "stylelint": "^13.9.0",
+    "stylelint-config-sass-guidelines": "^7.1.0",
+    "stylelint-config-standard": "^20.0.0",
+    "stylelint-config-wordpress": "^17.0.0",
+    "stylelint-order": "^4.1.0",
+    "stylint": "^2.0.0"
+  }
+}
