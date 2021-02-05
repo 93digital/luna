@@ -1,6 +1,45 @@
 {
   "extends": [
     "stylelint-config-standard",
-    "stylelint-config-sass-guidelines"
-  ]
+    "stylelint-config-sass-guidelines",
+    "stylelint-config-wordpress",
+    "stylelint-config-wordpress/scss"
+  ],
+  "ignoreFiles": [
+    "style.css",
+    "style.css.map",
+    "style-editor.css",
+    "style-editor.css.map"
+  ],
+  "rules": {
+    "at-rule-empty-line-before": [
+      "always",
+      {
+        "except": [ "after-same-name", "inside-block", "blockless-after-same-name-blockless", "blockless-after-blockless", "first-nested" ],
+        "ignore": [ "after-comment", "first-nested", "inside-block", "blockless-after-same-name-blockless", "blockless-after-blockless" ]
+      }
+    ],
+    "color-hex-case": null,
+    "color-named": null,
+    "declaration-empty-line-before": null,
+    "font-weight-notation": null,
+    "indentation": 2,
+    "max-line-length": 100,
+    "max-nesting-depth": 4,
+    "no-descending-specificity": null,
+    "no-missing-end-of-source-newline": null,
+    "number-leading-zero": null,
+    "order/properties-alphabetical-order": null,
+    "scss/at-extend-no-missing-placeholder": null,
+    "selector-attribute-quotes": null,
+    "selector-class-pattern": null,
+    "selector-id-pattern": null,
+    "selector-no-qualifying-type": [
+      true,
+      {
+        "ignore": [ "attribute", "class", "id" ]
+      }
+    ],
+    "string-quotes": "single"
+  }
 }
