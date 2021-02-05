@@ -8,6 +8,13 @@ node_modules/
 dist/
 build/
 
+# Assets
+style.css
+style.css.map
+style-editor.css
+style-editor.css.map
+
+
 # Compiled Java class files
 *.class
 

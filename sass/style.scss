@@ -296,3 +296,18 @@ input[type=checkbox] + label::after {
     }
   }
 }
+
+h1 {
+  background-color: red;
+}
+
+.this-is-a-test {
+  background-color: green;
+
+  &__more {
+    padding: 30px 0;
+    background-color: lightgreen;
+  }
+}
+
+@import 'demo';
