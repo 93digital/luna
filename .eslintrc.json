@@ -5,7 +5,7 @@
   },
   "extends": [
     "eslint:recommended",
-    "plugin:@wordpress/eslint-plugin/recommended"
+    "plugin:@wordpress/eslint-plugin/recommended-with-formatting"
   ],
   "globals": {
     "jQuery": true,
@@ -22,5 +22,11 @@
   "plugins": [
     "react"
   ],
-  "rules": {}
+  "rules": {
+    "no-console": "warn",
+    "indent": ["error", 2],
+    "space-in-parens": ["error", "never"],
+    "arrow-parens": ["error", "as-needed"],
+    "eol-last": 0
+  }
 }

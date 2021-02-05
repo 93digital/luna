@@ -2,10 +2,13 @@
   "name": "luna-starter-theme",
   "version": "0.0.0",
   "description": "93Digital's development starter theme, the boilerplate for all our WordPress projects",
-  "main": "dist/index.js",
+  "main": "build/index.js",
   "scripts": {
-    "build": "wp-scripts build js/index.js js/blocks/blocks.js",
-    "watch": "wp-scripts start"
+    "start": "chokidar \"**/*.scss\" -c \"npm run build\" --initial",
+    "build": "run-s \"build:*\"",
+    "build:scripts": "wp-scripts build js/index.js js/blocks/blocks.js",
+    "build:style": "sass sass/style.scss:style.css --style=expanded --source-map",
+    "build:style-editor": "sass sass/style-editor.scss:style-editor.css --style=expanded --source-map"
   },
   "repository": {
     "type": "git",
@@ -21,15 +24,22 @@
   "license": "ISC",
   "homepage": "https://bitbucket.org/93developers/luna-starter-theme#readme",
   "devDependencies": {
+    "@wordpress/browserslist-config": "^2.2.2",
     "@wordpress/eslint-plugin": "^8.0.2",
     "@wordpress/scripts": "^13.0.2",
+    "chokidar-cli": "^2.1.0",
     "eslint": "^7.19.0",
     "eslint-plugin-react": "^7.22.0",
+    "npm-run-all": "^4.1.5",
+    "sass": "^1.28.0",
     "stylelint": "^13.9.0",
     "stylelint-config-sass-guidelines": "^7.1.0",
     "stylelint-config-standard": "^20.0.0",
     "stylelint-config-wordpress": "^17.0.0",
     "stylelint-order": "^4.1.0",
     "stylint": "^2.0.0"
-  }
+  },
+  "browserslist": [
+    "extends @wordpress/browserslist-config"
+  ]
 }
