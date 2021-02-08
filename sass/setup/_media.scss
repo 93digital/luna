@@ -1,0 +1,77 @@
+svg {
+  display: block;
+  width: auto;
+  height: auto;
+  fill: currentColor;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+img.lazy {
+  opacity: 0;
+}
+
+img:not(.initial) {
+  transition: opacity 1s;
+}
+
+img.error,
+img.loaded,
+img.initial {
+  opacity: 1;
+}
+
+img:not([src]) {
+  visibility: hidden;
+}
+
+.object-fit {
+  width: 100%;
+  height: 100%;
+
+  &--cover {
+    object-fit: cover;
+  }
+
+  &--contain {
+    object-fit: contain;
+  }
+
+  &--fill {
+    object-fit: fill;
+  }
+
+  &--scale-down {
+    object-fit: scale-down;
+  }
+}
+
+.object-position {
+
+  &--center-top {
+    object-position: center top;
+  }
+
+  &--center-bottom {
+    object-position: center bottom;
+  }
+
+  &--top-left {
+    object-position: top left;
+  }
+
+  &--top-right {
+    object-position: top right;
+  }
+
+  &--bottom-left {
+    object-position: bottom left;
+  }
+
+  &--bottom-right {
+    object-position: bottom right;
+  }
+}

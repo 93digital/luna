@@ -1,0 +1,21 @@
+a,
+input,
+button,
+select,
+textarea,
+[tabindex]:not([tabindex='-1']) {
+  cursor: pointer;
+
+  &:focus {
+    outline: 1px dashed currentColor;
+    outline-offset: 1px;
+
+    @media (pointer: coarse) {
+      outline: none !important;
+    }
+  }
+
+  body.remove-focus &:focus {
+    outline: none !important;
+  }
+}

@@ -22,11 +22,24 @@
   "plugins": [
     "react"
   ],
+  "settings": {
+    "import/resolver": {
+      "node": {
+        "extensions": [".js", ".jsx", ".ts", ".tsx"]
+      }
+    }
+  },
   "rules": {
     "no-console": "warn",
     "indent": ["error", 2],
     "space-in-parens": ["error", "never"],
     "arrow-parens": ["error", "as-needed"],
-    "eol-last": 0
+    "computed-property-spacing": ["error", "never"],
+    "array-bracket-spacing": ["error", "never"],
+    "eol-last": 0,
+    "react/jsx-indent": 0,
+    "react/jsx-indent-props": [2, 2],
+    "comma-dangle": ["error", "never"],
+    "@wordpress/no-global-event-listener": 0
   }
 }

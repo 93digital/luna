@@ -1,0 +1,9 @@
+.breadcrumbs {
+  width: 100%;
+  display: block;
+
+  a:not([class]) {
+    text-decoration: none;
+    position: relative;
+  }
+}
