@@ -48,3 +48,7 @@ Thumbs.db
 *.mov
 *.wmv
 
+# Custom...
+style.css
+test.php
+_dump/
