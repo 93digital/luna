@@ -1,0 +1,158 @@
+.gfield_visibility_hidden {
+  display: none !important;
+}
+
+.gform {
+
+  ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  &_fields {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+}
+
+.validation_message {
+  @extend .font-size--xs;
+}
+
+.gfield {
+  margin-bottom: 1em;
+  width: 100%;
+
+  @media (min-width: 600px) {
+    width: calc(50% - 1.65vw);
+  }
+
+  &_error {
+
+    .validation_message {
+      color: $error;
+    }
+  }
+
+  &__textarea {
+    width: 100%;
+  }
+
+  &__radio,
+  &__checkbox {
+
+    li {
+      position: relative;
+    }
+  }
+
+  label {
+    display: block;
+    margin-bottom: .1em;
+  }
+
+  select,
+  textarea,
+  input[type=url],
+  input[type=tel],
+  input[type=text],
+  input[type=email],
+  input[type=search],
+  input[type=number],
+  input[type=password] {
+    width: 100%;
+    border: 1px solid rgba(51, 51, 51, .4);
+    border-radius: 2px;
+    background-color: $white;
+    padding: .55em 1em;
+
+    .gfield_error & {
+      border-color: $error;
+    }
+  }
+
+  textarea {
+    resize: none;
+    height: 144px;
+  }
+}
+
+.gform_ajax_spinner {
+  @extend .spinner;
+}
+
+input[type=radio],
+input[type=checkbox] {
+  clip: rect(1px, 1px, 1px, 1px);
+  clip-path: inset(50%);
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  border: 0;
+  overflow: hidden;
+  position: absolute !important;
+  word-wrap: normal !important;
+
+  &:focus + label::before {
+    outline: 1px dashed currentColor;
+    outline-offset: 1px;
+
+    @media (pointer: coarse) {
+      outline: none !important;
+    }
+  }
+
+  &:checked + label::after {
+    opacity: 1;
+  }
+
+  + label {
+    margin: 0 0 .3em;
+    padding-left: 30px;
+    position: relative;
+    user-select: none;
+
+    &::after,
+    &::before {
+      content: '';
+      width: 23px;
+      height: 23px;
+      position: absolute;
+      top: .1em;
+      left: 0;
+      border-radius: 2px;
+      background-color: $white;
+      border: 1px solid rgba(51, 51, 51, .4);
+      cursor: pointer;
+    }
+
+    &::after {
+      opacity: 0;
+      transition: opacity .1s ease;
+    }
+  }
+}
+
+input[type=radio] + label {
+
+  &::before,
+  &::after {
+    border-radius: 100%;
+  }
+
+  &::after {
+    box-shadow: inset 0 0 0 4px white, inset 0 0 0 100px rgba(51, 51, 51, .4);
+  }
+}
+
+input[type=checkbox] + label::after {
+  content: '✔';
+  font-size: 15px;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

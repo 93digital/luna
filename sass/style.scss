@@ -14,3 +14,43 @@ This theme, like WordPress, is licensed under the GPL.
 
 93Digital's development starter theme, the boilerplate for all our WordPress projects.
 */
+
+/* ---------------------------------------
+# Mixins
+---------------------------------------- */
+@import './mixins/mixins';
+
+/* ---------------------------------------
+# Variables
+---------------------------------------- */
+@import './variables';
+
+/* ---------------------------------------
+# Setup
+---------------------------------------- */
+@import './setup/setup';
+
+/* ---------------------------------------
+# Utilities
+---------------------------------------- */
+@import './utilities/utilities';
+
+/* ---------------------------------------
+# Components
+---------------------------------------- */
+@import './components/components';
+
+/* ---------------------------------------
+# Global Elements
+---------------------------------------- */
+@import './global-elements/global-elements';
+
+/* ---------------------------------------
+# Blocks
+---------------------------------------- */
+@import './blocks/blocks';
+
+/* ---------------------------------------
+# Template Parts
+---------------------------------------- */
+@import './template-parts/template-parts';

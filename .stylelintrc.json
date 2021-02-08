@@ -20,11 +20,12 @@
       }
     ],
     "color-hex-case": null,
+    "color-hex-length": null,
     "color-named": null,
     "declaration-empty-line-before": null,
     "font-weight-notation": null,
     "indentation": 2,
-    "max-line-length": 100,
+    "max-line-length": 150,
     "max-nesting-depth": 4,
     "no-descending-specificity": null,
     "no-missing-end-of-source-newline": null,

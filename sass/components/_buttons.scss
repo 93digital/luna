@@ -1,0 +1,13 @@
+.button {
+  position: relative;
+  display: inline-flex;
+  text-align: center;
+  max-width: 100%;
+  background-color: transparent;
+  border: 0;
+
+  // Hide empty buttons.
+  &:not(input[type='submit']):empty {
+    display: none;
+  }
+}
