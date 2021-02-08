@@ -7,12 +7,11 @@
     "start": "chokidar \"**/*.scss\" -c \"npm run build\" --initial",
     "build": "run-s \"build:*\"",
     "build:scripts": "wp-scripts build js/index.js js/blocks/blocks.js",
-    "build:style": "node-sass --source-map true sass/style.scss style.css",
-    "build:editor-style": "node-sass --source-map true sass/style-editor.scss style-editor.css",
+    "build:styles": "sass sass:",
     "build:postcss": "postcss -r style.css && postcss -r style-editor.css",
     "watch": "run-p \"watch:*\"",
     "watch:scripts": "wp-scripts start js/index.js js/blocks/blocks.js",
-    "watch:style": "chokidar \"**/*.scss\" -c \"npm run build:style && npm run build:editor-style\" --initial"
+    "watch:styles": "sass --watch sass:"
   },
   "repository": {
     "type": "git",
@@ -29,26 +28,31 @@
   "homepage": "https://bitbucket.org/93developers/luna-starter-theme#readme",
   "devDependencies": {
     "@fullhuman/postcss-purgecss": "^3.0.0",
+    "@wordpress/block-editor": "^5.2.6",
+    "@wordpress/blocks": "^7.0.3",
     "@wordpress/browserslist-config": "^2.2.2",
+    "@wordpress/components": "^12.0.6",
     "@wordpress/eslint-plugin": "^8.0.2",
+    "@wordpress/i18n": "^3.18.0",
     "@wordpress/scripts": "^13.0.2",
     "chokidar-cli": "^2.1.0",
     "cssnano": "^4.1.10",
     "eslint": "^7.19.0",
     "eslint-plugin-react": "^7.22.0",
-    "node-sass": "^5.0.0",
     "npm-run-all": "^4.1.5",
     "postcss": "^7.0.35",
     "postcss-cli": "^7.1.2",
     "postcss-focus": "^5.0.1",
     "postcss-preset-env": "^6.7.0",
     "postcss-pxtorem": "^5.1.1",
+    "sass": "^1.32.6",
     "stylelint": "^13.9.0",
     "stylelint-config-sass-guidelines": "^7.1.0",
     "stylelint-config-standard": "^20.0.0",
     "stylelint-config-wordpress": "^17.0.0",
     "stylelint-order": "^4.1.0",
-    "stylint": "^2.0.0"
+    "stylint": "^2.0.0",
+    "vanilla-lazyload": "^17.3.1"
   },
   "browserslist": [
     "extends @wordpress/browserslist-config"
