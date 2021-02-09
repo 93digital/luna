@@ -41,5 +41,7 @@ final class Luna extends Luna_Core {
 		// 7. Post Types & Taxonomies
 		// 8. Global Options
 		// 9. Custom caching functionality
+		// 10. Image functions
+		// 11. Icon functions
 	}
 }

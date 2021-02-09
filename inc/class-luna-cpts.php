@@ -23,9 +23,12 @@ class Luna_Cpts extends Luna_Core_Cpts {
 	 */
 	public function __construct() {
     // Instantiate the parent class.
-    parent::__construct();
+		parent::__construct();
 
-    // EXAMPLE: 'Book' post type.
-    // $book = $this->register_post_type()
+		// Register post types.
+		$this->books = $this->register_post_type( 'book' );
+
+		// Register taxonomies.
+		
   }
 }
