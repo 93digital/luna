@@ -91,8 +91,6 @@ abstract class Luna_Core {
 
 	/**
 	 * Enqueue the core theme scripts.
-	 *
-	 * @todo add a do_action for localisation.
 	 */
 	public function core_scripts() {
 		$script_src  = get_template_directory_uri() . '/build/index.js';
@@ -104,6 +102,9 @@ abstract class Luna_Core {
 			'ajaxUrl' => admin_url( 'admin-ajax.php' ),
 			'nonce'   => wp_create_nonce( 'wp_rest' ),
 		];
+
+		// Allow for localised data to be modified.
+		$data = apply_filters( 'luna_localize_script', $data );
 
 		// Register, localise the above data and enqueue.
 		wp_register_script( 'luna-script', $script_src, [], filemtime( $script_path ), true );

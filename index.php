@@ -1,3 +1,5 @@
 <?php get_header(); ?>
 
-Any luck?
+Foo bar
+
+<?php get_footer(); ?>
