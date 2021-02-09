@@ -6,10 +6,8 @@ export default function Save({ attributes }) {
   const { heading } = attributes;
 
   return (
-    <div { ...blockProps }>
+    <article { ...blockProps } className="m01 break-out">
 
-      <h1>{ __('Hello World!', 'luna') }</h1>
-      <h1>{ __('Hello World!', 'luna') }</h1>
       <h1>{ __('Hello World!', 'luna') }</h1>
 
       <RichText.Content
@@ -18,6 +16,6 @@ export default function Save({ attributes }) {
         className="m01__heading"
       />
 
-    </div>
+    </article>
   );
 }

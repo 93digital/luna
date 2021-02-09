@@ -1,13 +1,18 @@
+import classnames from 'classnames';
 import { __ } from '@wordpress/i18n';
 import { useBlockProps, RichText } from '@wordpress/block-editor';
 import { Inspector } from './inspector';
 
 export default function Edit({ attributes, setAttributes }) {
-  const blockProps = useBlockProps();
+  const blockProps = useBlockProps({
+    className: classnames(
+      'm01 break-out'
+    )
+  });
   const { heading } = attributes;
 
   return (
-    <div { ...blockProps }>
+    <article { ...blockProps }>
 
       <h1>{ __('Hello World!', 'luna') }</h1>
 
@@ -21,6 +26,6 @@ export default function Edit({ attributes, setAttributes }) {
 
       <Inspector { ...blockProps } key="inspector" />
 
-    </div>
+    </article>
   );
 }
