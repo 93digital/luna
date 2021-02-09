@@ -4,7 +4,6 @@
   "description": "93Digital's development starter theme, the boilerplate for all our WordPress projects",
   "main": "build/index.js",
   "scripts": {
-    "start": "chokidar \"**/*.scss\" -c \"npm run build\" --initial",
     "build": "run-s \"build:*\"",
     "build:scripts": "wp-scripts build js/index.js js/blocks/blocks.js",
     "build:styles": "sass sass:",
