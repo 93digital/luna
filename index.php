@@ -1,5 +1,8 @@
-<?php get_header(); ?>
+<?php get_header(); 
 
-Foo bar
+// \luna\dump( $luna );
+echo do_shortcode( '[luna-shortcode]' );
+
+?>
 
 <?php get_footer(); ?>

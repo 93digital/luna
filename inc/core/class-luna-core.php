@@ -1,6 +1,7 @@
 <?php
 /**
- * Luna Core.
+ * Luna core.
+ *
  * An abstract parent class for the main Luna theme object.
  * The general setup of the theme is done here.
  * 
@@ -23,11 +24,12 @@ abstract class Luna_Core {
    */
   protected function __construct() {
 		// Include the Composer autoloader.
-		include_once get_template_directory() . '/vendor/autoload.php';
+		// include_once get_template_directory() . '/vendor/autoload.php';
 
 		$this->cpts = new Luna_Cpts();
+		new Luna_Shortcodes();
 
-		// Theme support and setup.
+		// // Theme support and setup.
 		add_action( 'after_theme_setup', [ $this, 'core_setup' ], 0 );
 
 		// Enqueue default stylesheets.

@@ -44,7 +44,6 @@
 </head>
 
 <body id="body" <?php body_class(); ?> data-instant-intensity="viewport">
-	<?php nine3_body_code(); ?>
 
 	<a href="#main" class="skip-link"><?php esc_html_e( 'Skip to content', 'luna' ); ?></a>
 
