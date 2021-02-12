@@ -6,35 +6,20 @@
  *
  * @package luna
  * @subpackage luna-core
- *
- * @todo weave in taxonomies.
  */
 
 /**
  * Luna Core CPT and taxonomy class.
  */
 abstract class Luna_Core_Cpts {
-  /**
-   * Checks if the class has already been instantiated.
-   * @var bool
-   */
-  private static $is_instantiated = false;
-
 	/**
-	 * Construct.
-   * All CPTs and taxonomies registered here.
+	 * Abstract construct. Only available to inheriting class.
+   * Grabs all the registered taxonomies and attached them to their Luna cpt objects.
+	 * This is just done as a helper.
 	 */
 	protected function __construct() {
-    // Check if the CPT class has already been instantiated.
-    if ( self::$is_instantiated ) {
-      // CPTs and taxonmies should only be registered ONCE!
-      trigger_error(
-        'The Custom Post Type and Taxonomy class <strong>Luna_Cpts()</strong> has already been instantiated.',
-        E_USER_ERROR
-      );
-    }
-
-    self::$is_instantiated = true;
+    // Attach registered taxonomies to the relevant post type objects (DO NOT REMOVE).
+		add_action( 'init', [ $this, 'attach_taxonomies_to_post_types' ], 99 );
   }
 
   /**
@@ -87,13 +72,11 @@ abstract class Luna_Core_Cpts {
 			]
 		];
 
-		$cpt = register_post_type(
-			$post_type,
-			array_merge(
-				$default_args,
-				$args
-			)
+		$args = array_merge(
+			$default_args,
+			$args
 		);
+		$cpt = register_post_type( $post_type, $args );
 
 		// If the post type has an archive page set up an options page (if ACF is active).
 		if ( $args['has_archive'] !== false ) {

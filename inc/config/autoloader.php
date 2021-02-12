@@ -16,12 +16,13 @@ namespace luna;
 function autoload( $class ) {
 	/**
 	 * Format the filename.
-	 * 1. Remove any namespacing
-	 * 2. Aet all chars to lowercase
-	 * 3. Replace underscores with hypens
-	 * 4. Prepend with 'class-'. All class files should start like this
+	 * 1. Remove any namespacing by exploding into an array with a \ delimiter.
+	 * 2. Aet all chars to lowercase.
+	 * 3. Replace underscores with hypens.
+	 * 4. Prepend with 'class-'. All class files should start like this.
 	 */
-	$filename = 'class-' . str_replace( '_', '-', strtolower( end( explode( '\\', $class ) ) ) ) . '.php';
+	$classname_array = explode( '\\', $class );
+	$filename           = 'class-' . str_replace( '_', '-', strtolower( end( $classname_array ) ) ) . '.php';
 
 	// Traverse through the /inc directory until the class is found or all files have been checked.
 	find_class( get_template_directory() . '/inc/', $filename );

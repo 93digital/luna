@@ -7,6 +7,7 @@
  * 
  * The class along with others in the /core directory are essential hidden or background classes.
  * They shouldn't ever need to be changed or edited.
+ * The prefix 'core_' is added to all core methods and props.
  *
  * @package luna
  * @subpackage luna-core
@@ -17,6 +18,12 @@
  * Parent class to the main theme class Luna_Setup.
  */
 abstract class Luna_Core {
+	/**
+	 * The luna PHP error handler class.
+	 * @var object Luna_Core_Errors
+	 */
+	private $core_errors;
+
   /**
    * Base construct.
    * This is really a proper construct method as this abstract class does not get instantiated.
@@ -26,18 +33,28 @@ abstract class Luna_Core {
 		// Include the Composer autoloader.
 		// include_once get_template_directory() . '/vendor/autoload.php';
 
-		$this->cpts = new Luna_Cpts();
-		new Luna_Shortcodes();
+		// Main luna classes.
+		$this->cpts       = new Luna_Cpts();
+		$this->shortcodes = new Luna_Shortcodes();
 
-		// // Theme support and setup.
-		add_action( 'after_theme_setup', [ $this, 'core_setup' ], 0 );
+		// Theme support and setup.
+		add_action( 'after_setup_theme', [ $this, 'core_setup' ], 0 );
 
 		// Enqueue default stylesheets.
 		add_action( 'wp_enqueue_scripts', [ $this, 'core_styles' ], 0 );
 		
 		// Enqueue default scripts.
-		add_action( 'wp_enqueue_scripts', [ $this, 'core_scripts' ], 0 );
-  }
+		add_action( 'wp_enqueue_scripts', [ &$this, 'core_scripts' ], 0 );
+
+		// Remove the users REST API endpoints.
+		add_filter( 'rest_endpoints', [ $this, 'core_remove_user_rest_api_endpoints' ] );
+
+		// Disable xmlrpc, it wont be needed and is a vulnerability.
+		add_filter( 'xmlrpc_enabled', '__return_false' );
+
+		// Core classes.
+		$this->core_errors = new Luna_Core_Errors();
+	}
 
   /**
    * 'after_theme_setup' action hook.
@@ -117,5 +134,29 @@ abstract class Luna_Core {
 		if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
 			wp_enqueue_script( 'comment-reply' );
 		}
+	}
+
+	/**
+	 * 'rest_endpoints' filter hook calback.
+	 * Remove the users REST API endpoint which publicly reveals all WP user names.
+	 * Not a vulnerability as such, but still a good idea to remove as it is not required.
+	 *
+	 * @param array $endpoints Default REST API endpoints.
+	 * @return array $endpoints Updated REST API endpoints with the /users/ endpoints removed.
+	 */
+	function core_remove_user_rest_api_endpoints( $endpoints ) {
+		if ( is_user_logged_in() ) {
+			// Do not remove endpoints for logged in users.
+			return $endpoints;
+		}
+
+		if ( isset( $endpoints['/wp/v2/users'] ) ) {
+			unset( $endpoints['/wp/v2/users'] );
+		}
+		if ( isset( $endpoints['/wp/v2/users/(?P<id>[\d]+)'] ) ) {
+			unset( $endpoints['/wp/v2/users/(?P<id>[\d]+)'] );
+		}
+
+		return $endpoints;
 	}
 }

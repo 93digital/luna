@@ -23,9 +23,6 @@ final class Luna_Cpts extends Luna_Core_Cpts {
 	 * Remember internationalisation when registering labels!
 	 */
 	public function __construct() {
-    // Instantiate the parent class (DO NOT REMOVE).
-		parent::__construct();
-
 		// Register cpts and taxonomies
 		add_action( 'init', [ $this, 'register_cpts_and_taxonomies' ], 1 );
 
@@ -36,8 +33,8 @@ final class Luna_Cpts extends Luna_Core_Cpts {
 		 * Add any custom CPT and taxonomy related hooks here.
 		 */
 
-		// Attach registered taxonomies to the relevant post type objects (DO NOT REMOVE).
-		add_action( 'init', [ $this, 'attach_taxonomies_to_post_types' ], 99 );
+		// Instantiate the parent class (DO NOT REMOVE). This should be done last.
+		parent::__construct();
 	}
 
 	/**
