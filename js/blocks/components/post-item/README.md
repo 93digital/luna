@@ -51,7 +51,7 @@ If true adds `is-selected` class to item.
 ## Post Item Preview
 Displays a preview of a post item card with a defined label.
 
-### Component properties (`props`)
+### Props
 
 #### `post` - object
 The selected post object, can be added via the REST api.
@@ -71,6 +71,6 @@ Label for the previewed post item. Will fallback to `Selected Post:`.
 ```javascript
 <PostItemPreview
   post={ postObject }
-  label={ __( 'Selected Post:', 'luna' ) }
+  label={ __('Selected Post:', 'luna') }
 />
 ```
