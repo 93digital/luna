@@ -1,3 +1,4 @@
+import { __ } from '@wordpress/i18n';
 import { Flex, FlexBlock, FlexItem, TextHighlight, Button, Card, CardBody } from '@wordpress/components';
 import { safeDecodeURI, filterURLForDisplay } from '@wordpress/url';
 import { decodeEntities } from '@wordpress/html-entities';
@@ -95,7 +96,7 @@ export function PostItemPreview(props) {
 
   return (
     <div>
-      <label htmlFor={ postID }>{ label }</label>
+      <label htmlFor={ postID }>{ label || __('Selected Post:', 'luna') }</label>
       <PostItem
         suggestion={ post }
         onClick={ null }

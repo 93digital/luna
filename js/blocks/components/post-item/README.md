@@ -1,25 +1,41 @@
 ## PostItem & PostItemPreview
-Post object components for displaying a selected post object.
+Post object React components for displaying a selected post object.
 
 ## Post Item
 Displays a simple card view of a post item.
 
-### Component properties (`props`)
+### Props
 
-#### `id` - string
+#### id
 Unique ID for post item.
 
-#### `suggestion` - object
+- Type: `String`
+- Required: No
+
+#### suggestion
 The selected post object, can be added via the REST api.
 
-#### `onClick` - function
+- Type: `Object`
+- Required: Yes
+
+#### onClick
 On post item click.
 
-#### `searchTerm` - string
+- Type: `Function`
+- Required: No
+
+#### searchTerm
 Adds highlighted text on the post item if used in a search query.
 
-#### `isSelected` - boolean
+- Type: `String`
+- Required: No
+
+#### isSelected
 If true adds `is-selected` class to item.
+
+- Type: `String`
+- Required: No
+- Default: `false`
 
 ### Usage
 ```js
@@ -37,16 +53,24 @@ Displays a preview of a post item card with a defined label.
 
 ### Component properties (`props`)
 
-#### `label` - string
-Label for the previewed post item.
-
 #### `post` - object
 The selected post object, can be added via the REST api.
+
+- Type: `Object`
+- Required: Yes
+
+#### `label` - string
+Label for the previewed post item. Will fallback to `Selected Post:`.
+
+- Type: `String`
+- Required: No
+- Default: `Selected Post:`
+
 
 ### Usage
 ```js
 <PostItemPreview
-  label={ __( 'Selected Post:', 'luna' ) }
   post={ postObject }
+  label={ __( 'Selected Post:', 'luna' ) }
 />
 ```
