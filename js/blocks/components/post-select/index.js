@@ -5,12 +5,12 @@ import { TextControl, Button, Spinner, NavigableMenu } from '@wordpress/componen
 import PostItem from '../post-item/index.js';
 
 /**
- * Post Object
+ * Post Select
  *
  * @param {Object} props react props
  * @return {*} React JSX
  */
-export const PostObject = props => {
+export const PostSelect = props => {
   const {
     onSelectPost,
     label = '',

@@ -1,4 +1,4 @@
-## PostItem & PostItemPreview
+# PostItem & PostItemPreview
 Post object React components for displaying a selected post object.
 
 ## Post Item
