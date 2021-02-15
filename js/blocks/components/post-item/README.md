@@ -38,7 +38,7 @@ If true adds `is-selected` class to item.
 - Default: `false`
 
 ### Usage
-```jsx
+```javascript
 <PostItem
   id={ uniqueID }
   suggested={ postObject }
@@ -68,7 +68,7 @@ Label for the previewed post item. Will fallback to `Selected Post:`.
 
 
 ### Usage
-```jsx
+```javascript
 <PostItemPreview
   post={ postObject }
   label={ __( 'Selected Post:', 'luna' ) }
