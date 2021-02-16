@@ -36,6 +36,7 @@
     "@wordpress/eslint-plugin": "^8.0.2",
     "@wordpress/html-entities": "^2.10.1",
     "@wordpress/i18n": "^3.18.0",
+    "@wordpress/icons": "^2.9.1",
     "@wordpress/scripts": "^13.0.2",
     "@wordpress/url": "^2.21.2",
     "chokidar-cli": "^2.1.0",

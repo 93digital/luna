@@ -31,6 +31,16 @@ Function to set our 'object' attribute and store the selected post object.
 
 ### Usage
 ```javascript
+registerBlockType('luna/blockname', {
+	...
+	attributes: {
+    selectedPost: {
+      type: 'object'
+		},
+	},
+  ...
+});
+
 <PostSelect 
   label={ __('Search page/post', 'luna') }
   postTypes={ [ 'posts', 'pages', 'custom-cpt' ] }

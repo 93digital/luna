@@ -1,0 +1,33 @@
+.luna-button-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.luna-button__button {
+  margin-right: .5em;
+}
+
+.luna-button-url {
+  opacity: .5;
+
+  &.is-active {
+    opacity: 1;
+  }
+}
+
+.luna-button-form {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  margin-top: .5em;
+}
+
+.luna-button-input {
+
+  &[type=url],
+  &[type=text] {
+    width: 100%;
+  }
+}
