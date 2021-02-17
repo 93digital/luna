@@ -30,10 +30,13 @@ abstract class Luna_Core {
    * It should be called by any inheriting classes upon instantiation.
    */
   protected function __construct() {
+		// Core classes.
+		$this->core_errors = new Luna_Core_Errors();
+
 		// Include the Composer autoloader.
 		// include_once get_template_directory() . '/vendor/autoload.php';
 
-		// Main luna classes.
+		// Luna classes.
 		$this->cpts       = new Luna_Cpts();
 		$this->shortcodes = new Luna_Shortcodes();
 
@@ -51,9 +54,6 @@ abstract class Luna_Core {
 
 		// Disable xmlrpc, it wont be needed and is a vulnerability.
 		add_filter( 'xmlrpc_enabled', '__return_false' );
-
-		// Core classes.
-		$this->core_errors = new Luna_Core_Errors();
 	}
 
   /**
@@ -126,7 +126,7 @@ abstract class Luna_Core {
 		$data = apply_filters( 'luna_localize_script', $data );
 
 		// Register, localise the above data and enqueue.
-		wp_register_script( 'luna-script', $script_src, [], filemtime( $script_path ), true );
+		wp_register_script( 'luna-script', $script_src, [], filemtime( __FILE__ ), true );
 		wp_localize_script( 'luna-script', 'luna', $data );
 		wp_enqueue_script( 'luna-script' );
 

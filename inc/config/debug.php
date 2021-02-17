@@ -23,5 +23,5 @@ define( 'LUNA_DEBUG', is_debug_mode() );
  * @return bool Whether the site is in 'debug mode'.
  */
 function is_debug_mode() {
-	return stripos( home_url(), 'localhost' ) && ! stripos( home_url(), 'luna' );
+	return stripos( home_url(), 'localhost' ) && stripos( home_url(), 'luna' );
 }
