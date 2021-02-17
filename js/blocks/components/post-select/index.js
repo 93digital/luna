@@ -2,7 +2,7 @@ import { __ } from '@wordpress/i18n';
 import { useState } from '@wordpress/element';
 import apiFetch from '@wordpress/api-fetch';
 import { TextControl, Button, Spinner, NavigableMenu } from '@wordpress/components';
-import PostItem from '../post-item/index.js';
+import { PostItem } from '../post-item/index.js';
 
 /**
  * Post Select
@@ -13,12 +13,12 @@ import PostItem from '../post-item/index.js';
 export const PostSelect = props => {
   const {
     onSelectPost,
-    label = '',
     postTypes = [
       'posts',
       'pages'
     ],
-    placeholder = ''
+    label = __('Search page/post', 'luna'),
+    placeholder = __('Search…', 'luna')
   } = props;
 
   const [searchString, setSearchString] = useState('');
@@ -53,11 +53,7 @@ export const PostSelect = props => {
   };
 
   function handleSelection(item) {
-    if (item === 0) {
-      setSelectedItem(null);
-    }
-
-    setSelectedItem(item);
+    setSelectedItem(item === 0 ? null : item);
   }
 
   return (
@@ -99,9 +95,9 @@ export const PostSelect = props => {
                 style={ { marginBottom: 0 } }
               >
                 <PostItem
+                  post={ post }
                   onClick={ () => handleItemSelection(post) }
                   searchTerm={ searchString }
-                  suggestion={ post }
                   isSelected={ selectedItem === index + 1 }
                 />
               </li>

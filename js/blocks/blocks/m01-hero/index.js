@@ -18,6 +18,19 @@ registerBlockType('luna/m01-hero', {
       type: 'string',
       source: 'html',
       selector: '.m01__heading'
+    },
+    selectedPost: {
+      type: 'object'
+    },
+    buttonLabel: {
+      type: 'string'
+    },
+    buttonURL: {
+      type: 'string'
+    },
+    buttonTarget: {
+      type: 'boolean',
+      default: false
     }
   },
   edit: Edit,

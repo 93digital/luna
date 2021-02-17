@@ -38,7 +38,6 @@ function register_block_category( $categories ) {
 }
 add_filter( 'block_categories', __NAMESPACE__ . '\register_block_category', 10, 2 );
 
-
 /**
  * Register Luna Blocks.
  */
@@ -58,11 +57,14 @@ function enqueue_gutenberg_scripts() {
 		$script_asset['dependencies'],
 		$script_asset['version']
 	);
+
+	wp_register_style( 'luna-blocks', get_template_directory_uri() . '/build/blocks.css', [] );
 	
 	// Set Script Translations.
 	wp_set_script_translations( 'luna-blocks', 'luna' );
 
 	// Enqueue Luna Blocks.
-	wp_enqueue_script( 'luna-blocks-editor' );
+	wp_enqueue_script( 'luna-blocks' );
+	wp_enqueue_style( 'luna-blocks' );
 }
 add_action( 'enqueue_block_editor_assets', __NAMESPACE__ . '\enqueue_gutenberg_scripts' );

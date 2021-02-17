@@ -10,7 +10,8 @@
     "build:postcss": "postcss -r style.css && postcss -r style-editor.css",
     "watch": "run-p \"watch:*\"",
     "watch:scripts": "wp-scripts start js/index.js js/blocks/blocks.js",
-    "watch:styles": "sass --watch sass:"
+    "watch:styles": "sass --watch sass:",
+    "wp-env": "wp-env"
   },
   "repository": {
     "type": "git",

@@ -1,12 +1,24 @@
+import classnames from 'classnames';
 import { __ } from '@wordpress/i18n';
 import { useBlockProps, RichText } from '@wordpress/block-editor';
+import { LunaButton } from '../../components/button/index';
 
 export default function Save({ attributes }) {
-  const blockProps = useBlockProps.save();
-  const { heading } = attributes;
+  const blockProps = useBlockProps.save({
+    className: classnames(
+      'm01 break-out'
+    )
+  });
+
+  const {
+    heading,
+    buttonURL,
+    buttonLabel,
+    buttonTarget
+  } = attributes;
 
   return (
-    <article { ...blockProps } className="m01 break-out">
+    <article { ...blockProps }>
 
       <h1>{ __('Hello World!', 'luna') }</h1>
 
@@ -14,6 +26,13 @@ export default function Save({ attributes }) {
         tagName="h2"
         value={ heading }
         className="m01__heading"
+      />
+
+      <LunaButton.Content
+        className="test-class-name button"
+        url={ buttonURL }
+        label={ buttonLabel }
+        target={ buttonTarget }
       />
 
     </article>

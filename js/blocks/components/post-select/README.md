@@ -8,19 +8,21 @@ Label for the search component.
 
 - Type: `String`
 - Required: No
+- Default: 'Search page/post'
 
 ### postTypes
 An array of WordPress posts types you wish to search from.
 
 - Type: `Array`
 - Required: No
-- Default: `[ 'posts', 'pages' ]`
+- Default: `['posts', 'pages']`
 
 ### placeholder
 Input placeholder for the post search field.
 
 - Type: `String`
 - Required: No
+- Default: 'Search...'
 
 ### onSelectPost
 Function to set our 'object' attribute and store the selected post object.
@@ -43,7 +45,7 @@ registerBlockType('luna/blockname', {
 
 <PostSelect 
   label={ __('Search page/post', 'luna') }
-  postTypes={ [ 'posts', 'pages', 'custom-cpt' ] }
+  postTypes={ ['posts', 'pages', 'custom-cpt'] }
   placeholder={ __('Input placeholder', 'luna') }
   onSelectPost={ post => setAttributes({ selectedPost: post }) }
 />

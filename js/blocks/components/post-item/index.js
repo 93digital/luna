@@ -3,6 +3,63 @@ import { Flex, FlexBlock, FlexItem, TextHighlight, Button, Card, CardBody } from
 import { safeDecodeURI, filterURLForDisplay } from '@wordpress/url';
 import { decodeEntities } from '@wordpress/html-entities';
 
+export const PostCard = props => {
+  const {
+    id = '',
+    post,
+    searchTerm = ''
+  } = props;
+
+  return (
+    <Card size="small" id={ id }>
+      <CardBody>
+        <Flex>
+          <FlexBlock>
+            <span
+              style={
+                {
+                  display: 'block',
+                  fontWeight: 600,
+                  fontSize: '14px',
+                  lineHeight: '20px'
+                }
+              }
+            >
+              <TextHighlight
+                text={ decodeEntities(post.title.rendered) }
+                highlight={ searchTerm }
+              />
+            </span>
+            <span
+              style={
+                {
+                  display: 'block',
+                  fontWeight: 400,
+                  fontSize: '12px',
+                  lineHeight: '16px',
+                  width: '98%',
+                  whiteSpace: 'nowrap',
+                  overflow: 'hidden',
+                  textOverflow: 'ellipsis'
+                }
+              }
+            >
+              { filterURLForDisplay(safeDecodeURI(post.link)) || '' }
+            </span>
+          </FlexBlock>
+          { post.type && (
+            <FlexItem>
+              <Button disabled isSmall isSecondary>
+                { post.type === 'post_tag' ? 'tag' : post.type }
+              </Button>
+            </FlexItem>
+          ) }
+        </Flex>
+      </CardBody>
+    </Card>
+  );
+};
+
 /**
  * Post Item
  * Displays a simple card view of a post item.
@@ -12,16 +69,12 @@ import { decodeEntities } from '@wordpress/html-entities';
  */
 export const PostItem = props => {
   const {
-    suggestion,
     onClick,
-    searchTerm = '',
-    isSelected = false,
-    id = ''
+    isSelected = false
   } = props;
 
   return (
     <Button
-      id={ id }
       onClick={ onClick }
       className={ isSelected && 'is-selected' }
       style={
@@ -35,50 +88,7 @@ export const PostItem = props => {
         }
       }
     >
-      <Card size="small">
-        <CardBody>
-          <Flex>
-            <FlexBlock>
-              <span
-                style={
-                  {
-                    fontWeight: 600,
-                    fontSize: '14px',
-                    lineHeight: '20px'
-                  }
-                }
-              >
-                <TextHighlight
-                  text={ decodeEntities(suggestion.title.rendered) }
-                  highlight={ searchTerm }
-                />
-              </span>
-              <span
-                style={
-                  {
-                    fontWeight: 400,
-                    fontSize: '12px',
-                    lineHeight: '16px',
-                    width: '98%',
-                    whiteSpace: 'nowrap',
-                    overflow: 'hidden',
-                    textOverflow: 'ellipsis'
-                  }
-                }
-              >
-                { filterURLForDisplay(safeDecodeURI(suggestion.link)) || '' }
-              </span>
-            </FlexBlock>
-            { suggestion.type && (
-              <FlexItem>
-                <Button disabled isSmall isSecondary>
-                  { suggestion.type === 'post_tag' ? 'tag' : suggestion.type }
-                </Button>
-              </FlexItem>
-            ) }
-          </Flex>
-        </CardBody>
-      </Card>
+      <PostCard { ...props } />
     </Button>
   );
 };
@@ -91,17 +101,36 @@ export const PostItem = props => {
  * @return {*} React JSX
  */
 export function PostItemPreview(props) {
-  const { post, label } = props;
+  const { post, label, setAttributes } = props;
   const postID = `${ post.slug }-preview`;
 
   return (
-    <div>
-      <label htmlFor={ postID }>{ label || __('Selected Post:', 'luna') }</label>
-      <PostItem
-        suggestion={ post }
-        onClick={ null }
+    <div style={ { marginBottom: '24px' } }>
+      <label
+        htmlFor={ postID }
+        style={
+          {
+            display: 'block',
+            marginBottom: '8px'
+          }
+        }
+      >
+        { label || __('Selected Post:', 'luna') }
+      </label>
+      <PostCard
+        post={ post }
         id={ postID }
       />
+      { post &&
+        <Button
+          isLink
+          isDestructive
+          style={ { marginTop: '8px' } }
+          onClick={ () => setAttributes({ selectedPost: null }) }
+        >
+          { __('Remove', 'luna') }
+        </Button>
+      }
     </div>
   );
 }
