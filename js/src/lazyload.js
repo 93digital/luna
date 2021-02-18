@@ -9,10 +9,11 @@
  * <img class="lazy" data-src="https://via.placeholder.com/150" alt="">
  * <div class="lazy" data-bg="https://via.placeholder.com/150"></div>
  */
+
 import LazyLoad from 'vanilla-lazyload';
 
 (() => {
-  luna.lazyLoadInstance = new LazyLoad({ // eslint-disable-line
+  const lazyLoadInstance = new LazyLoad({ // eslint-disable-line
     elements_selector: '.lazy'
   });
 })();

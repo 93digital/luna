@@ -95,7 +95,7 @@ ACF blocks use custom fields allowing developers more familiar with PHP developm
 
 *JavaScript (Gutenberg) Example*
 
-```js
+```javascript
 import { ReactComponent as Icon } from './icon.svg';
 
 const App = () => (

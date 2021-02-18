@@ -3,6 +3,7 @@ import { __ } from '@wordpress/i18n';
 import { useBlockProps, RichText } from '@wordpress/block-editor';
 import Inspector from './inspector';
 import { LunaButton } from '../../components/button/index';
+import { LunaImage } from '../../components/image/index';
 
 export default function Edit(props) {
   const { attributes, setAttributes } = props;
@@ -17,7 +18,9 @@ export default function Edit(props) {
     heading,
     buttonURL,
     buttonLabel,
-    buttonTarget
+    buttonTarget,
+    mediaObject,
+    mediaID
   } = attributes;
 
   return (
@@ -41,6 +44,18 @@ export default function Edit(props) {
         onLabelChange={ value => setAttributes({ buttonLabel: value }) }
         onInputChange={ value => setAttributes({ buttonURL: value }) }
         onTargetChange={ value => setAttributes({ buttonTarget: value }) }
+      />
+
+      <LunaImage
+        mediaID={ mediaID }
+        image={ mediaObject }
+        className="m01__media"
+        onImageSelect={
+          (imageObject, imageID) => setAttributes({
+            mediaObject: imageObject,
+            mediaID: imageID
+          })
+        }
       />
 
       <Inspector { ...props } key="inspector" />

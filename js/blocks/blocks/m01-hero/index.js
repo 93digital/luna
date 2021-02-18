@@ -31,6 +31,12 @@ registerBlockType('luna/m01-hero', {
     buttonTarget: {
       type: 'boolean',
       default: false
+    },
+    mediaObject: {
+      type: 'object'
+    },
+    mediaID: {
+      type: 'number'
     }
   },
   edit: Edit,

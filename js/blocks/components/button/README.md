@@ -84,3 +84,12 @@ registerBlockType('luna/blockname', {
 	target={ buttonTarget }
 />
 ```
+
+### Output
+```html
+<!-- Open in same window -->
+<a href="#" class="custom-class-name button">button label</a>
+
+<!-- Open in new tab -->
+<a href="#" target="_blank" rel="noopener noreferrer" class="custom-class-name button">button label</a>
+```

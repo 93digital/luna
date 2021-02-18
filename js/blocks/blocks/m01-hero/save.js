@@ -2,6 +2,7 @@ import classnames from 'classnames';
 import { __ } from '@wordpress/i18n';
 import { useBlockProps, RichText } from '@wordpress/block-editor';
 import { LunaButton } from '../../components/button/index';
+import { LunaImage } from '../../components/image';
 
 export default function Save({ attributes }) {
   const blockProps = useBlockProps.save({
@@ -14,7 +15,8 @@ export default function Save({ attributes }) {
     heading,
     buttonURL,
     buttonLabel,
-    buttonTarget
+    buttonTarget,
+    mediaObject
   } = attributes;
 
   return (
@@ -33,6 +35,10 @@ export default function Save({ attributes }) {
         url={ buttonURL }
         label={ buttonLabel }
         target={ buttonTarget }
+      />
+
+      <LunaImage.Content
+        image={ mediaObject }
       />
 
     </article>
