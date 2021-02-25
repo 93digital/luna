@@ -52,6 +52,9 @@ abstract class Luna_Core {
 		// Remove the users REST API endpoints.
 		add_filter( 'rest_endpoints', [ $this, 'core_remove_user_rest_api_endpoints' ] );
 
+		// Add required security headers.
+		add_action( 'send_headers', [ $this, 'core_add_security_headers' ] );
+
 		// Disable xmlrpc, it wont be needed and is a vulnerability.
 		add_filter( 'xmlrpc_enabled', '__return_false' );
 	}
@@ -144,7 +147,7 @@ abstract class Luna_Core {
 	 * @param array $endpoints Default REST API endpoints.
 	 * @return array $endpoints Updated REST API endpoints with the /users/ endpoints removed.
 	 */
-	function core_remove_user_rest_api_endpoints( $endpoints ) {
+	public function core_remove_user_rest_api_endpoints( $endpoints ) {
 		if ( is_user_logged_in() ) {
 			// Do not remove endpoints for logged in users.
 			return $endpoints;
@@ -158,5 +161,23 @@ abstract class Luna_Core {
 		}
 
 		return $endpoints;
+	}
+
+	/**
+	 * 'security_headers' action hook callback.
+	 * Add default Luna security headers to the site.
+	 * These should all be added to every site and will be reqruied 99% of the time.
+	 */
+	public function core_add_security_headers() {
+		// HSTS Security Header.
+		header( 'Strict-Transport-Security: max-age=31536000;' );
+		// X-Frame-Options Security Header.
+		header( 'X-Frame-Options: SAMEORIGIN' );
+		// X-XSS-Protection Security Header.
+		header( 'X-XSS-Protection: 1; mode=block' );
+		// X-Content-Type-Options Security Header.
+		header( 'X-Content-Type-Options: nosniff' );
+		// Referrer Policy Security Header.
+		header( 'Referrer-Policy: no-referrer' );
 	}
 }
