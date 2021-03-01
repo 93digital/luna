@@ -30,11 +30,12 @@ abstract class Luna_Core {
    * It should be called by any inheriting classes upon instantiation.
    */
   protected function __construct() {
-		// Core classes.
-		$this->core_errors = new Luna_Core_Errors();
-
 		// Include the Composer autoloader.
 		// include_once get_template_directory() . '/vendor/autoload.php';
+
+		// Core classes.
+		new Luna_Core_Acf_Utility();
+		new Luna_Core_Errors();
 
 		// Luna classes.
 		$this->cpts       = new Luna_Cpts();
