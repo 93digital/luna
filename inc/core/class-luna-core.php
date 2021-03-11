@@ -54,7 +54,7 @@ abstract class Luna_Core {
 		add_filter( 'rest_endpoints', [ $this, 'core_remove_user_rest_api_endpoints' ] );
 
 		// Add required security headers.
-		add_action( 'send_headers', [ $this, 'core_add_security_headers' ] );
+		add_action( 'send_headers', [ $this, 'core_add_security_headers' ], 0 );
 
 		// Disable xmlrpc, it wont be needed and is a vulnerability.
 		add_filter( 'xmlrpc_enabled', '__return_false' );

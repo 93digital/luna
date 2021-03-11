@@ -26,10 +26,6 @@ class Luna_Core_Acf_Utility {
 	private $acf_path = 'advanced-custom-fields/acf.php';
 
 	/**
-	 * 
-	 */
-
-	/**
 	 * Instantiation.
 	 * Define utility hooks.
 	 */
