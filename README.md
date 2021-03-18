@@ -20,16 +20,18 @@ Transform your code to provide it's ready for production and optimized, needed t
 {
   "scripts": {
     "build": "run-s \"build:*\"",
-    "build:scripts": "wp-scripts build js/index.js js/blocks/blocks.js",
     "build:styles": "sass sass:",
-    "build:postcss": "postcss -r style.css && postcss -r style-editor.css",
+    "build:scripts": "wp-scripts build js/index.js js/blocks/blocks.js",
+    "build:svg": "svg-sprite --symbol --svg-xmldecl=false --dest=build images/*.svg",
+    "build:postcss": "postcss -r style.css"
   },
 }
 ```
 
-- `npm run build` - builds the code for production (Runs through all scripts prepended with `build:`).
-- `npm run build:scripts` - builds the JavaScript assets ready for production.
-- `npm run build:styles` - builds the SASS assets ready for production.
+- `npm run build` - Builds the code for production (Runs through all scripts prepended with `build:`).
+- `npm run build:scripts` - Builds the JavaScript assets ready for production.
+- `npm run build:styles` - Builds the SASS assets ready for production.
+- `npm run build:svg` - Compiles and builds an svg sprite.
 - `npm run build:postcss` - Runs PostCSS through our main Theme and Editor stylesheets for better optimization. 
 
 
@@ -41,15 +43,17 @@ Watches your code and generates development friendly assets not meant for produc
 {
   "scripts": {
     "watch": "run-p \"watch:*\"",
-    "watch:scripts": "wp-scripts start js/index.js js/blocks/blocks.js",
-    "watch:styles": "sass --watch sass:"
+    "watch:styles": "sass --watch sass:",
+    "watch:svg": "svg-sprite --symbol --svg-xmldecl=false --dest=build images/*.svg",
+    "watch:scripts": "wp-scripts start js/index.js js/blocks/blocks.js"
   },
 }
 ```
 
-- `npm run watch` - watches and builds the code for development (Runs through all scripts prepended with `watch:`).
-- `npm run watch:scripts` - specifically watches only JavaScript assets.
-- `npm run watch:styles` - specifically watches only SASS assets. It does not run PostCSS like `build` to help with debugging code.
+- `npm run watch` - Watches and builds the code for development (Runs through all scripts prepended with `watch:`).
+- `npm run watch:styles` - Specifically watches only SASS assets. It does not run PostCSS like `build` to help with debugging.
+- `npm run watch:svg` - Compiles and builds an svg sprite.
+- `npm run watch:scripts` - Specifically watches only JavaScript assets.
 
 ## Stylelint
 Extends on Stylelint SASS config [Stylelint](https://github.com/bjankord/stylelint-config-sass-guidelines). See `.stylelintrc.json` for more details.

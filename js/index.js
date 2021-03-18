@@ -3,9 +3,13 @@
  * Remove and add files as the project requires.
  */
 
-// Helpers
-import './helpers/helpers';
+// Helpers.
+import './helpers/debounce';
+import './helpers/get-ancestor-nodes';
+import './helpers/is-touch';
+import './helpers/rem-px';
 
 // Project files
-import './src/skip-link-focus';
 import './src/lazyload';
+import './src/skip-link-focus';
+import './src/smooth-scroller';

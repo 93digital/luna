@@ -2,7 +2,7 @@
 module.exports = {
   plugins: [
     require('@fullhuman/postcss-purgecss')({
-      content: [ '*.js', '*.php', '*.html', '**/*.js', '**/*.php', '**/*.html' ],
+      content: [ '*.js', '*.php', '*.html' ],
       keyframes: true,
       fontFace: true,
       variables: true,

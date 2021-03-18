@@ -31,6 +31,7 @@
     "no-missing-end-of-source-newline": null,
     "number-leading-zero": null,
     "order/properties-alphabetical-order": null,
+    "property-no-vendor-prefix": null,
     "scss/at-extend-no-missing-placeholder": null,
     "selector-attribute-quotes": null,
     "selector-class-pattern": null,
@@ -41,6 +42,7 @@
         "ignore": [ "attribute", "class", "id" ]
       }
     ],
-    "string-quotes": "single"
+    "string-quotes": "single",
+    "value-no-vendor-prefix": null
   }
 }
