@@ -1,23 +1,23 @@
 <?php
 /**
- * Luna core error.
+ * Luna error handler.
  *
  * A class to set custom error handlers for within the theme and any 93digital plugins.
  * These error handlers will only be used in development environments.
  *
  * @package luna
- * @subpackage luna-core
+ * @subpackage luna-config
  */
 
 /**
- * Luna core error class.
+ * Luna error class.
  * 
  * Only handles errors defined in the $non_fatal_error_types & $fatal_error_types properties.
  * Also only handles errors for Luna or 93digital plugin code.
  *
  * @see https://www.php.net/manual/en/errorfunc.constants.php
  */
-class Luna_Core_Errors {
+class Luna_Config_Errors {
 	/**
 	 * The array contains the non-fatal error types we want to handle.
 	 * Error constant (int) and error types 'key' => 'value' pair.

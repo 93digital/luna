@@ -14,7 +14,7 @@
 /**
  * Luna CPT and taxonomy class.
  */
-final class Luna_Cpts extends Luna_Core_Cpts {
+final class Luna_Cpts extends Luna_Base_Cpts {
 	/**
 	 * Construct.
    * All CPTs and taxonomies registered here.
@@ -28,10 +28,6 @@ final class Luna_Cpts extends Luna_Core_Cpts {
 
 		// Unregister default post types and txonomies (if required).
 		add_action( 'init', [ $this, 'unregister_cpts_and_taxonomies' ], 2 );
-
-		/**
-		 * Add any custom CPT and taxonomy related hooks here.
-		 */
 
 		// Instantiate the parent class (DO NOT REMOVE). This should be done last.
 		parent::__construct();

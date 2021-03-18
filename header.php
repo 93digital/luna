@@ -8,13 +8,11 @@
 
 /**
  * Favicons
- *
- * @todo replace with non-ACF functions.
  */
-// $theme_color     = get_field( 'theme_color', 'global_options' );
-// $favicon_16      = get_field( 'favicon_16', 'global_options' );
-// $favicon_32      = get_field( 'favicon_32', 'global_options' );
-// $favicon_default = get_field( 'favicon_default', 'global_options' );
+$theme_color     = get_field( 'theme_color', 'global_options' );
+$favicon_16      = get_field( 'favicon_16', 'global_options' );
+$favicon_32      = get_field( 'favicon_32', 'global_options' );
+$favicon_default = get_field( 'favicon_default', 'global_options' );
 
 ?><!DOCTYPE html>
 <html <?php language_attributes(); ?>>
@@ -44,6 +42,7 @@
 </head>
 
 <body id="body" <?php body_class(); ?> data-instant-intensity="viewport">
+	<?php wp_body_open() ?>
 
 	<a href="#main" class="skip-link"><?php esc_html_e( 'Skip to content', 'luna' ); ?></a>
 

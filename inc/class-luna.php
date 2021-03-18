@@ -3,8 +3,8 @@
  * Luna.
  * The main theme object class.
  *
- * Extends the core setup class which contains base theme functionality required for all sites.
- * ...All general project code goes here (similar to extras.php).
+ * Extends the base setup class which contains core theme functionality.
+ * ...All general project code goes here (similar to the legacy extras.php in Stella).
  *
  * @package luna
  */
@@ -12,14 +12,14 @@
 /**
  * Luna class.
  */
-final class Luna extends Luna_Core {
+final class Luna extends Luna_Base {
 	/**
 	 * Construct.
 	 */
 	public function __construct() {
-		// Core setup.
+		// Base theme setup.
 		parent::__construct();
 
-		// General theme setup.
+		// Custom hooks to go here.
 	}
 }

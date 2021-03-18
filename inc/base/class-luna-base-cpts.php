@@ -1,17 +1,17 @@
 <?php
 /**
- * Luna core CPTs and taxonomies.
+ * Luna base CPTs and taxonomies.
  *
  * Contains methods and functionality required to register cpts and taxonomies within the theme.
  *
  * @package luna
- * @subpackage luna-core
+ * @subpackage luna-base
  */
 
 /**
- * Luna Core CPT and taxonomy class.
+ * Luna Base CPT and taxonomy base methods.
  */
-abstract class Luna_Core_Cpts {
+abstract class Luna_Base_Cpts {
 	/**
 	 * Abstract construct. Only available to inheriting class.
    * Grabs all the registered taxonomies and attached them to their Luna cpt objects.
@@ -23,7 +23,7 @@ abstract class Luna_Core_Cpts {
   }
 
   /**
-   * Luna wrapper for the core register_post_type() function.
+   * Luna wrapper for the core WordPress register_post_type() function.
 	 * This essentially works in the same way as WordPress' register_post_type() function.
    * Some extra, bespoke 93digtial functionality is layered on top within this method.
 	 * Specifically custom default args and the creation of a CPT options page.
@@ -88,7 +88,7 @@ abstract class Luna_Core_Cpts {
 	}
 
 	/**
-   * Luna wrapper for the core register_taxonomy() function.
+   * Luna wrapper for the core WordPress register_taxonomy() function.
 	 * This essentially works in the same way as WordPress' register_taxonomy() function.
    * Some extra, bespoke 93digtial functionality is layered on top within this method.
 	 * Specifically custom default args.
@@ -135,7 +135,7 @@ abstract class Luna_Core_Cpts {
 	 * Register an ACF options page for a custom post type.
 	 * This options page can be used to set archive page information for the CPT.
 	 *
-	 * ACF Pro needs to be installed and active for this to work.
+	 * ACF or ACF Pro needs to be installed and active for this to work.
 	 *
 	 * @param string $post_type The register custom post type slug.
 	 * @param string $plural The post type plural label.
@@ -143,10 +143,6 @@ abstract class Luna_Core_Cpts {
 	 */
 	protected function register_cpt_options_page( $post_type, $plural ) {
 		if ( ! function_exists( 'acf_add_options_page' ) ) {
-			// trigger_error(
-			// 	'ACF options page registration for ' . $plural . ' failed. ACF is not active.',
-			// 	E_USER_WARNING
-			// );
 			return false;
 		}
 
