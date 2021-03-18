@@ -1,7 +1,11 @@
 # LunaImage
-Image component that helps add custom images to blocks.
+Image components that adds custom images to blocks.
 
 ## Props
+
+### label
+- Type: `String`
+- Required: No
 
 ### size
 - Type: `String`
@@ -62,8 +66,27 @@ registerBlockType('luna/blockname', {
   }
 />
 
+// edit.js / inspector.js
+<LunaInspectorImage
+  label={ __('Image') }
+  size="medium"
+  mediaID={ mediaID }
+  image={ mediaObject }
+  className="custom-class-name"
+  onImageSelect={
+    (imageObject, imageID) => setAttributes({
+      mediaObject: imageObject,
+      mediaID: imageID
+    })
+  }
+/>
+
 // save.js
 <LunaImage.Content
+  className="custom-class-name"
+  image={ mediaObject }
+/>
+<LunaInspectorImage.Content
   className="custom-class-name"
   image={ mediaObject }
 />

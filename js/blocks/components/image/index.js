@@ -1,4 +1,5 @@
 import classnames from 'classnames';
+import { v4 as uuidv4 } from 'uuid';
 
 import { __ } from '@wordpress/i18n';
 import { Button } from '@wordpress/components';
@@ -11,17 +12,19 @@ const ImageElement = props => {
   const { item, className } = props;
 
   return (
-    <picture>
-      <source srcSet={ item.src } media="(min-width: 768px)" />
-      <source srcSet={ item.tabletSrc } media="(min-width: 375px)" />
-      <img
-        src={ item.mobileSrc }
-        alt={ item.alt }
-        width={ item.width }
-        height={ item.height }
-        className={ classnames(`${ className }__image`, 'lazy') }
-      />
-    </picture>
+    <figure className={ className }>
+      <picture>
+        <source srcSet={ item.src } media="(min-width: 768px)" />
+        <source srcSet={ item.tabletSrc } media="(min-width: 375px)" />
+        <img
+          src={ item.mobileSrc }
+          alt={ item.alt }
+          width={ item.width }
+          height={ item.height }
+          className={ classnames(`${ className }__image`) }
+        />
+      </picture>
+    </figure>
   );
 };
 
@@ -34,30 +37,36 @@ export const LunaImage = props => {
     size = 'large'
   } = props;
 
+  const labelId = uuidv4();
+
   const mediaRender = ({ open }) => (
-    <Button
-      isSmall
-      isSecondary
-      className={ mediaID ? 'luna-image-wrapper' : 'luna-image-wrapper luna-image-wrapper--button' }
-      onClick={ open }
-      style={
-        {
-          display: 'inline',
-          height: '100%',
-          width: '100%',
-          padding: 0
-        }
-      }
-    >
+    <>
       { ! mediaID
-        ? <span>{ __('Set image', 'luna') }</span>
-        : <ImageElement className={ className } item={ image } />
+        ? <Button id={ labelId } className={ className } onClick={ open }><span>{ __('Set image', 'stella') }</span></Button>
+        : (
+          <Button
+            className="luna-image-button"
+            id={ labelId }
+            onClick={ open }
+            style={
+              {
+                padding: 0,
+                height: 'auto',
+                display: 'contents'
+              }
+            }
+          >
+            <ImageElement className={ className } item={ image } />
+          </Button>
+        )
       }
-    </Button>
+    </>
   );
 
   const mediaSelect = media => {
     const customSize = media.sizes[size] !== undefined;
+    const mobileFallback = (media.sizes.medium ? media.sizes.medium.url : media.url);
+    const tabletFallback = (media.sizes.tablet ? media.sizes.tablet.url : media.url);
 
     const mediaObject = {
       id: media.id,
@@ -65,22 +74,15 @@ export const LunaImage = props => {
       width: customSize ? media.sizes[size].width : media.width,
       height: customSize ? media.sizes[size].height : media.height,
       src: customSize ? media.sizes[size].url : media.url,
-      mobileSrc: media.sizes.mobile !== undefined ? media.sizes.mobile.url : media.sizes.medium.url,
-      tabletSrc: media.sizes.tablet !== undefined ? media.sizes.tablet.url : media.sizes.large.url
+      mobileSrc: media.sizes.mobile !== undefined ? media.sizes.mobile.url : mobileFallback,
+      tabletSrc: media.sizes.tablet !== undefined ? media.sizes.tablet.url : tabletFallback
     };
 
     onImageSelect(mediaObject, media.id);
   };
 
   return (
-    <div
-      className={
-        classnames(
-          className,
-          `luna-image-wrap`
-        )
-      }
-    >
+    <div className="luna-image-wrap">
 
       <MediaUploadCheck>
         <MediaUpload
@@ -93,11 +95,9 @@ export const LunaImage = props => {
 
       { mediaID &&
         <Button
-          isPrimary
-          isDestructive
           icon={ close }
+          label={ __('Remove image', 'stella') }
           className="luna-image-remove"
-          label={ __('Remove image', 'luna') }
           onClick={ () => onImageSelect(null, null) }
         />
       }
@@ -106,30 +106,114 @@ export const LunaImage = props => {
   );
 };
 
-LunaImage.Content = props => {
+export const LunaInspectorImage = props => {
   const {
+    label,
+    mediaID,
+    onImageSelect,
     className = 'luna-image',
-    image
+    image,
+    size = 'large'
   } = props;
 
-  return (
+  const labelId = uuidv4();
+
+  const mediaRender = ({ open }) => (
     <>
-      { image &&
-        <figure className={ className }>
-          <picture>
-            <source data-srcset={ image.src } media="(min-width: 768px)" />
-            <source data-srcset={ image.tabletSrc } media="(min-width: 375px)" />
-            <img
-              data-src={ image.mobileSrc }
-              alt={ image.alt }
-              width={ image.width }
-              height={ image.height }
-              className={ classnames(`${ className }__image`, 'lazy') }
-            />
-          </picture>
-        </figure>
+      { label &&
+        <label
+          htmlFor={ labelId }
+          style={
+            {
+              display: 'block',
+              marginBottom: '8px'
+            }
+          }
+        >
+          { label }
+        </label>
+      }
+      { ! mediaID
+        ? <Button id={ labelId } className="editor-post-featured-image__toggle" onClick={ open }><span>{ __('Set image', 'stella') }</span></Button>
+        : (
+          <Button
+            className="luna-image-button"
+            id={ labelId }
+            onClick={ open }
+            style={
+              {
+                padding: 0,
+                height: 'auto',
+                marginBottom: '1em'
+              }
+            }
+          >
+            <ImageElement className={ className } item={ image } />
+          </Button>
+        )
       }
     </>
+  );
+
+  const mediaSelect = media => {
+    const customSize = media.sizes[size] !== undefined;
+    const mobileFallback = (media.sizes.medium ? media.sizes.medium.url : media.url);
+    const tabletFallback = (media.sizes.tablet ? media.sizes.tablet.url : media.url);
+
+    const mediaObject = {
+      id: media.id,
+      alt: media.alt,
+      width: customSize ? media.sizes[size].width : media.width,
+      height: customSize ? media.sizes[size].height : media.height,
+      src: customSize ? media.sizes[size].url : media.url,
+      mobileSrc: media.sizes.mobile !== undefined ? media.sizes.mobile.url : mobileFallback,
+      tabletSrc: media.sizes.tablet !== undefined ? media.sizes.tablet.url : tabletFallback
+    };
+
+    onImageSelect(mediaObject, media.id);
+  };
+
+  return (
+    <div className="luna-image-wrap">
+
+      <MediaUploadCheck>
+        <MediaUpload
+          type="image"
+          value={ mediaID }
+          onSelect={ mediaSelect }
+          render={ mediaRender }
+        />
+      </MediaUploadCheck>
+
+      { mediaID &&
+        <>
+          <div>
+            <Button isSecondary onClick={ open }>{ __('Replace Image', 'luna') }</Button>
+          </div>
+          <Button
+            isLink
+            isDestructive
+            style={ { marginTop: '1em' } }
+            onClick={ () => onImageSelect(null, null) }
+          >
+            { __('Remove image', 'stella') }
+          </Button>
+        </>
+      }
+
+    </div>
+  );
+};
+
+LunaInspectorImage.Content = props => {
+  return (
+    <ImageElement { ...props } />
+  );
+};
+
+LunaImage.Content = props => {
+  return (
+    <ImageElement { ...props } />
   );
 };
 
