@@ -12,8 +12,7 @@
     "watch": "run-p \"watch:*\"",
     "watch:styles": "sass --watch sass:",
     "watch:svg": "svg-sprite --symbol --svg-xmldecl=false --dest=build images/*.svg",
-    "watch:scripts": "wp-scripts start js/index.js js/blocks/blocks.js",
-    "wp-env": "wp-env"
+    "watch:scripts": "wp-scripts start js/index.js js/blocks/blocks.js"
   },
   "repository": {
     "type": "git",
