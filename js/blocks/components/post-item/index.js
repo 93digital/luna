@@ -18,10 +18,14 @@ export const PostCard = props => {
             <span
               style={
                 {
-                  display: 'block',
                   fontWeight: 600,
                   fontSize: '14px',
-                  lineHeight: '20px'
+                  lineHeight: '20px',
+                  whiteSpace: 'nowrap',
+                  overflow: 'hidden',
+                  textOverflow: 'ellipsis',
+                  width: '98%',
+                  display: 'block'
                 }
               }
             >
@@ -101,11 +105,15 @@ export const PostItem = props => {
  * @return {*} React JSX
  */
 export function PostItemPreview(props) {
-  const { post, label, setAttributes } = props;
+  const {
+    post,
+    label,
+    onRemove
+  } = props;
   const postID = `${ post.slug }-preview`;
 
   return (
-    <div style={ { marginBottom: '24px' } }>
+    <div>
       <label
         htmlFor={ postID }
         style={
@@ -126,7 +134,7 @@ export function PostItemPreview(props) {
           isLink
           isDestructive
           style={ { marginTop: '8px' } }
-          onClick={ () => setAttributes({ selectedPost: null }) }
+          onClick={ onRemove }
         >
           { __('Remove', 'luna') }
         </Button>
