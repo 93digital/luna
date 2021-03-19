@@ -207,9 +207,11 @@ class Luna_Config_Errors {
 			'border'      => '0.5rem solid ' . $this->error_colours[ $error_num ],
 			'padding'     => '1rem',
 			'font-family' => 'monospace',
-			'font-size'   => '2rem',
+			'font-size'   => '1.5rem',
 			'line-height' => '1.3',
 			'transform'   => 'translateY(-50%)',
+			'max-height'  => '90%',
+    	'overflow'    => 'auto',
 		];
 
 		// Output the error.
@@ -218,10 +220,10 @@ class Luna_Config_Errors {
 		<div style="<?php echo esc_attr( $this->array_to_css( $wrapper_styles ) ); ?>">
 			<div style="<?php echo esc_attr( $this->array_to_css( $background_styles ) ); ?>"></div>
 			<div style="<?php echo esc_attr( $this->array_to_css( $message_styles ) ); ?>">
-				<?php echo esc_html( $error_type ); ?>: 
-				<strong><?php echo esc_html( $error_string ); ?></strong> in 
-				<strong><?php echo esc_html( $error_file ); ?> on line 
-				<strong><?php echo esc_html( $error_line ); ?>
+				<?php echo esc_html( $error_type ); ?>:
+				<strong><?php echo nl2br( esc_html( $error_string ) ); ?></strong><br /><br />
+				in <strong><?php echo esc_html( $error_file ); ?></strong> on line 
+				<strong><?php echo esc_html( $error_line ); ?></strong>
 			</div>
 		</div>
 		<?php

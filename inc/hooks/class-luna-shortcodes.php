@@ -1,8 +1,8 @@
 <?php
 /**
- * Luna shortcodes.
+ * Luna shortcodes hooks.
  *
- * Custom theme shortcodes.
+ * Custom theme shortcodes to go here.
  * Although we live in a world of Gutenberg, shortcodes still have a place!
  *
  * @package luna
@@ -14,12 +14,14 @@
 final class Luna_Shortcodes {
 	/**
 	 * Construct.
+	 * Add all add_shortcode() hooks here.
+	 * Each shortcode callback should be a method of this class.
 	 */
 	public function __construct() {
     /**
 		 * @example Add a shortcode.
 		 */
-		add_shortcode( 'luna-shortcode', [ $this, 'luna_shortcode_callback' ] );
+		add_shortcode( 'example-luna-shortcode', [ $this, 'exmaple_luna_shortcode_callback' ] );
 	}
 
 	/**
@@ -29,7 +31,7 @@ final class Luna_Shortcodes {
 	 * @param array $atts Shortcode attributes.
 	 * @param array $content Shortcode content.
 	 */
-	public function luna_shortcode_callback( $atts = [], $content = '' ) {
+	public function exmaple_luna_shortcode_callback( $atts = [], $content = '' ) {
 		return "<strong>Hello, Moon!</strong>";
 	}
 }

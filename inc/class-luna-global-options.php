@@ -2,7 +2,7 @@
 /**
  * Luna Global Options.
  *
- * Register any custom Global Options sub pages here using the add_sub_page() method.
+ * Register any custom Global Options sub-pages here using the add_sub_page() method.
  *
  * @package luna
  */
@@ -23,5 +23,10 @@ final class Luna_Global_Options extends Luna_Base_Global_Options {
 
 		// Instantiate the base Global Options.
 		parent::__construct();
+
+		/**
+		 * @example Register sub-page types.
+		 */
+		$this->add_sub_page( 'Test subpage' );
 	}
 }

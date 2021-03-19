@@ -24,17 +24,16 @@ abstract class Luna_Base {
    */
   protected function __construct() {
 		/**
-		 * Instantiate Luna sub-classes.
+		 * Instantiate Hook classes.
 		 */
+		new Luna_Hooks();
+		new Luna_Shortcodes();
 		if ( is_admin() ) {
-			$this->back_end       = new Luna_Back_End();
-			$this->global_options = new Luna_Global_Options();
+			new Luna_Back_End_Hooks();
 		}
 		if ( ! is_admin() || wp_doing_ajax() ) {
-			$this->front_end = new Luna_Front_End();
+			new Luna_Front_End_Hooks();
 		}
-		$this->cpts       = new Luna_Cpts();
-		$this->shortcodes = new Luna_Shortcodes();
 
 		/**
 		 * Base theme hooks.
@@ -233,6 +232,11 @@ abstract class Luna_Base {
 	 * @return string $tag The updated HTML sctipt tag.
 	 */
 	public function base_set_defer_attribute( $tag, $handle, $src ) {
+		if ( is_admin() ) {
+			// Only for the front end.
+			return $tag;
+		}
+
 		if (
 			stripos( $src, 'jquery' ) === false &&
 			stripos( $src, get_template_directory_uri() ) === false

@@ -2,7 +2,11 @@
 /**
  * Luna base CPTs and taxonomies.
  *
- * Contains methods and functionality required to register cpts and taxonomies within the theme.
+ * Contains functionality required to register cpts and taxonomies within the theme.
+ * The child class should construct this parent class and use the following methods:
+ * - add_post_type()
+ * - add_taxonomy()
+ * - remove_taxonomy()
  *
  * @package luna
  * @subpackage luna-base
@@ -13,14 +17,167 @@
  */
 abstract class Luna_Base_Cpts {
 	/**
+	 * Array of post types (including args) to register.
+	 * The array keys will be post type slugs.
+	 * The array values will be the post type args.
+	 *
+	 * This property is unset after registering the custom post types.
+	 * @var array
+	 */
+	private $cpt_list = [];
+
+	/**
+	 * Array of taxonomies (including args and object type) to register.
+	 * The array keys will be the taxonomy slugs.
+	 * The array values will be a nested array containing these keys:
+	 * - args [array]
+	 * - object_type [array|string]
+	 *
+	 * This property is unset after registering the custom taxonomies.
+	 * @var array
+	 */
+	private $tax_list = [];
+
+	/**
+	 * Array of taxonomies to unregister.
+	 * The array keys will be taxonomy slugs.
+	 * The array values will be either a object type string or an array of object types.
+	 *
+	 * This property is unset after unregistering the listed taxonomies.
+	 * @var array
+	 */
+	private $tax_remove_list = [];
+
+	/**
+	 * Luna default post type args.
+	 * These overwrite the default WordPress args but can be overwritten by individual post types.
+	 * @var array
+	 */
+	private $default_cpt_args = [
+		'menu_icon'     => 'dashicons-portfolio',
+		'menu_position' => 20,
+		'public'        => true,
+		'rewrite'       => [
+			'with_front'  => false,
+		],
+		'show_in_rest'  => true,
+		'supports'      => [
+			'title',
+			'editor',
+			'page-attributes',
+			'thumbnail',
+			'revisions',
+		]
+	];
+
+	/**
+	 * Luna default taxonomy args.
+	 * These overwrite the default WordPress args but can be overwritten by individual taxonomies.
+	 * @var array
+	 */
+	private $default_tax_args = [
+		'hierarchical' => true,
+		'rewrite'      => [
+			'with_front' => false,
+		],
+		'show_in_rest' => true,
+	];
+
+	/**
 	 * Abstract construct. Only available to inheriting class.
    * Grabs all the registered taxonomies and attached them to their Luna cpt objects.
 	 * This is just done as a helper.
 	 */
 	protected function __construct() {
-    // Attach registered taxonomies to the relevant post type objects (DO NOT REMOVE).
+		// Register cpts and taxonomies.
+		add_action( 'init', [ $this, 'register_cpts_and_taxonomies' ], 0 );
+
+		// Unregister default post types and txonomies (if required).
+		add_action( 'init', [ $this, 'unregister_cpts_and_taxonomies' ], 1 );
+
+    // Attach registered taxonomies to the relevant post type objects.
 		add_action( 'init', [ $this, 'attach_taxonomies_to_post_types' ], 99 );
   }
+
+	/**
+	 * Add a new post type to list of custom post types to register.
+	 * This method does not need to be called within a hook callback.
+	 *
+	 * @param string $post_type Custom post type slug.
+	 * @param array  $args Custom post type args.
+	 */
+	protected function add_post_type( $post_type, $args = [] ) {
+		$this->cpt_list[ $post_type ] = $args;
+	}
+
+	/**
+	 * Add a new taxonomy to the list of custom taxonomies to register.
+	 * This method does not need to be called within a hook callback.
+	 *
+	 * @param string       $taxonomy Custom taxonomy slug.
+	 * @param array|string $object_type An array of multiple cpt slugs or a single slug string.
+	 * @param array        $args Custom taxonomy args.
+	 */
+	protected function add_taxonomy( $taxonomy, $object_type, $args = [] ) {
+		$this->tax_list[ $taxonomy ] = [
+			'object_type' => $object_type,
+			'args'        => $args,
+		];
+	}
+
+	/**
+	 * Add a taxonomy to the list of taxonomies to unregister.
+	 * This method does not need to be called within a hook callback.
+	 *
+	 * @param string $taxonomy A taxonomy slug.
+	 * @param string|array $object_type A single object type or a list as an array.
+	 */
+	protected function remove_taxonomy( $taxonomy, $object_type ) {
+		$this->tax_remove_list[ $taxonomy ] = $object_type;
+	}
+
+	/**
+	 * 'init' action hook callback.
+	 * Register all the declared theme custom post types and taxonomies.
+	 */
+	public function register_cpts_and_taxonomies() {
+		// Register the post types first. Each CPT will be a new class property.
+		foreach ( $this->cpt_list as $post_type => $args ) {
+			$this->register_post_type( $post_type, $args );
+		}
+
+		// Now register the custom taxonomies.
+		foreach ( $this->tax_list as $taxonomy => $settings ) {
+			// Unpack the settings ($object_type and $args).
+			extract( $settings );
+			$this->register_taxonomy( $taxonomy, $object_type, $args );
+		}
+
+		// Remove the cpt and tax list and default args properties as they are no longer needed.
+		unset( $this->cpt_list );
+		unset( $this->tax_list );
+		unset( $this->default_cpt_args );
+		unset( $this->default_tax_args );
+	}
+
+	/**
+	 * 'init' action hook callback.
+	 * Unregsiters any unrequired post types or taxonomies.
+	 */
+	public function unregister_cpts_and_taxonomies() {
+		foreach ( $this->tax_remove_list as $tax => $object_type ) {
+			if ( is_array( $object_type ) ) {
+				foreach ( $object_type as $type ) {
+					unregister_taxonomy_for_object_type( $tax, $type );
+				}
+			} else {
+				unregister_taxonomy_for_object_type( $tax, $object_type );
+			}
+		}
+
+		// Remove the tax removal list as it is no longer needed.
+		unset( $this->tax_remove_list );
+	}
 
   /**
    * Luna wrapper for the core WordPress register_post_type() function.
@@ -41,10 +198,13 @@ abstract class Luna_Base_Cpts {
    * @see https://developer.wordpress.org/reference/functions/register_post_type/
 	 *
 	 * @param string $post_type Custom post type slug.
-	 * @param array  $args Custom post type args. See the above list for a list of defaults.
-	 * @return object $cpt A WP_Post_Type object on success, WP_Error on failure.
+	 * @param array  $args Custom post type args.
+	 *               These will overwrite any matching arg in the $default_cpt_args property.
    */
-  protected function register_post_type( $post_type, $args = [] ) {
+ 	private function register_post_type( $post_type, $args = [] ) {
+		// Ensure the post type slug is properly slugified.
+		$post_type = sanitize_title( $post_type );
+
 		// Set some default labels.
 		$singular       = ucfirst( str_replace( [ '-', '_' ], ' ', strtolower( $post_type ) ) );
 		$plural         = $this->pluralise( $singular );
@@ -53,38 +213,24 @@ abstract class Luna_Base_Cpts {
 			'singular_name' => _x( $singular, 'Post type singular name', 'luna' ),
 		];
 
-		// Luna-specific default post type args.
-    $default_args = [
-			'has_archive'   => $this->pluralise( $post_type ),
-			'labels'        => $default_labels,
-			'menu_icon'     => 'dashicons-portfolio',
-			'menu_position' => 20,
-			'rewrite'       => [
-				'with_front'  => false,
-			],
-			'show_in_rest'  => true,
-			'supports'      => [
-				'title',
-				'editor',
-				'page-attributes',
-				'thumbnail',
-				'revisions',
-			]
-		];
-
+		// Merge the default args, default labels and custom args.
 		$args = array_merge(
-			$default_args,
+			$this->default_cpt_args,
+			[
+				'has_archive'   => $this->pluralise( $post_type ),
+				'labels'        => $default_labels,
+			],
 			$args
 		);
-		$cpt = register_post_type( $post_type, $args );
 
-		// If the post type has an archive page set up an options page (if ACF is active).
+		// Register!
+		$this->{$post_type} = register_post_type( $post_type, $args );
+
+		// If the post type has an archive page then set up an options page (if ACF is active).
 		if ( $args['has_archive'] !== false ) {
 			// Set the returned options page settings array as a custom param of the WP_Post_Type class.
-			$cpt->options_page = $this->register_cpt_options_page( $post_type, $plural );
+			$this->{$post_type}->options_page = $this->register_cpt_options_page( $post_type, $plural );
 		}
-
-		return $cpt;
 	}
 
 	/**
@@ -103,7 +249,10 @@ abstract class Luna_Base_Cpts {
 	 * @param array        $args Custom taxonomy args. See the above list for a list of defaults.
 	 * @return $tax        A WP_Taxonomy object on success, WP_Error on failure.
 	 */
-	protected function register_taxonomy( $taxonomy, $object_type, $args = [] ) {
+	private function register_taxonomy( $taxonomy, $object_type, $args = [] ) {
+		// Ensure the post type slug is properly slugified.
+		$taxonomy = sanitize_title( $taxonomy );
+
 		// Set some default labels.
 		$singular       = ucfirst( str_replace( [ '-', '_' ], ' ', strtolower( $taxonomy ) ) );
 		$plural         = $this->pluralise( $singular );
@@ -112,23 +261,17 @@ abstract class Luna_Base_Cpts {
 			'singular_name' => _x( $singular, 'taxonomy singular name', 'luna' ),
 		];
 
-		// Luna-specific default post type args.
-		$default_args = [
-			'hierarchical' => true,
-			'rewrite'      => [
-				'with_front' => false,
+		// Merge the default args, default labels and custom args.
+		$args = array_merge(
+			$this->default_tax_args,
+			[
+				'labels' => $default_labels,
 			],
-			'show_in_rest' => true,
-		];
-
-		$tax = register_taxonomy(
-			$taxonomy,
-			$object_type,
-			array_merge(
-				$default_args,
-				$args
-			)
+			$args
 		);
+
+		// Register!
+		register_taxonomy( $taxonomy, $object_type, $args );
 	}
 
 	/**
@@ -141,11 +284,13 @@ abstract class Luna_Base_Cpts {
 	 * @param string $plural The post type plural label.
 	 * @return array The option page settings.
 	 */
-	protected function register_cpt_options_page( $post_type, $plural ) {
+	private function register_cpt_options_page( $post_type, $plural ) {
 		if ( ! function_exists( 'acf_add_options_page' ) ) {
+			// ACF not available.
 			return false;
 		}
 
+		// Regsiter the post type settings and return the settings array.
 		return acf_add_options_page(
 			[
 				'post_id'     => 'cpt-' . $post_type,

@@ -16,48 +16,29 @@
  */
 final class Luna_Cpts extends Luna_Base_Cpts {
 	/**
-	 * Construct.
    * All CPTs and taxonomies registered here.
 	 * Any de-registering of post types and taxonomies should also be done here (Hello, Tags).
 	 *
 	 * Remember internationalisation when registering labels!
 	 */
 	public function __construct() {
-		// Register cpts and taxonomies
-		add_action( 'init', [ $this, 'register_cpts_and_taxonomies' ], 1 );
-
-		// Unregister default post types and txonomies (if required).
-		add_action( 'init', [ $this, 'unregister_cpts_and_taxonomies' ], 2 );
-
-		// Instantiate the parent class (DO NOT REMOVE). This should be done last.
+		// Instantiate the parent class, this contains the required hooks.
 		parent::__construct();
-	}
 
-	/**
-	 * 'init' action hook callback.
-	 * Registers all the theme custom post types and taxonomies.
-	 */
-	public function register_cpts_and_taxonomies() {
 		/**
 		 * @example Register post types.
 		 */
-		$this->books = $this->register_post_type( 'book' );
-		$this->dvds = $this->register_post_type( 'dvd' );
-		
+		$this->add_post_type( 'book' );
+		$this->add_post_type( 'dvd' );
+
 		/**
 		 * @example Register taxonomies.
 		 */
-		$this->register_taxonomy( 'genre', [ 'book', 'dvd' ] );
-	}
+		$this->add_taxonomy( 'genre', [ 'book', 'dvd' ] );
 
-	/**
-	 * 'Init' action hook callback.
-	 * Unregsiters any unrequired post types or taxonomies.
-	 */
-	public function unregister_cpts_and_taxonomies() {
 		/**
-		 * @example Unregsiter post tags for the default post type.
+		 * @example Unregister taxonomies.
 		 */
-		unregister_taxonomy_for_object_type( 'post_tag', 'post' );
+		$this->remove_taxonomy( 'post_tag', [ 'post' ] );
 	}
 }
