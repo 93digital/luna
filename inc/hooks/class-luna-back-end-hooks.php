@@ -29,6 +29,6 @@ final class Luna_Back_End_Hooks {
 	 */
 	public function example_back_end_hook() {
 		global $luna;
-		\luna\dump( $luna );
+		\luna\dump( get_class( $luna ) );
 	}
 }

@@ -42,6 +42,12 @@ class Luna_Config_Plugin_Utilities {
 		// Display a warning message if either version of ACF is deactivated!
 		add_action( 'admin_notices', [ $this, 'acf_deactivated_warning' ], 0 );
 
+		// Add a custom save location for ACF Local JSON files.
+		add_filter( 'acf/settings/save_json', [ $this, 'acf_json_save_location' ] );
+
+		// Add a custom load location for ACF Local JSON files.
+		add_filter( 'acf/settings/load_json', [ $this, 'acf_json_load_location' ] );
+
 		// Add a dropdown list of Gravity Forms for ACF fields named 'gravity_form'
 		add_filter( 'acf/load_field/name=gravity_form', [ $this, 'acf_gravity_forms_dropdown' ] );
 
@@ -134,6 +140,36 @@ class Luna_Config_Plugin_Utilities {
 		</div>
 		<?php
 		ob_get_flush();
+	}
+
+	/**
+	 * 'acf/settings/save_json' filter hook callback.
+	 * ACF Local JSON.
+	 * Set a custom save location for all Local JSON fields.
+	 *
+	 * @see https://www.advancedcustomfields.com/resources/local-json/
+	 *
+	 * @param string $path The default Local JSON save path.
+	 * @return string The custom Local JSON path for the theme.
+	 */
+	public function acf_json_save_location( $path ) {
+		return get_template_directory() . '/inc/_cache/acf';
+	}
+
+	/**
+	 * 'acf/settings/load_json' filter hook callback.
+	 * ACF Local JSON.
+	 * Add a custom load location for Local JSON fields.
+	 *
+	 * @see https://www.advancedcustomfields.com/resources/local-json/
+	 *
+	 * @param array $paths The default Local JSON load paths.
+	 * @return string Updated list of load paths including custom theme path.
+	 */
+	public function acf_json_load_location( $paths ) {
+		$paths[] = get_template_directory() . '/inc/_cache/acf';
+
+		return $paths;
 	}
 
 	/**
