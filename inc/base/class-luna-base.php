@@ -42,7 +42,7 @@ abstract class Luna_Base {
 		add_action( 'after_setup_theme', [ $this, 'base_theme_setup' ], 0 );
 		
 		// Enqueue default scripts.
-		add_action( 'wp_enqueue_scripts', [ &$this, 'base_scripts' ], 0 );
+		add_action( 'wp_enqueue_scripts', [ $this, 'base_scripts' ], 0 );
 
 		// Enqueue default stylesheets.
 		add_action( 'wp_enqueue_scripts', [ $this, 'base_styles' ], 0 );
@@ -90,12 +90,8 @@ abstract class Luna_Base {
     // Enable support for Post Thumbnails on posts and pages.
     add_theme_support( 'post-thumbnails' );
 
-    // Register nav menus.
-    register_nav_menus(
-      [
-        'primary' => esc_html__( 'Primary Menu', 'luna' ),
-      ]
-    );
+		// Allow excerpts the be added to pages, used for search results etc.
+		add_post_type_support( 'page', 'excerpt' );
 
     // Switch default markup for search form, comment form, and comment to output valid HTML5.
     add_theme_support(
@@ -123,7 +119,7 @@ abstract class Luna_Base {
 		$script_path = get_template_directory() . '/build/index.js';
 
 		// Required remote scripts.
-		wp_enqueue_script( 'cookie_control', 'https://cc.cdn.civiccomputing.com/9/cookieControl-9.x.min.js', [], false, true );
+		wp_enqueue_script( 'cookie-control', 'https://cc.cdn.civiccomputing.com/9/cookieControl-9.x.min.js', [], false, true );
 
 		// Localised data for use witin the JS.
 		$data = [
@@ -136,7 +132,7 @@ abstract class Luna_Base {
 		$data = apply_filters( 'luna_localize_script', $data );
 
 		// Register, localise the above data and enqueue.
-		wp_register_script( 'luna-script', $script_src, [], @filemtime( $script_path ), true ); // phpcs:ignore
+		wp_register_script( 'luna-script', $script_src, [ 'cookie-control' ], @filemtime( $script_path ), true ); // phpcs:ignore
 		wp_localize_script( 'luna-script', 'luna', $data );
 		wp_enqueue_script( 'luna-script' );
 
@@ -170,7 +166,7 @@ abstract class Luna_Base {
 			// Admin styleseheet missing.
 			return;
 		}
-		
+
 		// A stylish enqueue.
 		wp_enqueue_style( 'luna-admin-style', $admin_style_src, [], filemtime( $admin_style_path ) ); // phpcs:ignore
 	}
@@ -239,7 +235,8 @@ abstract class Luna_Base {
 
 		if (
 			stripos( $src, 'jquery' ) === false &&
-			stripos( $src, get_template_directory_uri() ) === false
+			stripos( $src, get_template_directory_uri() ) === false &&
+			stripos( $src, 'https://cc.cdn.civiccomputing.com' ) === false
 		) {
 			// Pop a defer attribute into the tag string!
 			$tag =  str_replace( ' src', ' defer src', $tag );

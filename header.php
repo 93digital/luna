@@ -24,7 +24,7 @@ $favicon_default = get_field( 'favicon_default', 'global_options' );
 	<link rel="profile" href="//gmpg.org/xfn/11">
 	<link rel="pingback" href="<?php bloginfo( 'pingback_url' ); ?>">
 
-	<?php /*if ( $favicon_default ) : ?>
+	<?php if ( $favicon_default ) : ?>
 		<link rel="apple-touch-icon" href="<?php echo esc_url( $favicon_default ); ?>">
 	<?php endif; ?>
 	<?php if ( $favicon_32 ) : ?>
@@ -36,7 +36,7 @@ $favicon_default = get_field( 'favicon_default', 'global_options' );
 	<?php if ( $theme_color ) : ?>
 		<meta name="msapplication-TileColor" content="<?php echo esc_attr( $theme_color ); ?>">
 		<meta name="theme-color" content="<?php echo esc_attr( $theme_color ); ?>">
-	<?php endif;*/ ?>
+	<?php endif; ?>
 
 	<?php wp_head(); ?>
 </head>

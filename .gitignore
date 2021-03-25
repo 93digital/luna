@@ -53,5 +53,4 @@ style.css
 test.php
 _dump/
 _todo.txt
-inc/_cache/*
-!inc/_cache/acf
+

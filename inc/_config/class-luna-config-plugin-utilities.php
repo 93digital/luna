@@ -153,7 +153,7 @@ class Luna_Config_Plugin_Utilities {
 	 * @return string The custom Local JSON path for the theme.
 	 */
 	public function acf_json_save_location( $path ) {
-		return get_template_directory() . '/inc/_cache/acf';
+		return get_template_directory() . '/inc/_acf';
 	}
 
 	/**
@@ -167,7 +167,7 @@ class Luna_Config_Plugin_Utilities {
 	 * @return string Updated list of load paths including custom theme path.
 	 */
 	public function acf_json_load_location( $paths ) {
-		$paths[] = get_template_directory() . '/inc/_cache/acf';
+		$paths[] = get_template_directory() . '/inc/_acf';
 
 		return $paths;
 	}

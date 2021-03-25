@@ -44,25 +44,30 @@ abstract class Luna_Base_Global_Options {
 		}
 
 		// Adds the main Global Options settings page.
-		add_action( 'acf/init', [ $this, 'register_global_options_pages' ], 0 );
+		add_action( 'acf/init', [ $this, 'register_global_options_pages' ] );
 
-		// General options sub-page.
+		// Add useful sub pages.
 		$this->add_sub_page( 'General' );
-
-		// Header options sub-page.
 		$this->add_sub_page( 'Header' );
-
-		// Footer options sub-page.
 		$this->add_sub_page( 'Footer' );
-
-		// Social options sub-page.
 		$this->add_sub_page( 'Social' );
-
-		// 404 options sub-page.
 		$this->add_sub_page( '404' );
-
-		// Search options sub-page.
 		$this->add_sub_page( 'Search' );
+
+		// Localise data from the Civic global options so they can be inserted into the JS.
+		add_filter( 'luna_localize_script', [ $this, 'fetch_and_localise_civic_data' ] );
+
+		// Add any custom header scripts.
+
+		// Add any custom body scripts.
+
+		// Add any custom footer scripts.
+
+		/**
+		 * @todo the above hooks.
+		 * @todo integrate GMaps API key
+		 * @todo intgerate CIvic bits
+		 */
 	}
 
 	/**
@@ -118,5 +123,52 @@ abstract class Luna_Base_Global_Options {
 
 		// Remove the sub pages list property as it is no longer needed.
 		unset( $this->sub_pages );
+	}
+
+	/**
+	 * 'luna_localize_script' action hook callback.
+	 * Fetch custom Civic Cookie data from Global Options, including:
+	 * @var string $license_key
+	 * @var string $product ('COMMUNITY', 'PRO' or 'PRO_MULTISITE')
+	 * @var array $cookies_info (group field)
+	 *   @var string 'label'
+	 *   @var array 'cookies' (e.g. '_ga')
+	 *   @var string 'code'
+	 *
+	 * @param array $data The default localised theme data.
+	 * @return array $data Updated localised data.
+	 */
+	public function fetch_and_localise_civic_data( $data ) {
+		if ( ! function_exists( 'get_field' ) ) {
+      // ACF isn't active!
+      return;
+		}
+
+		$license_key = get_field( 'civic_license_key', 'general_options' );
+		if ( ! $license_key ) {
+			// Do not append anything if not license key has been entered.
+			return $data;
+		}
+
+		// Create a Civic array that will be localised for use in JS.
+		$civic = [
+			'licenseKey'      => $license_key,
+			'productType'     => get_field( 'civic_product_type', 'general_options' ),
+			'googleAnalytics' => get_field( 'google_analytics_id', 'general_options' ),
+		];
+
+		/**
+		 * @todo
+		 * - privacy policy description
+		 * - privacy policy link
+		 * - privacy policy link text
+		 * - update date (how can we get this?)
+		 * - marketing cookies description
+		 * - text bits
+		 */
+
+		// Add the new Civic object and return it.
+		$data['civic'] = $civic;
+		return $data;
 	}
 }

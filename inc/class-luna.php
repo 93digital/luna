@@ -14,6 +14,18 @@
  */
 final class Luna extends Luna_Base {
 	/**
+	 * A Luna_Cpts object.
+	 * @var object
+	 */
+	public $cpts;
+
+	/**
+	 * A Luna_Global_Options object.
+	 * @var object
+	 */
+	public $global_options;
+
+	/**
 	 * Construct.
 	 * This should only be used to call the parent's construct
 	 * and instantiate any custom classes as part of the main luna object.
@@ -22,9 +34,11 @@ final class Luna extends Luna_Base {
 		// Base theme setup.
 		parent::__construct();
 
-		// Sub classes.
-		$this->global_options = new Luna_Global_Options();
+		/**
+		 * Instantiate sub classes.
+		 */
 		$this->cpts           = new Luna_Cpts();
+		$this->global_options = new Luna_Global_Options();
 	}
 
 	/**

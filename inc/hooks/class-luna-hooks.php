@@ -17,8 +17,20 @@ final class Luna_Hooks {
 	 * Each hook's callback should be a public method of this class.
 	 */
 	public function __construct() {
-		/**
-		 * Add hooks.
-		 */
+		// Register menus.
+		add_action( 'after_setup_theme', [ $this, 'register_nav_menus' ] );
+	}
+
+	/**
+	 * 'after_setup_theme' action hook callback.
+	 * Register all the theme menus.
+	 */
+	public function register_nav_menus() {
+		// Register nav menus.
+		register_nav_menus(
+			[
+				'primary' => esc_html__( 'Primary Menu', 'luna' ),
+			]
+		);
 	}
 }
