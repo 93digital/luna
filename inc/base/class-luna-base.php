@@ -46,6 +46,9 @@ abstract class Luna_Base {
 		 */
 		// Theme support and setup.
 		add_action( 'after_setup_theme', [ $this, 'base_theme_setup' ], 0 );
+
+		// Adds custom images sizes to Gutenberg.
+		add_filter( 'image_size_names_choose', [ $this, 'base_custom_image_sizes' ] );
 		
 		// Enqueue default scripts.
 		add_action( 'wp_enqueue_scripts', [ $this, 'base_scripts' ], 0 );
@@ -99,6 +102,10 @@ abstract class Luna_Base {
 		// Allow excerpts the be added to pages, used for search results etc.
 		add_post_type_support( 'page', 'excerpt' );
 
+		// Add custom image sizes.
+		add_image_size( 'mobile', 375 );
+  	add_image_size( 'tablet', 768 );
+
     // Switch default markup for search form, comment form, and comment to output valid HTML5.
     add_theme_support(
       'html5',
@@ -117,12 +124,32 @@ abstract class Luna_Base {
 	}
 
 	/**
+	 * 'image_size_names_choose' filter hook callback.
+	 * Add custom image sizes to Gutenberg.
+	 *
+	 * @param array $sizes Default image sizes.
+	 * @return array Updates image sizes.
+	 */
+	public function base_custom_image_sizes( $sizes ) {
+		$new_sizes = [
+			'mobile' => __( 'Mobile', 'luna' ),
+			'tablet' => __( 'Tablet', 'luna' ),
+		];
+		return array_merge( $sizes, $new_sizes );
+	}
+
+	/**
 	 * 'wp_enqueue_scripts' action hook callback.
 	 * Enqueue the main theme scripts.
 	 */
 	public function base_scripts() {
-		$script_src  = get_template_directory_uri() . '/build/index.js';
-		$script_path = get_template_directory() . '/build/index.js';
+		$script_src        = get_template_directory_uri() . '/build/index.js';
+		$script_path       = get_template_directory() . '/build/index.js';
+		$script_asset_path = get_template_directory() . '/build/index.asset.php';
+
+		if ( ! file_exists( $script_asset_path ) ) {
+			throw new Error( 'You need to run `npm run watch` or `npm run build` first.' );
+		}
 
 		// Localised data for use witin the JS.
 		$data = [
@@ -141,7 +168,7 @@ abstract class Luna_Base {
 		$data = apply_filters( 'luna_localize_script', $data );
 
 		// Dependencies for the main theme script file.
-		$this->script_deps = [];
+		$this->script_deps = $script_asset['dependencies'];
 
 		/**
 		 * 'luna_register_script' filter hook.
@@ -171,7 +198,7 @@ abstract class Luna_Base {
 			'luna-script',
 			$script_src,
 			$this->script_deps,
-			@filemtime( $script_path ), // phpcs:ignore
+			$script_asset['version'],
 			true
 		);
 		wp_localize_script( 'luna-script', 'luna', $data );

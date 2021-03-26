@@ -2,9 +2,17 @@
   "name": "luna-starter-theme",
   "version": "0.0.0",
   "description": "93Digital's development starter theme, the boilerplate for all our WordPress projects",
-  "main": "index.js",
+  "main": "build/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "run-s \"build:*\"",
+    "build:scripts": "wp-scripts build js/index.js js/blocks/blocks.js",
+    "build:styles": "sass sass:",
+    "build:svg": "svg-sprite --symbol --svg-xmldecl=false --dest=build assets/*.svg",
+    "build:postcss": "postcss -r style.css",
+    "watch": "run-p \"watch:*\"",
+    "watch:styles": "sass --watch sass:",
+    "watch:svg": "svg-sprite --symbol --svg-xmldecl=false --dest=build assets/*.svg",
+    "watch:scripts": "wp-scripts start js/index.js js/blocks/blocks.js"
   },
   "repository": {
     "type": "git",
@@ -20,12 +28,43 @@
   "license": "ISC",
   "homepage": "https://bitbucket.org/93developers/luna-starter-theme#readme",
   "devDependencies": {
-    "@wordpress/eslint-plugin": "^8.0.2",
-    "eslint": "^7.19.0",
+    "@fullhuman/postcss-purgecss": "^4.0.3",
+    "@wordpress/api-fetch": "^3.21.5",
+    "@wordpress/block-editor": "^5.2.7",
+    "@wordpress/blocks": "^8.0.0",
+    "@wordpress/browserslist-config": "^3.0.1",
+    "@wordpress/components": "^13.0.0",
+    "@wordpress/element": "^2.19.1",
+    "@wordpress/eslint-plugin": "^9.0.1",
+    "@wordpress/html-entities": "^2.10.1",
+    "@wordpress/i18n": "^3.18.0",
+    "@wordpress/icons": "^2.9.1",
+    "@wordpress/scripts": "^14.0.1",
+    "@wordpress/url": "^2.21.2",
+    "chokidar-cli": "^2.1.0",
+    "classnames": "^2.2.6",
+    "cssnano": "^4.1.10",
+    "eslint": "^7.20.0",
     "eslint-plugin-react": "^7.22.0",
-    "stylelint": "^13.9.0",
-    "stylelint-config-sass-guidelines": "^7.1.0",
-    "stylelint-config-standard": "^20.0.0",
-    "stylint": "^2.0.0"
-  }
+    "npm-run-all": "^4.1.5",
+    "postcss": "^8.1.0",
+    "postcss-cli": "^8.3.1",
+    "postcss-focus": "^5.0.1",
+    "postcss-loader": "^4.0.3",
+    "postcss-preset-env": "^6.7.0",
+    "postcss-pxtorem": "^6.0.0",
+    "sass": "^1.32.7",
+    "stylelint": "^13.10.0",
+    "stylelint-config-sass-guidelines": "^8.0.0",
+    "stylelint-config-standard": "^21.0.0",
+    "stylelint-config-wordpress": "^17.0.0",
+    "stylelint-order": "^4.1.0",
+    "stylint": "^2.0.0",
+    "svg-sprite": "^1.5.0",
+    "uuid": "^8.3.2",
+    "vanilla-lazyload": "^17.3.1"
+  },
+  "browserslist": [
+    "extends @wordpress/browserslist-config"
+  ]
 }

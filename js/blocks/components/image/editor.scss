@@ -1,0 +1,36 @@
+.luna-image-button {
+
+  figure {
+    margin: 0;
+    padding: 0;
+  }
+
+  img {
+    display: block;
+    width: 100%;
+  }
+}
+
+.luna-image-wrap {
+  position: relative;
+}
+
+.luna-image-remove {
+  background-color: #cc1818;
+  color: #fff;
+  border-radius: 100%;
+  width: 28px;
+  height: 28px;
+  min-width: 1px !important;
+  min-height: 1px;
+  padding: 4px !important;
+  position: absolute;
+  top: 0;
+  right: 0;
+  transform: translate(50%, -50%);
+
+  &:hover {
+    color: #fff;
+    background-color: #710d0d;
+  }
+}

@@ -1,7 +1,8 @@
 <?php
 /**
- * Luna header.
- * Contains the <head> and the opening <html>, <body> and <main> tags.
+ * The header for our theme.
+ *
+ * Displays all of the <head> section and everything up till <div id="main">
  *
  * @package luna
  */
@@ -42,7 +43,6 @@ $favicon_default = get_field( 'favicon_default', 'global_options' );
 </head>
 
 <body id="body" <?php body_class(); ?> data-instant-intensity="viewport">
-	<?php wp_body_open() ?>
 
 	<a href="#main" class="skip-link"><?php esc_html_e( 'Skip to content', 'luna' ); ?></a>
 

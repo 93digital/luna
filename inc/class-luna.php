@@ -34,6 +34,8 @@ final class Luna extends Luna_Base {
 		// Base theme setup.
 		parent::__construct();
 
+		require get_template_directory() . '/inc/gutenberg/gutenberg.php';
+
 		/**
 		 * Instantiate sub classes.
 		 */

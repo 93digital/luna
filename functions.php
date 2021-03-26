@@ -11,3 +11,8 @@
 
 require_once 'inc/_config/class-luna-bootstrapper.php';
 new Luna_Bootstrapper();
+
+/**
+ * @todo move.
+ */
+require get_template_directory() . '/inc/gutenberg/gutenberg.php';

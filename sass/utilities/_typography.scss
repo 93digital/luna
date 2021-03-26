@@ -1,0 +1,111 @@
+.heading {
+  margin: 0;
+  display: block;
+  position: relative;
+  font-style: normal;
+  word-wrap: break-word;
+
+  &:empty {
+    display: none;
+  }
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  @extend .heading;
+}
+
+h1,
+.heading--1 {
+  font-size: 2em;
+}
+
+h2,
+.heading--2 {
+  font-size: 1.5em;
+}
+
+h3,
+.heading--3 {
+  font-size: 1.17em;
+}
+
+h4,
+.heading--4 {
+  font-size: 1em;
+}
+
+h5,
+.heading--5 {
+  font-size: .83em;
+}
+
+h6,
+.heading--6 {
+  font-size: .67em;
+}
+
+.align-center {
+  text-align: center;
+}
+
+.align-left {
+  text-align: left;
+}
+
+.align-right {
+  text-align: right;
+}
+
+.lowercase {
+  text-transform: none;
+}
+
+.uppercase {
+  text-transform: uppercase;
+}
+
+.underline {
+  text-decoration: underline;
+}
+
+
+.font-weight--100 {
+  font-weight: 100;
+}
+
+.font-weight--200 {
+  font-weight: 200;
+}
+
+.font-weight--300 {
+  font-weight: 300;
+}
+
+.font-weight--400 {
+  font-weight: 400;
+}
+
+.font-weight--500 {
+  font-weight: 500;
+}
+
+.font-weight--600 {
+  font-weight: 600;
+}
+
+.font-weight--700 {
+  font-weight: 700;
+}
+
+.font-weight--800 {
+  font-weight: 800;
+}
+
+.font-weight--900 {
+  font-weight: 900;
+}

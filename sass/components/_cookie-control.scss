@@ -1,0 +1,67 @@
+#ccc-icon {
+  display: none !important;
+}
+#ccc-overlay {
+  background-color: rgba(0,0,0,0.25);
+}
+#ccc #ccc-module {
+  animation: none !important;
+  width: 90% !important;
+  height: 90% !important;
+  max-width: 500px !important;
+  max-height: 400px !important;
+  top: 50% !important;
+  bottom: auto !important;
+  left: 50% !important;
+  right: auto !important;
+  margin: none !important;
+  transform: translate(-50%,-50%);
+  box-shadow: 0 0 35px -10px #111;
+}
+#ccc #ccc-content {
+  background-color: #fff !important;
+  color: #111 !important;
+}
+#ccc #ccc-content h2,
+#ccc #ccc-content h3,
+#ccc #ccc-content p,
+#ccc #ccc-content span,
+#ccc #ccc-content a {
+  color: #111 !important;
+  border-color: #111 !important;
+}
+#ccc #ccc-content button {
+  background-color: #555 !important;
+  border-color: #555 !important;
+  color: #fff !important;
+}
+#ccc #ccc-content button span {
+  color: #fff !important;
+}
+#ccc .ccc-svg-element svg {
+  fill: #111;
+}
+#ccc #ccc-content hr {
+  background-color: #555;
+}
+#ccc #ccc-optional-categories hr {
+  display: none;
+}
+#ccc #ccc-content .checkbox-toggle {
+  background-color: #555;
+  border-color: #555;
+}
+#ccc #ccc-content .checkbox-toggle span {
+  color: #fff !important;
+  opacity: 1;
+}
+#ccc #ccc-content .checkbox-toggle .checkbox-toggle-toggle {
+  background-color: #bbb;
+}
+#ccc .ccc-info {
+  display: none;
+}
+#ccc #ccc-close {
+  display: none;
+}
+

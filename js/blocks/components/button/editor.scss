@@ -1,0 +1,41 @@
+.luna-button-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  color: initial;
+}
+
+.luna-button-url {
+  opacity: .5;
+  margin-left: .5em;
+
+  &.is-active {
+    opacity: 1;
+  }
+}
+
+.luna-button-card {
+  margin-top: .5em;
+  width: 100%;
+}
+
+.luna-button-form {
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.luna-button-input,
+.luna-button-toggle {
+
+  * {
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+
+    &[type=url],
+    &[type=text] {
+      width: 100% !important;
+    }
+  }
+}

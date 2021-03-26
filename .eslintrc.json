@@ -5,7 +5,7 @@
   },
   "extends": [
     "eslint:recommended",
-    "plugin:@wordpress/eslint-plugin/recommended"
+    "plugin:@wordpress/eslint-plugin/recommended-with-formatting"
   ],
   "globals": {
     "jQuery": true,
@@ -22,5 +22,24 @@
   "plugins": [
     "react"
   ],
-  "rules": {}
+  "settings": {
+    "import/resolver": {
+      "node": {
+        "extensions": [".js", ".jsx", ".ts", ".tsx"]
+      }
+    }
+  },
+  "rules": {
+    "no-console": "warn",
+    "indent": ["error", 2],
+    "space-in-parens": ["error", "never"],
+    "arrow-parens": ["error", "as-needed"],
+    "computed-property-spacing": ["error", "never"],
+    "array-bracket-spacing": ["error", "never"],
+    "eol-last": 0,
+    "react/jsx-indent": 0,
+    "react/jsx-indent-props": [2, 2],
+    "comma-dangle": ["error", "never"],
+    "@wordpress/no-global-event-listener": 0
+  }
 }
