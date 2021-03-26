@@ -7,6 +7,7 @@
  * All them functionality should be added to the relevant classes in /inc.
  *
  * @package luna
+ * @version v1.0
  */
 
 require_once 'inc/_config/class-luna-bootstrapper.php';

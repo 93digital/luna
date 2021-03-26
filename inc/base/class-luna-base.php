@@ -150,6 +150,7 @@ abstract class Luna_Base {
 		if ( ! file_exists( $script_asset_path ) ) {
 			throw new Error( 'You need to run `npm run watch` or `npm run build` first.' );
 		}
+		$script_asset = require $script_asset_path;
 
 		// Localised data for use witin the JS.
 		$data = [
