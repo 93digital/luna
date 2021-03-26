@@ -55,19 +55,19 @@ abstract class Luna_Base_Global_Options {
 		$this->add_sub_page( 'Search' );
 
 		// Localise data from the Civic global options so they can be inserted into the JS.
-		add_filter( 'luna_localize_script', [ $this, 'fetch_and_localise_civic_data' ] );
+		add_filter( 'luna_localize_script', [ $this, 'localise_civic_data' ] );
+
+		// Register Google Maps API script.
+		add_filter( 'luna_register_script', [ $this, 'register_google_maps_api_script' ] );
 
 		// Add any custom header scripts.
+		add_action( 'wp_head', [ $this, 'add_custom_header_scripts' ] );
 
 		// Add any custom body scripts.
+		add_action( 'wp_body_open', [ $this, 'add_custom_body_scripts' ] );
 
 		// Add any custom footer scripts.
-
-		/**
-		 * @todo the above hooks.
-		 * @todo integrate GMaps API key
-		 * @todo intgerate CIvic bits
-		 */
+		add_action( 'wp_footer', [ $this, 'add_custom_footer_scripts' ] );
 	}
 
 	/**
@@ -138,7 +138,7 @@ abstract class Luna_Base_Global_Options {
 	 * @param array $data The default localised theme data.
 	 * @return array $data Updated localised data.
 	 */
-	public function fetch_and_localise_civic_data( $data ) {
+	public function localise_civic_data( $data ) {
 		if ( ! function_exists( 'get_field' ) ) {
       // ACF isn't active!
       return;
@@ -150,25 +150,103 @@ abstract class Luna_Base_Global_Options {
 			return $data;
 		}
 
+		$options = get_field( 'civic_options', 'general_options' );
+
+		// Check if a privacy policy date has been set, it is required to show the pp link.
+		if ( empty( $options['privacy_policy_date'] ) ) {
+			$date = date( 'd/m/Y' );
+
+			// No date, so add the todays date to the options array.
+			$options['privacy_policy_date'] = $date;
+
+			// Update the options array.
+			$result = update_field( 'civic_options', $options, 'general_options' );
+		}
+
 		// Create a Civic array that will be localised for use in JS.
 		$civic = [
 			'licenseKey'      => $license_key,
 			'productType'     => get_field( 'civic_product_type', 'general_options' ),
 			'googleAnalytics' => get_field( 'google_analytics_id', 'general_options' ),
+			'options'         => get_field( 'civic_options', 'general_options' ),
 		];
-
-		/**
-		 * @todo
-		 * - privacy policy description
-		 * - privacy policy link
-		 * - privacy policy link text
-		 * - update date (how can we get this?)
-		 * - marketing cookies description
-		 * - text bits
-		 */
 
 		// Add the new Civic object and return it.
 		$data['civic'] = $civic;
 		return $data;
+	}
+
+	/**
+	 * 'luna_register_script' filter hook callback.
+	 * Register the Google Maps API script if an API key has been provided in Global Options.
+	 *
+	 * @param array $deps Main theme script dependecies.
+	 * @return array $deps Script dependencies with GMaps added, if an API key is found.
+	 */
+	public function register_google_maps_api_script( $deps ) {
+		$gmaps_api_key = get_field( 'google_maps_api_key', 'general_options' );
+		if ( ! $gmaps_api_key ) {
+			return $deps;
+		}
+
+		$handle = 'google-map-api';
+		wp_register_script(
+			$handle,
+			'https://maps.googleapis.com/maps/api/js?key=' . $gmaps_api_key,
+			[ 'jquery' ],
+			true
+		);
+
+		// Add the handle to the list of dependencies and return it.
+		$deps[] = $handle;
+		return $deps;
+	}
+
+	/**
+	 * 'wp_head' action hook callback.
+	 * Insert custom header code from Global Options.
+	 * Warning: This code is not controlled by Civic Cookie Control.
+	 */
+	public function add_custom_header_scripts() {
+		$header_scripts = get_field( 'custom_header_scripts', 'general_options' );
+		if ( ! $header_scripts ) {
+			return;
+		}
+
+		echo '<!-- Custom Header Code -->';
+		echo $header_scripts; // phpcs:ignore
+		echo '<!-- End Custom Header Code -->';
+	}
+
+	/**
+	 * 'wp_body_open' action hook callback.
+	 * Insert custom body code from Global Options.
+	 * Warning: This code is not controlled by Civic Cookie Control.
+	 */
+	public function add_custom_body_scripts() {
+		$body_scripts = get_field( 'custom_body_scripts', 'general_options' );
+		if ( ! $body_scripts ) {
+			return;
+		}
+
+		echo '<!-- Custom Body Code -->';
+		echo $body_scripts; // phpcs:ignore
+		echo '<!-- End Custom Body Code -->';
+	}
+
+	/**
+	 * 'wp_footer' action hook callback.
+	 * Insert custom footer code from Global Options.
+	 * Warning: This code is not controlled by Civic Cookie Control.
+	 */
+	public function add_custom_footer_scripts() {
+		$footer_scripts = get_field( 'custom_footer_scripts', 'general_options' );
+		if ( ! $footer_scripts ) {
+			return;
+		}
+
+		echo '<!-- Custom Footer Code -->';
+		echo $footer_scripts; // phpcs:ignore
+		echo '<!-- End Custom Footer Code -->';
 	}
 }

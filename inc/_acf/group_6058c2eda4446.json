@@ -4,7 +4,7 @@
     "fields": [
         {
             "key": "field_605b76461ba14",
-            "label": "Cookies, Analytics & Tracking",
+            "label": "Civic Cookie Control",
             "name": "",
             "type": "tab",
             "instructions": "",
@@ -17,6 +17,23 @@
             },
             "placement": "top",
             "endpoint": 0
+        },
+        {
+            "key": "field_605dc212b8613",
+            "label": "Civic info",
+            "name": "",
+            "type": "message",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "message": "This tab allows the Civic cookie popup content to be edited. Should you require third party scripts and cookies to be added to and controlled by Civic, please contact 93digitial as this will require a small amount of development. Also, please contact 93digital if you require any more options that aren't present in this tab.",
+            "new_lines": "wpautop",
+            "esc_html": 0
         },
         {
             "key": "field_6058c45c3f018",
@@ -64,101 +81,6 @@
             "placeholder": ""
         },
         {
-            "key": "field_605c6a2d02b29",
-            "label": "Civic cookies data",
-            "name": "civic_cookies_data",
-            "type": "group",
-            "instructions": "Google Analytics and Google Tag Manager do not need to be added here, instead add the IDs of either below.",
-            "required": 0,
-            "conditional_logic": 0,
-            "wrapper": {
-                "width": "",
-                "class": "",
-                "id": ""
-            },
-            "layout": "block",
-            "sub_fields": [
-                {
-                    "key": "field_605c6a4b02b2a",
-                    "label": "Label",
-                    "name": "label",
-                    "type": "text",
-                    "instructions": "",
-                    "required": 0,
-                    "conditional_logic": 0,
-                    "wrapper": {
-                        "width": "",
-                        "class": "",
-                        "id": ""
-                    },
-                    "default_value": "Marketing",
-                    "placeholder": "",
-                    "prepend": "",
-                    "append": "",
-                    "maxlength": ""
-                },
-                {
-                    "key": "field_605c6a607fe5c",
-                    "label": "Scripts",
-                    "name": "scripts",
-                    "type": "textarea",
-                    "instructions": "The JavaScript snippets which set the cookies.",
-                    "required": 0,
-                    "conditional_logic": 0,
-                    "wrapper": {
-                        "width": "",
-                        "class": "",
-                        "id": ""
-                    },
-                    "default_value": "",
-                    "placeholder": "",
-                    "maxlength": "",
-                    "rows": "",
-                    "new_lines": ""
-                },
-                {
-                    "key": "field_605c6a857fe5d",
-                    "label": "Cookie IDs",
-                    "name": "cookie_ids",
-                    "type": "repeater",
-                    "instructions": "The IDs of the cookies which the Civic Cookie Control will block until the user is given consent.",
-                    "required": 0,
-                    "conditional_logic": 0,
-                    "wrapper": {
-                        "width": "",
-                        "class": "",
-                        "id": ""
-                    },
-                    "collapsed": "",
-                    "min": 0,
-                    "max": 0,
-                    "layout": "table",
-                    "button_label": "",
-                    "sub_fields": [
-                        {
-                            "key": "field_605c6ab47fe5e",
-                            "label": "ID",
-                            "name": "id",
-                            "type": "text",
-                            "instructions": "",
-                            "required": 0,
-                            "conditional_logic": 0,
-                            "wrapper": {
-                                "width": "",
-                                "class": "",
-                                "id": ""
-                            },
-                            "default_value": "",
-                            "placeholder": "",
-                            "prepend": "",
-                            "append": "",
-                            "maxlength": ""
-                        }
-                    ]
-                }
-            ]
-        },
-        {
             "key": "field_6058c3723f014",
             "label": "Google Analytics ID",
             "name": "google_analytics_id",
@@ -178,11 +100,247 @@
             "maxlength": ""
         },
         {
+            "key": "field_605dc054b8607",
+            "label": "Civic options",
+            "name": "civic_options",
+            "type": "group",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "layout": "block",
+            "sub_fields": [
+                {
+                    "key": "field_605dc076b8608",
+                    "label": "Title",
+                    "name": "title",
+                    "type": "text",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": "",
+                    "maxlength": ""
+                },
+                {
+                    "key": "field_605dc088b8609",
+                    "label": "Intro",
+                    "name": "intro",
+                    "type": "textarea",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "placeholder": "",
+                    "maxlength": "",
+                    "rows": 3,
+                    "new_lines": ""
+                },
+                {
+                    "key": "field_605dc09ab860a",
+                    "label": "Privacy policy description",
+                    "name": "privacy_policy_description",
+                    "type": "textarea",
+                    "instructions": "The privacy policy link & date must be set in order for this to show.",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "placeholder": "",
+                    "maxlength": "",
+                    "rows": 3,
+                    "new_lines": ""
+                },
+                {
+                    "key": "field_605dc0bdb860b",
+                    "label": "Privacy policy link",
+                    "name": "privacy_policy_link",
+                    "type": "link",
+                    "instructions": "Will always open in a new tab.",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "return_format": "array"
+                },
+                {
+                    "key": "field_605dd73e78f33",
+                    "label": "Privacy policy date",
+                    "name": "privacy_policy_date",
+                    "type": "date_picker",
+                    "instructions": "Updating this causes the cookie popup to reset for all users.",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "display_format": "d\/m\/Y",
+                    "return_format": "d\/m\/Y",
+                    "first_day": 1
+                },
+                {
+                    "key": "field_605dc0f2b860c",
+                    "label": "Accept button text",
+                    "name": "accept_button_text",
+                    "type": "text",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": "",
+                    "maxlength": ""
+                },
+                {
+                    "key": "field_605dc0fdb860d",
+                    "label": "Necessary cookies title",
+                    "name": "necessary_cookies_title",
+                    "type": "text",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": "",
+                    "maxlength": ""
+                },
+                {
+                    "key": "field_605dc111b860e",
+                    "label": "Necessary cookies description",
+                    "name": "necessary_cookies_description",
+                    "type": "textarea",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "placeholder": "",
+                    "maxlength": "",
+                    "rows": 3,
+                    "new_lines": ""
+                },
+                {
+                    "key": "field_605dc125b860f",
+                    "label": "Optional cookies title",
+                    "name": "optional_cookies_title",
+                    "type": "text",
+                    "instructions": "Defaults to 'Marketing cookies' if left blank.",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": "",
+                    "maxlength": ""
+                },
+                {
+                    "key": "field_605dc153b8610",
+                    "label": "Optional cookies description",
+                    "name": "optional_cookies_description",
+                    "type": "textarea",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "placeholder": "",
+                    "maxlength": "",
+                    "rows": 3,
+                    "new_lines": ""
+                },
+                {
+                    "key": "field_605dc173b8611",
+                    "label": "Save preferences button text",
+                    "name": "save_preferences_button_text",
+                    "type": "text",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": "",
+                    "maxlength": ""
+                }
+            ]
+        },
+        {
+            "key": "field_605dbe6f8fe7c",
+            "label": "Custom script embeds",
+            "name": "",
+            "type": "tab",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "placement": "top",
+            "endpoint": 0
+        },
+        {
             "key": "field_6058c47a3f019",
             "label": "Custom header scripts",
             "name": "custom_header_scripts",
             "type": "textarea",
-            "instructions": "Anything added here WILL NOT be controlled by the Civic Cookie Control.",
+            "instructions": "Please note: anything added here WILL NOT be controlled by the Civic Cookie Control.\r\n\r\nGoogle Analytics should be added in the Civic Cookie Control tab.",
             "required": 0,
             "conditional_logic": 0,
             "wrapper": {
@@ -201,7 +359,7 @@
             "label": "Custom body scripts",
             "name": "custom_body_scripts",
             "type": "textarea",
-            "instructions": "Anything added here WILL NOT be controlled by the Civic Cookie Control.",
+            "instructions": "Please note: anything added here WILL NOT be controlled by the Civic Cookie Control.",
             "required": 0,
             "conditional_logic": 0,
             "wrapper": {
@@ -220,7 +378,7 @@
             "label": "Custom footer scripts",
             "name": "custom_footer_scripts",
             "type": "textarea",
-            "instructions": "Anything added here WILL NOT be controlled by the Civic Cookie Control.",
+            "instructions": "Please note: anything added here WILL NOT be controlled by the Civic Cookie Control.",
             "required": 0,
             "conditional_logic": 0,
             "wrapper": {
@@ -390,5 +548,5 @@
     "hide_on_screen": "",
     "active": 1,
     "description": "",
-    "modified": 1616683446
+    "modified": 1616764545
 }

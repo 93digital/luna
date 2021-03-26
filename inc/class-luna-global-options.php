@@ -3,6 +3,7 @@
  * Luna Global Options.
  *
  * Register any custom Global Options sub-pages here using the add_sub_page() method.
+ * Any functionality that uses date from Global Options should be added to this class.
  *
  * @package luna
  */

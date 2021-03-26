@@ -34,7 +34,7 @@ function dump( $data, $exit = false, $styles = '' ) {
  * @param mixed  $data The data to dump.
  * @param string $filename A custom dump file filename
  */
-function dump_to_file( $data, $extract = false, $filename = 'dump' ) {
+function dump_to_file( $data, $filename = 'dump' ) {
 	$dump_dir = get_template_directory() . '/_dump/';
 
 	// Create the /_dump directory if it doesn't exist
@@ -43,7 +43,7 @@ function dump_to_file( $data, $extract = false, $filename = 'dump' ) {
 	}
 
 	// Open a filestream for writing.
-	$file = fopen( get_stylesheet_directory() . '/_' . $filename, 'w' ); // phpcs:ignore
+	$file = fopen( get_stylesheet_directory() . '/_dump/_' . $filename, 'w' ); // phpcs:ignore
 
 	// Take a dump...
 	ob_start();

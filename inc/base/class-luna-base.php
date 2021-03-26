@@ -18,6 +18,12 @@
  * Parent class to the main theme class Luna_Setup.
  */
 abstract class Luna_Base {
+	/**
+	 * The main script dependencies.
+	 * This is required to be a property as it used by multiple class methods.
+	 */
+	private $script_deps;
+
   /**
    * Construct
    * It should be called by any inheriting classes upon instantiation.
@@ -118,9 +124,6 @@ abstract class Luna_Base {
 		$script_src  = get_template_directory_uri() . '/build/index.js';
 		$script_path = get_template_directory() . '/build/index.js';
 
-		// Required remote scripts.
-		wp_enqueue_script( 'cookie-control', 'https://cc.cdn.civiccomputing.com/9/cookieControl-9.x.min.js', [], false, true );
-
 		// Localised data for use witin the JS.
 		$data = [
 			'homeUrl' => home_url(),
@@ -128,11 +131,49 @@ abstract class Luna_Base {
 			'nonce'   => wp_create_nonce( 'wp_rest' ),
 		];
 
-		// Allow for localised data to be modified.
+		/**
+		 * 'luna_localize_script' filter hook.
+		 * Allows custom localised data to be added to the luna JavaScript object.
+		 *
+		 * @param array $data The default localised data.
+		 * @return array $data An updated data array containing custom data alonside the default data.
+		 */
 		$data = apply_filters( 'luna_localize_script', $data );
 
+		// Dependencies for the main theme script file.
+		$this->script_deps = [];
+
+		/**
+		 * 'luna_register_script' filter hook.
+		 * All custom scripts for a site should be added via this filter hook.
+		 * Any dependencies for the main theme script file must be added to $this->script_deps and returned.
+		 *
+		 * @param array $this->script_deps Default script dependenies.
+		 * @return array $this->script_depts An updated array of script dependencies.
+		 */
+		$this->script_deps = apply_filters( 'luna_register_script', $this->script_deps );
+
+		// Add Civic remote script if required.
+		if ( $data['civic']['licenseKey'] ) {
+			// The Civic remote script is only required if a license key has been added.
+			wp_enqueue_script(
+				'cookie-control',
+				'https://cc.cdn.civiccomputing.com/9/cookieControl-9.x.min.js',
+				[],
+				false,
+				true
+			);
+			$this->script_deps[] = 'cookie-control';
+		}
+
 		// Register, localise the above data and enqueue.
-		wp_register_script( 'luna-script', $script_src, [ 'cookie-control' ], @filemtime( $script_path ), true ); // phpcs:ignore
+		wp_register_script(
+			'luna-script',
+			$script_src,
+			$this->script_deps,
+			@filemtime( $script_path ), // phpcs:ignore
+			true
+		);
 		wp_localize_script( 'luna-script', 'luna', $data );
 		wp_enqueue_script( 'luna-script' );
 
@@ -150,8 +191,26 @@ abstract class Luna_Base {
 		$style_src  = get_template_directory_uri() . '/style.css';
 		$style_path = get_template_directory() . '/style.css';
 
+		// Dependencies for the main theme stylesheet.
+		$style_deps = [];
+
+		/**
+		 * 'luna_register_style' filter hook.
+		 * All custom stylesheets for a site should be added via this filter hook.
+		 * Any dependencies for the main theme stylesheet must be added to $style_deps and returned.
+		 *
+		 * @param array $style_deps Default stylesheet dependenies.
+		 * @return array $style_deps An updated array of stylesheet dependencies.
+		 */
+		$style_deps = apply_filters( 'luna_register_style', $style_deps );
+
 		// A stylish enqueue.
-		wp_enqueue_style( 'luna-style', $style_src, [], @filemtime( $style_path ) ); // phpcs:ignore
+		wp_enqueue_style(
+			'luna-style',
+			$style_src,
+			$style_deps,
+			@filemtime( $style_path ) // phpcs:ignore
+		);
 	}
 
 	/**
@@ -225,7 +284,7 @@ abstract class Luna_Base {
 	 * @param string $tag Default HTML script tag.
 	 * @param string $handle The script handle.
 	 * @param string $src The script source.
-	 * @return string $tag The updated HTML sctipt tag.
+	 * @return string The updated HTML sctipt tag.
 	 */
 	public function base_set_defer_attribute( $tag, $handle, $src ) {
 		if ( is_admin() ) {
@@ -233,16 +292,18 @@ abstract class Luna_Base {
 			return $tag;
 		}
 
-		if (
-			stripos( $src, 'jquery' ) === false &&
-			stripos( $src, get_template_directory_uri() ) === false &&
-			stripos( $src, 'https://cc.cdn.civiccomputing.com' ) === false
-		) {
-			// Pop a defer attribute into the tag string!
-			$tag =  str_replace( ' src', ' defer src', $tag );
+		if ( in_array( $handle, $this->script_deps ) ) {
+			// Do not defer any dependencies of the main theme script.
+			return $tag;
 		}
 
-		return $tag;
+		if ( stripos( $src, 'jquery' ) !== false ) {
+			// Do not defer jQuery.
+			return $tag;
+		}
+
+		// Pop a defer attribute into the tag and return.
+		return str_replace( ' src', ' defer src', $tag );
 	}
 
 	/**
