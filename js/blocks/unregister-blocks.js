@@ -1,5 +1,5 @@
 wp.domReady(() => {
-  // Lists out all block styles.
+  // Lists out all block styles in editor console.
   wp.blocks.getBlockTypes().forEach(block => {
     if (block.styles.isArray) {
       console.log(block.name, block.styles.map(obj => obj.name));

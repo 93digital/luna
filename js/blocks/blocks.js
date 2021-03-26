@@ -6,5 +6,5 @@
 // Block Registration.
 import './blocks/m01-hero/index';
 
-// Unregister default Gutenberg block styles.
-import './unregister-styles';
+// Unregister default Gutenberg blocks & styles.
+import './unregister-blocks';

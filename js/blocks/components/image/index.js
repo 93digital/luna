@@ -8,6 +8,13 @@ import { close } from '@wordpress/icons';
 
 import './editor.scss';
 
+/**
+ * Image Element
+ * Figure Image output from LunaImage component.
+ *
+ * @param {Object} props Props
+ * @return {*} React JSX
+ */
 const ImageElement = props => {
   const { item, className } = props;
 
@@ -28,6 +35,13 @@ const ImageElement = props => {
   );
 };
 
+/**
+ * LunaImage
+ * Image component for use in custom blocks.
+ *
+ * @param {Object} props Props
+ * @return {*} React JSX
+ */
 export const LunaImage = props => {
   const {
     mediaID,
@@ -106,6 +120,13 @@ export const LunaImage = props => {
   );
 };
 
+/**
+ * LunaInspectorImage
+ * Image component for use in custom blocks inspector.
+ *
+ * @param {Object} props Props
+ * @return {*} React JSX
+ */
 export const LunaInspectorImage = props => {
   const {
     label,
@@ -205,12 +226,13 @@ export const LunaInspectorImage = props => {
   );
 };
 
-LunaInspectorImage.Content = props => {
-  return (
-    <ImageElement { ...props } />
-  );
-};
-
+/**
+ * LunaImage Content
+ * Image component output.
+ *
+ * @param {Object} props Props
+ * @return {*} React JSX
+ */
 LunaImage.Content = props => {
   return (
     <ImageElement { ...props } />

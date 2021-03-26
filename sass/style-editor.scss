@@ -16,7 +16,12 @@ Include SASS files you want to include into the editor.
 /* ---------------------------------------
 # Setup
 ---------------------------------------- */
-@import './setup/setup';
+@import './setup/normalize';
+@import './setup/base';
+@import './setup/a11y';
+@import './setup/animations';
+@import './setup/media';
+@import './setup/icons';
 
 /* ---------------------------------------
 # Utilities

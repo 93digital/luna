@@ -1,30 +1,13 @@
-$container-width--default: 1275px;
-$container-width--large: 1268px;
-$container-width--medium: 1056px;
-$container-width--small: 840px;
-
 .container {
   width: 90%;
   display: block;
   margin-right: auto;
   margin-left: auto;
-  max-width: $container-width--default;
+  max-width: 1275px;
 
   .container {
     width: 100%;
     max-width: none;
-  }
-
-  &--large {
-    max-width: $container-width--large;
-  }
-
-  &--medium {
-    max-width: $container-width--medium;
-  }
-
-  &--small {
-    max-width: $container-width--small;
   }
 }
 

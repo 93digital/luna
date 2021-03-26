@@ -7,6 +7,13 @@ import { link, keyboardReturn } from '@wordpress/icons';
 
 import './editor.scss';
 
+/**
+ * Luna Button
+ * Custom Button Component.
+ *
+ * @param {Object} props Props
+ * @return {*} React JSX
+ */
 export const LunaButton = props => {
   const {
     className,
@@ -86,6 +93,13 @@ export const LunaButton = props => {
   );
 };
 
+/**
+ * Luna Button Content
+ * Output preivew of the LunaButton Component.
+ *
+ * @param {Object} props Props
+ * @return {*} React JSX
+ */
 LunaButton.Content = props => {
   const {
     className,
