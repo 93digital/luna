@@ -7,9 +7,8 @@
 
 namespace Luna\Gutenber\FontConfig;
 
-// Enabling this removes the custom option however there is a bug.
-// It still displays in the dropdown, uncomment once bug is fixed.
-// add_theme_support( 'disable-custom-font-sizes' );
+// Disable custom font sizes.
+add_theme_support( 'disable-custom-font-sizes' );
 
 /**
  * Set custom font options for the editor.
