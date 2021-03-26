@@ -27,14 +27,11 @@ final class Luna extends Luna_Base {
 
 	/**
 	 * Construct.
-	 * This should only be used to call the parent's construct
 	 * and instantiate any custom classes as part of the main luna object.
 	 */
 	public function __construct() {
 		// Base theme setup.
 		parent::__construct();
-
-		require get_template_directory() . '/inc/gutenberg/gutenberg.php';
 
 		/**
 		 * Instantiate sub classes.

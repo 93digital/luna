@@ -22,7 +22,7 @@ abstract class Luna_Base {
 	 * The main script dependencies.
 	 * This is required to be a property as it used by multiple class methods.
 	 */
-	private $script_deps;
+	private $script_deps = [];
 
   /**
    * Construct
