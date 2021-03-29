@@ -1,4 +1,8 @@
 <?php
+if ( ! defined( 'ABSPATH' ) ) {
+	// Oi, no peeking!
+  exit;
+}
 
 get_header();
 

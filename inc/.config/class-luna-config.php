@@ -1,6 +1,7 @@
 <?php
 /**
- * Theme bootstrapper class.
+ * Luna Config.
+ * A theme bootstrapper class.
  * Initialises all required Luna-based classes.
  *
  * @package luna
@@ -10,7 +11,7 @@
 /**
  * Do you even bootstrap, bro?
  */
-final class Luna_bootstrapper {
+final class Luna_config {
 	/**
    * Checks if the class has already been instantiated.
    * @var bool
@@ -18,14 +19,14 @@ final class Luna_bootstrapper {
   private static $is_instantiated = false;
 
 	/**
-	 * Run the bootstrapper!
+	 * Run theme configuration!
 	 */
 	public function __construct() {
-		// Has the theme bootstrapper already been run?
+		// Has the theme config already been run?
 		if ( self::$is_instantiated ) {
-			// The bootstrapper should only be run ONCE!
+			// The config must only be run ONCE!
 			trigger_error(
-				'<strong>Luna_bootstrapper</strong> can only be instantiated ONCE!',
+				'<strong>Luna_config</strong> can only be instantiated ONCE!',
 				E_USER_ERROR
 			);
 		}
@@ -40,24 +41,25 @@ final class Luna_bootstrapper {
 		define( 'LUNA_DEBUG', $this->is_debug_mode() );
 
 		/**
-		 * Required files.
+		 * Required files and classes.
 		 */
+		$config_path = get_template_directory() . '/inc/.config';
+
+		// Config classes.
+		include_once $config_path . '/class-luna-config-errors.php';
+		new Luna_Config_Errors();
+		
+		// Require config helper functions script (contains data dumpers etc.).
+		require_once $config_path . '/helpers.php';
+
 		// Include the Composer autoloader.
 		@include_once get_template_directory() . '/vendor/autoload.php'; // phpcs:ignore
-		
-		// Require misc helper functions script.
-		require_once get_template_directory() . '/inc/helpers.php';
 
 		/**
-		 * Luna class system.
+		 * Luna autoloader.
 		 */
-		// Luna autoloader.
 		spl_autoload_register( [ $this, 'luna_autoloader' ] );
 		
-		// Config classes.
-		new Luna_Config_Plugin_Utilities();
-		new Luna_Config_Errors();
-
 		// Instantiate the main Luna theme object.
 		$GLOBALS['luna'] = new Luna();
 		global $luna;

@@ -6,6 +6,7 @@
  * Although we live in a world of Gutenberg, shortcodes still have a place!
  *
  * @package luna
+ * @subpackage luna-hooks
  */
 
 /**

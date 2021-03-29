@@ -15,7 +15,7 @@
 
 /**
  * Luna Base abstract class.
- * Parent class to the main theme class Luna_Setup.
+ * Parent class to the main theme $luna object.
  */
 abstract class Luna_Base {
 	/**
@@ -25,7 +25,7 @@ abstract class Luna_Base {
 	private $script_deps = [];
 
   /**
-   * Construct
+	 * Instantiation (via child class).
    * It should be called by any inheriting classes upon instantiation.
    */
   protected function __construct() {
@@ -77,6 +77,9 @@ abstract class Luna_Base {
 
 		// Disable emojis.
 		add_action( 'init', [ $this, 'base_disable_wp_emojicons' ] );
+
+		// Add media resources to wp admin.
+		add_action( 'admin_enqueue_scripts', [ $this, 'base_load_admin_media_files' ] );
 
 		// Disable xmlrpc, it wont be needed and is a vulnerability.
 		add_filter( 'xmlrpc_enabled', '__return_false' );
@@ -385,5 +388,13 @@ abstract class Luna_Base {
 
 		// Remove not needed scripts.
 		wp_deregister_script( 'wp-embed' );
+	}
+
+	/**
+	 * 'admin_enqueue_scripts' action hook callback.
+	 * Enable media library JS and CSS files in the general admin area.
+	 */
+	public function base_load_admin_media_files() {
+		wp_enqueue_media();
 	}
 }

@@ -17,6 +17,11 @@ namespace luna;
  * @param string $styles Any inline styles to add to the <pre></pre> element, needs to be valid CSS.
  */
 function dump( $data, $exit = false, $styles = '' ) {
+	if ( ! defined( 'LUNA_DEBUG' ) || ! LUNA_DEBUG ) {
+		// Only dump data if Luna debug is on.
+		return;
+	}
+
 	echo '<pre style="' . esc_attr( $styles ) . '">';
 	var_dump( $data ); // phpcs:ignore
 	echo '</pre>';

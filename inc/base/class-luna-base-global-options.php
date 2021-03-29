@@ -5,6 +5,11 @@
  * Registers the Global Options area in the back end.
  * Contains methods to allow sub-pages to Global Options to be added easily.
  *
+ * This class also processes some of the data saved in the core Global Options fields, including:
+ * - Civic Cookie Control.
+ * - Google Maps API.
+ * - Custom header, body & footer code.
+ *
  * @package luna
  * @subpackage luna-base
  */
@@ -34,7 +39,7 @@ abstract class Luna_Base_Global_Options {
 	private $sub_pages = [];
 
 	/**
-	 * Construct.
+	 * Instantiation (via child class).
    * Register the Global Options page and fields if ACF is available.
 	 */
 	protected function __construct() {

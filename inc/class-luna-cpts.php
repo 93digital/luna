@@ -16,13 +16,14 @@
  */
 final class Luna_Cpts extends Luna_Base_Cpts {
 	/**
+	 * Instantiation.
    * All CPTs and taxonomies registered here.
 	 * Any de-registering of post types and taxonomies should also be done here (Hello, Tags).
 	 *
 	 * Remember internationalisation when registering labels!
 	 */
 	public function __construct() {
-		// Instantiate the parent class, this contains the required hooks.
+		// Instantiate the parent class, this contains hooks for CPT and taxonomy registration.
 		parent::__construct();
 
 		/**

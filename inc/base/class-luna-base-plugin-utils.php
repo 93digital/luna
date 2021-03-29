@@ -1,6 +1,7 @@
 <?php
 /**
- * Luna config plugin utilities class.
+ * Luna base plugin utilities.
+ *
  * Uses plugin hooks to alter/update/extend some aspects of our most used plugins.
  *
  * Plugins include:
@@ -9,29 +10,30 @@
  * - Yoast
  *
  * @package luna
- * @subpackage luna-config
+ * @subpackage luna-base
  */
 
 /**
- * Plugin utilities class.
+ * Luna base plugin utilities class.
  */
-class Luna_Config_Plugin_Utilities {
+abstract class Luna_Base_Plugin_Utils {
 	/**
 	 * ACF Pro path.
 	 * @var string
 	 */
-	private $acf_pro_path = 'advanced-custom-fields-pro/acf.php';
+	protected $acf_pro_path = 'advanced-custom-fields-pro/acf.php';
 
 	/**
 	 * ACF path (the free one).
 	 * @var string
 	 */
-	private $acf_path = 'advanced-custom-fields/acf.php';
+	protected $acf_path = 'advanced-custom-fields/acf.php';
 
 	/**
-	 * Define plugin hooks on instantiation.
+	 * Instantiation (via child class).
+	 * Define required plugin hooks.
 	 */
-	public function __construct() {
+	protected function __construct() {
 		/**
 		 * ACF hooks.
 		 */
@@ -153,7 +155,7 @@ class Luna_Config_Plugin_Utilities {
 	 * @return string The custom Local JSON path for the theme.
 	 */
 	public function acf_json_save_location( $path ) {
-		return get_template_directory() . '/inc/_acf';
+		return get_template_directory() . '/_cache/acf-fields';
 	}
 
 	/**
@@ -167,7 +169,7 @@ class Luna_Config_Plugin_Utilities {
 	 * @return string Updated list of load paths including custom theme path.
 	 */
 	public function acf_json_load_location( $paths ) {
-		$paths[] = get_template_directory() . '/inc/_acf';
+		$paths[] = get_template_directory() . '/_cache/acf-fields';
 
 		return $paths;
 	}

@@ -17,6 +17,12 @@
  */
 abstract class Luna_Base_Cpts {
 	/**
+	 * Default post type WP_Post_Type object.
+	 * @var object
+	 */
+	public $post;
+
+	/**
 	 * Array of post types (including args) to register.
 	 * The array keys will be post type slugs.
 	 * The array values will be the post type args.
@@ -84,9 +90,9 @@ abstract class Luna_Base_Cpts {
 	];
 
 	/**
-	 * Abstract construct. Only available to inheriting class.
-   * Grabs all the registered taxonomies and attached them to their Luna cpt objects.
-	 * This is just done as a helper.
+	 * Instantiation (via child class).
+	 * Registers CPTs and taxonomies added within the child class.
+   * Then grabs all the registered taxonomies and attaches them to their Luna cpt objects.
 	 */
 	protected function __construct() {
 		// Register cpts and taxonomies.
@@ -95,8 +101,17 @@ abstract class Luna_Base_Cpts {
 		// Unregister default post types and txonomies (if required).
 		add_action( 'init', [ $this, 'unregister_cpts_and_taxonomies' ], 1 );
 
+		// Add a property containing a post type object for the default post type.
+		add_action( 'init', [ $this, 'get_default_post_type_object' ], 2 );
+
     // Attach registered taxonomies to the relevant post type objects.
 		add_action( 'init', [ $this, 'attach_taxonomies_to_post_types' ], 99 );
+
+		// Add the default post type property to this cpt object and add an options page.
+		add_action( 'acf/init', [ $this, 'register_cpt_options_pages' ] );
+
+		// Add a notice to the top of the Blog page notifying admin of the custom Post Settings page.
+		add_action( 'admin_notices', [ $this, 'add_blog_page_notice' ] );
   }
 
 	/**
@@ -179,7 +194,121 @@ abstract class Luna_Base_Cpts {
 		unset( $this->tax_remove_list );
 	}
 
-  /**
+	/**
+	 * 'init' action hook callback.
+	 * Attach a post type object for the defualt post type, Posts, to the CPT object as a property.
+	 */
+	public function get_default_post_type_object() {
+		$default_post_type = get_post_type_object( 'post' );
+		if ( $default_post_type instanceof WP_Post_Type ) {
+			// Add the WP_Post_Type object to the $post property.
+			$this->post = $default_post_type;
+		} else {
+			// Remove the property if posts has been unset (it really shouldn't have been...!).
+			unset( $this->post );
+		}
+	}
+
+	/**
+	 * Attaches WP_Taxonomy objects to each defined post type property of the child class.
+	 * This makes each CPTs taxonomy instantly available as part of the $luna object.
+	 */
+	public function attach_taxonomies_to_post_types() {
+		foreach ( get_object_vars( $this ) as $prop => $val ) {
+			if ( ! $val instanceof WP_Post_Type ) {
+				// We only want post type properties.
+				continue;
+			}
+
+			$this->{$prop}->taxonomies = get_object_taxonomies( $this->{$prop}->name, 'objects' );
+		}
+	}
+
+	/**
+	 * 'acf/init' action hook callback.
+	 * Register ACF options pages for all registered CPTs that have an archive page.
+	 * Also register an option page for the default post type.
+	 *
+	 * ACF or ACF Pro needs to be installed and active for this to work.
+	 */
+	public function register_cpt_options_pages() {
+		if ( ! function_exists( 'acf_add_options_page' ) ) {
+			// ACF not available.
+			return false;
+		}
+
+		foreach ( get_object_vars( $this ) as $post_type => $val ) {
+			if ( ! $val instanceof WP_Post_Type ) {
+				// We only want post type properties.
+				continue;
+			}
+
+			// If the CPT has an archive page or is the default post type then set up an options page.
+			if ( ! empty( $this->{$post_type}->has_archive ) || $post_type === 'post' ) {
+				$parent_slug = 'edit.php';
+				if ( $post_type !== 'post' ) {
+					// CPT parent slugs have a post_type arg.
+					$parent_slug .= '?post_type=' . $post_type;
+				}
+
+				// Register the options page and append to the post type property.
+				$this->{$post_type}->options_page = acf_add_options_page(
+					[
+						'post_id'     => $post_type . '-settings',
+						'page_title'  => $this->{$post_type}->label . ' Settings',
+						'parent_slug' => $parent_slug,
+						'menu_slug'   => $post_type . '-settings',
+					]
+				);
+			}
+		}
+	}
+	
+	/**
+	 * 'admin_notices' action hook callback.
+	 * Add a notice letting the WP user know about the custom Post Settings area.
+	 */
+	public function add_blog_page_notice() {
+		global $pagenow;
+		global $submenu;
+
+		// Check if this is the Blog page.
+		if (
+			$pagenow !== 'post.php' ||
+			empty( $_GET['post'] ) || // phpcs:ignore
+			$_GET['post'] !== get_option( 'page_for_posts' ) // phpcs:ignore
+		) {
+			// This is not the Blog admin page.
+			return;
+		}
+
+		// Also check if a custom options page has been set up for Posts.
+		if ( ! in_array( 'post-settings', wp_list_pluck( $submenu['edit.php'], 2 ) ) ) {
+			// The custom post settings page does not exist.
+			return;
+		}
+
+		ob_start();
+		?>
+		<div class="notice notice-info">
+			<p>
+				<?php
+				_e( // phpcs:ignore
+					sprintf( 
+						'Options for this page can be in the %sPost Settings options page%s',
+						'<a href="' . esc_url( admin_url( 'edit.php?page=post-settings' ) ) . '"><strong>',
+						'</strong></a>'
+					),
+					'luna'
+				);
+				?>
+			</p>
+		</div>
+		<?php
+		ob_get_flush();
+	}
+
+	/**
    * Luna wrapper for the core WordPress register_post_type() function.
 	 * This essentially works in the same way as WordPress' register_post_type() function.
    * Some extra, bespoke 93digtial functionality is layered on top within this method.
@@ -201,7 +330,7 @@ abstract class Luna_Base_Cpts {
 	 * @param array  $args Custom post type args.
 	 *               These will overwrite any matching arg in the $default_cpt_args property.
    */
- 	private function register_post_type( $post_type, $args = [] ) {
+	private function register_post_type( $post_type, $args = [] ) {
 		// Ensure the post type slug is properly slugified.
 		$post_type = sanitize_title( $post_type );
 
@@ -225,12 +354,6 @@ abstract class Luna_Base_Cpts {
 
 		// Register!
 		$this->{$post_type} = register_post_type( $post_type, $args );
-
-		// If the post type has an archive page then set up an options page (if ACF is active).
-		if ( $args['has_archive'] !== false ) {
-			// Set the returned options page settings array as a custom param of the WP_Post_Type class.
-			$this->{$post_type}->options_page = $this->register_cpt_options_page( $post_type, $plural );
-		}
 	}
 
 	/**
@@ -273,48 +396,6 @@ abstract class Luna_Base_Cpts {
 		// Register!
 		register_taxonomy( $taxonomy, $object_type, $args );
 	}
-
-	/**
-	 * Register an ACF options page for a custom post type.
-	 * This options page can be used to set archive page information for the CPT.
-	 *
-	 * ACF or ACF Pro needs to be installed and active for this to work.
-	 *
-	 * @param string $post_type The register custom post type slug.
-	 * @param string $plural The post type plural label.
-	 * @return array The option page settings.
-	 */
-	private function register_cpt_options_page( $post_type, $plural ) {
-		if ( ! function_exists( 'acf_add_options_page' ) ) {
-			// ACF not available.
-			return false;
-		}
-
-		// Regsiter the post type settings and return the settings array.
-		return acf_add_options_page(
-			[
-				'post_id'     => 'cpt-' . $post_type,
-				'page_title'  => $plural . ' Settings',
-				'parent_slug' => 'edit.php?post_type=' . $post_type,
-				'menu_slug'   => 'cpt-' . $post_type,
-			]
-		);
-	}
-
-	/**
-	 * Attaches WP_Taxonomy objects to each defined post type property of the child class.
-	 * This makes each CPTs taxonomy instantly available as part of the $luna object.
-	 */
-	public function attach_taxonomies_to_post_types() {
-		foreach ( get_object_vars( $this ) as $prop => $val ) {
-			if ( ! $val instanceof WP_Post_Type ) {
-				// We only want post type properties.
-				continue;
-			}
-
-			$this->{$prop}->taxonomies = get_object_taxonomies( $this->{$prop}->name, 'objects' );
-		}
-	}	
 
 	/**
 	 * Helper function to generate the plural version of a string.

@@ -10,5 +10,5 @@
  * @version v0.1
  */
 
-require_once 'inc/_config/class-luna-bootstrapper.php';
-new Luna_Bootstrapper();
+require_once 'inc/.config/class-luna-config.php';
+new Luna_Config();

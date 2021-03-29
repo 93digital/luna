@@ -30,6 +30,7 @@ final class Luna_Front_End_Hooks {
 	 */
 	public function example_front_end_hook() {
 		global $luna;
-		\luna\dump( get_class( $luna ) );
+		// \luna\dump( get_post_type_object( 'post' ) );
+		\luna\dump( $luna );
 	}
 }
