@@ -11,4 +11,4 @@
  */
 
 require_once 'inc/.config/class-luna-config.php';
-new Luna_Config();
+Luna_Config::get_instance();

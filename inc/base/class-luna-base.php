@@ -75,6 +75,10 @@ abstract class Luna_Base {
 		add_action( 'admin_init', [ $this, 'base_remove_comment_support' ] );
 		add_filter( 'manage_edit-post_columns', [ $this, 'base_remove_comment_columns' ] );
 
+		// Include the compiled SVG sprite sheet in the theme footer and admin footer.
+		add_action( 'wp_footer', [ $this, 'base_include_svg_sprites' ], 99 );
+		add_action( 'admin_footer', [ $this, 'base_include_svg_sprites' ] );
+
 		// Disable emojis.
 		add_action( 'init', [ $this, 'base_disable_wp_emojicons' ] );
 
@@ -370,6 +374,22 @@ abstract class Luna_Base {
 	public function base_remove_comment_columns( $columns ) {
 		unset( $columns['comments'] );
 		return $columns;
+	}
+
+	/**
+	 * 'wp_footer' action hook callback.
+	 * Add the compiled SVG spritesheet to the footer of the HTML doc.
+	 */
+	public function base_include_svg_sprites() {
+		// Sprite sheet filepath.
+		$filepath = get_template_directory() . '/dist/symbol/svg/sprite.symbol.svg';
+
+		// Include it if it exists.
+		if ( file_exists( $filepath ) ) {
+			echo '<div class="svg-sprite" style="display: none">';
+			require_once $filepath; // phpcs:ignore
+			echo '</div>';
+		}
 	}
 
 	/**

@@ -78,6 +78,49 @@ abstract class Luna_Base_Utils {
 	}
 
 	/**
+	 * Return optimised image markup.
+	 * This works in tandem with the npm LazyLoad image package which is integrated into the theme.
+	 *
+	 * @param int|string $id The attachment ID or file URL for the image.
+	 * @param string $size The image size (defaults to 'large').
+	 * @param string $size_retina Optional image size (defaults to false).
+	 * @param string $css_class CSS class name for the <img> tag.
+	 * @param bool $echo Whether to output the resulting SVG markup.
+	 */
+	public function image( $id_or_url, $size = 'large', $size_retina = false, $class = '', $echo = true ) {
+		$atts = [];
+
+		// Determine if and ID or URL has been passed.
+		$url = is_int( $id_or_url ) ? wp_get_attachment_image_url( $id_or_url, $size ) : $id_or_url;
+		if ( is_admin() ) {
+			$atts['src'] = esc_url( $url );
+		} else {
+			$atts['data-src'] = esc_url( $url );
+		}
+
+		// Set the srcset if required.
+		if ( $size_retina && is_int( $id_or_url ) ) {
+			$url_retina          = wp_get_attachment_image_url( $id_or_url, $size_retina );
+			$atts['data-srcset'] = $url . ' 1x, ' . $url_retina . ' 2x';
+		}
+
+		// Add other required image attributes.
+		$atts['class'] = $class . ' lazy';
+		$atts['alt']   = is_int( $id_or_url )
+			? get_post_meta( $id, '_wp_attachment_image_alt', true )
+			: '';
+		
+		// Create the image element and either return or echo it.
+		$image_elem = '<img ' . $this->parse_atts_array( $atts ) . ' />';
+
+		// Echo and return.
+		if ( $echo ) {
+			echo $image_elem; // phpcs:ignore
+		}
+		return $image_elem;
+	}
+
+	/**
 	 * Check to see if youtube video.
 	 *
 	 * @param  string $url video link.
@@ -85,6 +128,25 @@ abstract class Luna_Base_Utils {
 	 */
 	public function is_youtube_url( $url ) {
 		return (bool) preg_match( '#^https?://(?:www\.)?youtube.com#', $url );
+	}
+
+	/**
+	 * Parse an associative array into a HTML attributes string.
+	 * @example $key="$value"
+	 *
+	 * @param array $atts_array An $atts => $val key value pair associative array.
+	 * @return array A string of HTML attributes.
+	 */
+	public function parse_atts_array( $atts_array ) {
+		return implode( ' ',
+			array_map(
+				function( $att, $val ) {
+					return $att . '="' . esc_attr( $val ) . '"';
+				},
+				array_keys( $atts ),
+				$atts
+			)
+		);
 	}
 
 	/**
@@ -157,6 +219,63 @@ abstract class Luna_Base_Utils {
 		}
 
 		return $url;
+	}
+
+	/**
+	 * Return an SVG as markup.
+	 * Remember to add internationalisation when adding a title and description.
+	 *
+	 * @param string $icon The icon filename (without the file extension).
+	 * @param string $title An optional SVG title.
+	 * @param string $description An optional SVG description.
+	 * @param bool $echo Whether to output the resulting SVG markup.
+	 */
+	public function svg( $icon, $title = '', $description = '', $echo = true ) {
+		// Set default atts.
+		$atts = [
+			'aria-hidden' => 'true',
+			'class'       => 'svg-icon svg-icon--' . $icon,
+			'role'        => 'img'
+		];
+
+		// Update the aria attributes if a title has been set.
+		if ( $title ) {
+			$unique_id = uniqid();
+			unset( $atts['aria-hidden'] );
+			$atts['aria-labelledby'] = 'title-' . $unique_id;
+
+			// Update aria-labelledby if description has been set.
+			if ( $description ) {
+				$atts['aria-labelledby'] .= ' desc-' . $unique_id;
+			}
+		}
+
+		// Parse the SVG atts into a string.
+		$markup = '<svg ' . $this->parse_atts_array( $atts ) . '>';
+
+		// Add title tag.
+		if ( $title ) {
+			$markup .= '<title id="title-' . $unique_id . '">' . esc_html( $title ) . '</title>';
+
+			// Add decription tag.
+			if ( $description ) {
+				$markup .= '<desc id="desc-' . $unique_id . '">' . esc_html( $description ) . '</desc>';
+			}
+		}
+
+		/**
+		 * Add use tag and the closing SVG tag.
+		 * The whitespace around `<use>` is intentional - it is a work around to a keyboard navigation bug in Safari 10.
+		 * @see https://core.trac.wordpress.org/ticket/38387.
+		 */
+		$markup .= ' <use href="#' . esc_html( $icon ) . '" xlink:href="#' . esc_html( $icon ) . '"></use> ';
+		$markup .= '</svg>';
+
+		// Echo and return.
+		if ( $echo ) {
+			echo $markup; // phpcs:ignore
+		}
+		return $svg;
 	}
 
   /**

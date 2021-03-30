@@ -13,25 +13,27 @@
  */
 final class Luna_config {
 	/**
-   * Checks if the class has already been instantiated.
-   * @var bool
-   */
-  private static $is_instantiated = false;
+	 * Will contain a single instance of the class.
+	 * @var object Luna_Config
+	 */
+	private static $instance;
+
+	/**
+	 * Creates or fetches an instance of the config class.
+	 * Uses the singleton pattern to ensure only one instance is created.
+	 */
+	public static function get_instance() {
+		if ( ! isset( self::$instance ) ) {
+			self::$instance = new self();
+		}
+		return self::$instance;
+	}
 
 	/**
 	 * Run theme configuration!
+	 * This can only be done via the get_instance method to ensure only one instance is created.
 	 */
-	public function __construct() {
-		// Has the theme config already been run?
-		if ( self::$is_instantiated ) {
-			// The config must only be run ONCE!
-			trigger_error(
-				'<strong>Luna_config</strong> can only be instantiated ONCE!',
-				E_USER_ERROR
-			);
-		}
-		self::$is_instantiated = true;
-
+	private function __construct() {
 		/**
 		 * Luna debug.
 		 * This constant is used to check if the site is being run in development mode.
