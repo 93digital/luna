@@ -115,7 +115,11 @@ Two procedural dumper functions, `dump()` and `dump_to_file()`, are available fo
 
 #### Dumper function
 
+<<<<<<< HEAD
 Dumps formatted data to the screen using the HTML element.
+=======
+Dumps formatted data to the screen using the HTML <pre> element.
+>>>>>>> 11680b125f11ddda3e4b5160d3762b819b327157
 
 **Usage:**
 ```php
