@@ -25,11 +25,13 @@ final class Luna extends Luna_Base {
 	 */
 	public $global_options;
 
+	public $guteneberg;
+
 	/**
-	 * A Luna_Plugin_Utils object.
+	 * A Luna_Plugin_Helpers object.
 	 * @var object
 	 */
-	public $plugin_utils;
+	public $plugin_helpers;
 
 	/**
 	 * A Luna_Utils object.
@@ -50,7 +52,8 @@ final class Luna extends Luna_Base {
 		 */
 		$this->cpts           = new Luna_Cpts();
 		$this->global_options = new Luna_Global_Options();
-		$this->plugin_utils   = new Luna_Plugin_Utils();
+		$this->gutenberg      = new Luna_Gutenberg();
+		$this->plugin_helpers = new Luna_Plugin_Helpers();
 		$this->utils          = new Luna_Utils();
 	}
 }

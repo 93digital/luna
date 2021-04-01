@@ -144,7 +144,7 @@ abstract class Luna_Base_Cpts {
 	 * Add a taxonomy to the list of taxonomies to unregister.
 	 * This method does not need to be called within a hook callback.
 	 *
-	 * @param string $taxonomy A taxonomy slug.
+	 * @param string       $taxonomy A taxonomy slug.
 	 * @param string|array $object_type A single object type or a list as an array.
 	 */
 	protected function remove_taxonomy( $taxonomy, $object_type ) {
@@ -313,16 +313,6 @@ abstract class Luna_Base_Cpts {
 	 * This essentially works in the same way as WordPress' register_post_type() function.
    * Some extra, bespoke 93digtial functionality is layered on top within this method.
 	 * Specifically custom default args and the creation of a CPT options page.
-	 *
-	 * There are some default args added here which override the WordPress default args:
-	 * @var string has_archive   A plurlised slug of the passed post type (instead of false).
-	 * @var string labels        An array automatically generated singular and plural labels.
-	 * @var string menu_icon     The portfolio icon (instead of the pin).
-	 * @var int    menu_position Set to 20, just below pages (instead of the bottom of the menu).
-	 * @var array  rewrite       'with_front' set to false (instead of true).
-	 * @var bool   show_in_rest  Set to true for Gutenberg (instead of false).
-	 * @var array  supports      Added 'page-attributes', 'thumbnail' and 'revisions' to the default.
-	 *                           (default is 'title' and 'editor').
    *
    * @see https://developer.wordpress.org/reference/functions/register_post_type/
 	 *
@@ -361,16 +351,13 @@ abstract class Luna_Base_Cpts {
 	 * This essentially works in the same way as WordPress' register_taxonomy() function.
    * Some extra, bespoke 93digtial functionality is layered on top within this method.
 	 * Specifically custom default args.
-	 *
-	 * There are some default args added here which override the WordPress default args:
-	 * @var
 	 * 
 	 * @see https://developer.wordpress.org/reference/functions/register_post_type/
 	 * 
 	 * @param string       $taxonomy Custom taxonomy slug.
 	 * @param array|string $object_type An array of multiple taxonomy slugs or a single slug string.
-	 * @param array        $args Custom taxonomy args. See the above list for a list of defaults.
-	 * @return $tax        A WP_Taxonomy object on success, WP_Error on failure.
+	 * @param array        $args Custom taxonomy args.
+	 * 										 These will overwrite any matching arg in the $default_tax_args property.
 	 */
 	private function register_taxonomy( $taxonomy, $object_type, $args = [] ) {
 		// Ensure the post type slug is properly slugified.

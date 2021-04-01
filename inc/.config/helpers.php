@@ -10,7 +10,7 @@ namespace luna;
 
 /**
  * Data dumper.
- * Outputs a formated data dump to the screen.
+ * Outputs a formatted data dump to the screen.
  *
  * @param mixed  $data The data to dump.
  * @param bool   $exit Whether to exit the script after output.
@@ -37,7 +37,7 @@ function dump( $data, $exit = false, $styles = '' ) {
  * This can be very useful when debuggin PHP called asynchronously. 
  *
  * @param mixed  $data The data to dump.
- * @param string $filename A custom dump file filename
+ * @param string $filename A custom dump file filename.
  */
 function dump_to_file( $data, $filename = 'dump' ) {
 	$dump_dir = get_template_directory() . '/_dump/';

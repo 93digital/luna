@@ -214,11 +214,30 @@ class Luna_Config_Errors {
     	'overflow'    => 'auto',
 		];
 
+		$image_styles = [
+			'position'   => 'absolute',
+			'top'        => '0',
+			'left'       => '50%',
+			'max-width'  => '500px',
+			'max-height' => '300px',
+			'transform'  => 'translateX(-50%)'
+		];
+
+		$image_file = 'error';
+		if ( $error_type === 'Warning' ) {
+			$image_file = 'warning';
+		} elseif ( $error_type === 'Notice' ) {
+			$image_file = 'notice';
+		}
+
 		// Output the error.
 		ob_start();
 		?>
 		<div style="<?php echo esc_attr( $this->array_to_css( $wrapper_styles ) ); ?>">
 			<div style="<?php echo esc_attr( $this->array_to_css( $background_styles ) ); ?>"></div>
+			<img
+				src="<?php echo esc_attr( get_template_directory_uri() . '/assets/images/' . $image_file . '.gif' ); ?>"
+				style="<?php echo esc_attr( $this->array_to_css( $image_styles ) ); ?>" />
 			<div style="<?php echo esc_attr( $this->array_to_css( $message_styles ) ); ?>">
 				<?php echo esc_html( $error_type ); ?>:
 				<strong><?php echo nl2br( esc_html( $error_string ) ); ?></strong><br /><br />
