@@ -1,6 +1,6 @@
 <?php
 /**
- * Luna base plugin utilities.
+ * Luna base plugin helpers.
  *
  * Uses plugin hooks to alter/update/extend some aspects of our most used plugins.
  *
@@ -14,9 +14,9 @@
  */
 
 /**
- * Luna base plugin utilities class.
+ * Luna base plugin helpers class.
  */
-abstract class Luna_Base_Plugin_Utils {
+abstract class Luna_Base_Plugin_Helpers {
 	/**
 	 * ACF Pro path.
 	 * @var string
@@ -71,7 +71,7 @@ abstract class Luna_Base_Plugin_Utils {
 		// Move the Yoast SEO metabox to the bottom of post.php admin pages.
 		add_filter( 'wpseo_metabox_prio', [ $this, 'yoast_metabox_priority' ] );
 
-		// Remove Yoast coluns from all edit.php admin pages.
+		// Remove Yoast columns from all edit.php admin pages.
 		add_filter( 'manage_edit-post_columns', [ $this, 'yoast_remove_columns' ], 99 );
 		add_filter( 'manage_edit-page_columns', [ $this, 'yoast_remove_columns' ], 99 );
 	}

@@ -19,8 +19,8 @@ abstract class Luna_Base_Utils {
 	 * Removes the filepath (if any), file extension (if any)
 	 * and replaces '-' and '_' with spaces.
 	 *
-	 * @param string $filepath The filename to parse.
-	 * @return string $text Human readbale string.
+	 * @param string $filepath The filename to convert.
+	 * @return string $text Human readable string.
 	 */
 	public function filename2text( $filepath ) {
 		$filepath_parts = explode( '/', $filepath );
@@ -48,14 +48,14 @@ abstract class Luna_Base_Utils {
 		// set a default value if there is no matching primary term.
 		$primary_term = ( count( $terms ) > 0 ) ? $terms[0] : false;
 
-			if ( is_array( $terms ) ) {
-				foreach ( $terms as $term ) {
-					if ( $term->term_id == $primary_term_id ) {
-						$primary_term = $term;
-						break;
-					}
+		if ( is_array( $terms ) ) {
+			foreach ( $terms as $term ) {
+				if ( $term->term_id == $primary_term_id ) {
+					$primary_term = $term;
+					break;
 				}
 			}
+		}
 
 		return $primary_term;
 	}
@@ -64,6 +64,7 @@ abstract class Luna_Base_Utils {
 	 * Get YouTube ID from URL.
 	 *
 	 * @param string $url video url.
+	 * @return string|bool Either a YouTube ID on success or false on failure.
 	 */
 	public function get_youtube_id( $url ) {		
 		$pattern = '%(?:youtube(?:-nocookie)?\.com/(?:[^/]+/.+/|(?:v|e(?:mbed)?)/|.*[?&]v=)|youtu\.be/)([^"&?/ ]{11})%i';
@@ -81,11 +82,12 @@ abstract class Luna_Base_Utils {
 	 * Return optimised image markup.
 	 * This works in tandem with the npm LazyLoad image package which is integrated into the theme.
 	 *
-	 * @param int|string $id The attachment ID or file URL for the image.
-	 * @param string $size The image size (defaults to 'large').
-	 * @param string $size_retina Optional image size (defaults to false).
-	 * @param string $css_class CSS class name for the <img> tag.
-	 * @param bool $echo Whether to output the resulting SVG markup.
+	 * @param int|string  $id_or_url The attachment ID or file URL for the image.
+	 * @param string      $size The image size (defaults to 'large').
+	 * @param string|bool $size_retina Optional image size (defaults to false).
+	 * @param string      $css_class CSS class names for the <img> tag.
+	 * @param bool        $echo Whether to echo the resulting <img> tag.
+	 * @return string $image_elem The image element markup.
 	 */
 	public function image( $id_or_url, $size = 'large', $size_retina = false, $class = '', $echo = true ) {
 		$atts = [];
@@ -123,8 +125,8 @@ abstract class Luna_Base_Utils {
 	/**
 	 * Check to see if youtube video.
 	 *
-	 * @param  string $url video link.
-	 * @return boolean
+	 * @param  string $url A URL to check.
+	 * @return boolean Whetyehr the URL is from YouTube.
 	 */
 	public function is_youtube_url( $url ) {
 		return (bool) preg_match( '#^https?://(?:www\.)?youtube.com#', $url );
@@ -152,7 +154,8 @@ abstract class Luna_Base_Utils {
 	/**
 	 * Strips slashes and http:// or https:// from a url.
 	 *
-	 * @param strong $url url we want to strip
+	 * @param string $url URL we want to strip.
+	 * @return string $url A http stripped URL.
 	 */
 	public function remove_http( $url ) {
 		$disallowed = [ 'http://', 'https://' ];
@@ -165,7 +168,7 @@ abstract class Luna_Base_Utils {
 	}
 
 	/**
-	 * Displays a summary of the searched query.
+	 * Echos a summary of the searched query.
 	 *
 	 * @param string $template output template.
 	 */
@@ -203,7 +206,7 @@ abstract class Luna_Base_Utils {
 	 * @param string $url URL to remove parameters from.
 	 * @return string $url URL with parameters removed.
 	 */
-	public function strip_url_parameters( string &$url ) {
+	public function strip_url_parameters( $url ) {
 		// order of elements here is important, we want to check for a ? first.
 		$str_pos = [
 			'question-mark' => strpos( $url, '?' ),
@@ -222,13 +225,13 @@ abstract class Luna_Base_Utils {
 	}
 
 	/**
-	 * Return an SVG as markup.
-	 * Remember to add internationalisation when adding a title and description.
+	 * Return an SVG as markup for an SVG placed in /assets/svg.
 	 *
 	 * @param string $icon The icon filename (without the file extension).
 	 * @param string $title An optional SVG title.
 	 * @param string $description An optional SVG description.
-	 * @param bool $echo Whether to output the resulting SVG markup.
+	 * @param bool   $echo Whether to echo the resulting SVG markup.
+	 * @return string SVG markup.
 	 */
 	public function svg( $icon, $title = '', $description = '', $echo = true ) {
 		// Set default atts.
@@ -255,17 +258,18 @@ abstract class Luna_Base_Utils {
 
 		// Add title tag.
 		if ( $title ) {
-			$markup .= '<title id="title-' . $unique_id . '">' . esc_html( $title ) . '</title>';
+			$markup .= '<title id="title-' . $unique_id . '">' . esc_html__( $title, 'luna' ) . '</title>';
 
 			// Add decription tag.
 			if ( $description ) {
-				$markup .= '<desc id="desc-' . $unique_id . '">' . esc_html( $description ) . '</desc>';
+				$markup .= '<desc id="desc-' . $unique_id . '">' . esc_html__( $description, 'luna' ) . '</desc>';
 			}
 		}
 
 		/**
 		 * Add use tag and the closing SVG tag.
 		 * The whitespace around `<use>` is intentional - it is a work around to a keyboard navigation bug in Safari 10.
+		 *
 		 * @see https://core.trac.wordpress.org/ticket/38387.
 		 */
 		$markup .= ' <use href="#' . esc_html( $icon ) . '" xlink:href="#' . esc_html( $icon ) . '"></use> ';
@@ -281,9 +285,8 @@ abstract class Luna_Base_Utils {
   /**
 	 * Truncate text to a certian character length.
 	 *
-	 * @param string $string The string to truncate (if required).
+	 * @param string $string The string to truncate.
 	 * @param int    $length The character length of the truncated string.
-	 *
 	 * @return string $string Truncated string.
 	 */
 	public function truncate_text( $string, $length = 100 ) {

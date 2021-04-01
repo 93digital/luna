@@ -135,9 +135,9 @@ abstract class Luna_Base_Global_Options {
 	 * Fetch custom Civic Cookie data from Global Options, including:
 	 * @var string $license_key
 	 * @var string $product ('COMMUNITY', 'PRO' or 'PRO_MULTISITE')
-	 * @var array $cookies_info (group field)
+	 * @var array  $cookies_info (group field)
 	 *   @var string 'label'
-	 *   @var array 'cookies' (e.g. '_ga')
+	 *   @var array  'cookies' (e.g. '_ga')
 	 *   @var string 'code'
 	 *
 	 * @param array $data The default localised theme data.

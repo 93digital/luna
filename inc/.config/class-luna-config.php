@@ -47,12 +47,12 @@ final class Luna_config {
 		 */
 		$config_path = get_template_directory() . '/inc/.config';
 
+		// Require config helper functions script (contains data dumpers etc.).
+		require_once $config_path . '/helpers.php';
+
 		// Config classes.
 		include_once $config_path . '/class-luna-config-errors.php';
 		new Luna_Config_Errors();
-		
-		// Require config helper functions script (contains data dumpers etc.).
-		require_once $config_path . '/helpers.php';
 
 		// Include the Composer autoloader.
 		@include_once get_template_directory() . '/vendor/autoload.php'; // phpcs:ignore
@@ -61,21 +61,25 @@ final class Luna_config {
 		 * Luna autoloader.
 		 */
 		spl_autoload_register( [ $this, 'luna_autoloader' ] );
-		
+
 		// Instantiate the main Luna theme object.
 		$GLOBALS['luna'] = new Luna();
 		global $luna;
 	}
 
 	/**
-	 * Checks whether the site is running in a local environment.
-	 * Checks for localhost in the URL to decide this.
-	 * Also will not be set when working directly in the starter theme.
+	 * Checks whether the site is running in an environment where debugging is allowed.
+	 * These environments are:
+	 * - localhost
+	 * - sites using the '.wpengine.com' domain
+	 * - Any environment running the base starter theme (domain containing 'luna').
 	 *
 	 * @return bool Whether the site is in 'debug mode'.
 	 */
 	private function is_debug_mode() {
-		return stripos( home_url(), 'localhost' ) && stripos( home_url(), 'luna' );
+		return stripos( home_url(), 'localhost' )
+			|| stripos( home_url(), 'luna' )
+			|| stripos( home_url(), '.wpengine.com' );
 	}
 
 	/**
