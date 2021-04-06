@@ -22,7 +22,7 @@ final class Luna_Shortcodes {
     /**
 		 * @example Add a shortcode.
 		 */
-		add_shortcode( 'example-luna-shortcode', [ $this, 'exmaple_luna_shortcode_callback' ] );
+		add_shortcode( 'example-luna-shortcode', [ $this, 'example_luna_shortcode_callback' ] );
 	}
 
 	/**
@@ -32,7 +32,7 @@ final class Luna_Shortcodes {
 	 * @param array $atts Shortcode attributes.
 	 * @param array $content Shortcode content.
 	 */
-	public function exmaple_luna_shortcode_callback( $atts = [], $content = '' ) {
+	public function example_luna_shortcode_callback( $atts = [], $content = '' ) {
 		return "<strong>Hello, Moon!</strong>";
 	}
 }

@@ -3,7 +3,7 @@
  * Luna front end only hooks.
  *
  * All hooks required for only the front end (not the admin area) should be added to this class.
- * Hooks required for the front end and AJAX calls should be added to the genernal hooks class.
+ * Hooks required for the front end and AJAX calls should be added to the general hooks class.
  *
  * @package luna
  * @subpackage luna-hooks

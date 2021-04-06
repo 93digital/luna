@@ -1,21 +1,39 @@
-# Luna Starter Theme
+# Luna
 
-WordPress starter theme by the 93Digital's development team, the boilerplate for all our WordPress projects.
-Uses SASS, PostCSS, HTML5 & bundles using [WordPress scripts](https://github.com/WordPress/gutenberg/blob/223b5ea26f79eed0fd8bd278e692ce1f99645bc5/packages/scripts/README.md) & Webpack.
+***v0.2***
 
-## Node
+A WordPress starter theme lovingly created by the 93digital development team. It is the boilerplate for all our WordPress projects from April 2021 onwards and replaces the older starter theme, Stella.
+
+Luna aims to clean up a lot of the legacy code which had grown in Stella over the years whilst also reinventing the theme to natively allow Gutenberg block development.
+
+## Installation
+
+Luna is available on 93digital's private Bitbucket repository at `https://bitbucket.org/93developers/luna-starter-theme/` and can be cloned via `git clone git@93digital.git:wordpress/starter-theme.git`.
+
+## Requirements
+
+### PHP
+Required PHP version 7.0 or later. Untested with version 8.
+
+### Node
 Use node version 14 or later.
 
-## NPM
-This theme uses npm to include third party modules as well as for bundling assets. This theme requires npm version 6 or later. 
+### npm
+The theme uses npm to include third party modules as well as for bundling assets. This theme requires npm version 6 or later.
+
 To install the theme dependencies, run: `npm install` or `npm i`.
 
-### Available Scripts
+### Composer
+Composer is required to install third-party PHP packages. This is not imperative as the core theme does not depend on third-party packages, however the packages listed in `composer.json` will likely be useful with theme development.
 
-#### `build`
+To install Composer packages, run: `composer update`.
+
+## Available npm scripts
+
+### npm build
 Transform your code to provide it's ready for production and optimized, needed to run before deployment.
 
-*Example*
+**Example:**
 ```json
 {
   "scripts": {
@@ -35,10 +53,10 @@ Transform your code to provide it's ready for production and optimized, needed t
 - `npm run build:postcss` - Runs PostCSS through our main Theme and Editor stylesheets for better optimization. 
 
 
-#### `watch`
+### npm watch
 Watches your code and generates development friendly assets not meant for production. The script will automatically generate new files if you make changes.
 
-*Example*
+**Example:**
 ```json
 {
   "scripts": {
@@ -55,67 +73,20 @@ Watches your code and generates development friendly assets not meant for produc
 - `npm run watch:svg` - Compiles and builds an svg sprite.
 - `npm run watch:scripts` - Specifically watches only JavaScript assets.
 
-## Stylelint
+## Configurations
+
+### Stylelint
 Extends on Stylelint SASS config [Stylelint](https://github.com/bjankord/stylelint-config-sass-guidelines). See `.stylelintrc.json` for more details.
 
-## ESlint
+### ESlint
 Extends on ESlint reccomended & react config [ESLint](https://eslint.org/). See `.eslintrc.json` for more details.
 
-## PostCSS
-We use several PostCSS plugins to enhance our CSS and allow us to use the very latest features. See `postcss.config.js` for the full list.
+### PostCSS
+We use several [PostCSS](https://postcss.org/) plugins to enhance our CSS and allow us to use the very latest features. See `postcss.config.js` for the full list.
 
-## Gutenberg Development
-We have two main methods of Gutenberg development. Standard block creation using the default WordPress scripts and ACF (Advanced Custom Fields) Blocks.
+### PHP Code Sniffer / WordPress PHP coding standards
+@todo (https://make.wordpress.org/core/handbook/best-practices/coding-standards/php/ - needs configuring).
 
-### Standard block creation
-Standard block creation utilizing the `@wordpress` gutenberg packages like `registerBlockType`. See the [Block Editor Handbook](https://developer.wordpress.org/block-editor/developers/) for more information.
+## Luna updates
 
-*File Structure*
-```
-├── js
-│   ├── blocks
-│   │   ├── blocks
-│   │   │   └── m01-example      // Single block directory.
-│   │   │       ├── index.js     // Register block type.
-│   │   │       ├── edit.js      // Edit function/output BackEnd.
-│   │   │       ├── save.js      // Save function/output FrontEnd.
-│   │   │       └── insepctor.js // Sidebar functionality.
-│   │   ├── blocks.js            // Import blocks here.
-│   │   └── unregister-styles.js // Unregister default block styles.
-```
-
-### ACF blocks
-ACF blocks use custom fields allowing developers more familiar with PHP development to hit the ground running. See [ACF Blocks](https://www.advancedcustomfields.com/resources/blocks/) for more information.
-
-*File Structure*
-```
-└── acf-blocks
-    └── m01-example.php // Block code for both  Front & BackEnd.
-```
-
-## Advanced Usage
-
-### Using SVG
-
-*JavaScript (Gutenberg) Example*
-
-```javascript
-import { ReactComponent as Icon } from './icon.svg';
-
-const App = () => (
-  <article className="m01">
-    <Icon />
-  </article>
-);
-```
-
-*PHP Example*
-
-```php
-<?php use function Luna\Icons\svg; ?>
-
-<article class="m01">
-  <?php svg( 'icon' ); ?>
-</article>
-?>
-```
+When updating the core codebase of Luna, please update the version at the top of this file and in `readme.txt` and `/sass/style.scss` 

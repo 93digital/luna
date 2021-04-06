@@ -15,7 +15,7 @@
 final class Luna_Gutenberg extends Luna_Base_Gutenberg {
   /**
    * Instantiation.
-   * Call the parent's construct which regsiters scripts and sets a few options.
+   * Call the parent's construct which registers scripts and sets a few options.
    */
   public function __construct() {
     // Instantiate base Gutenberg functionality.

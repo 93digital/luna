@@ -126,7 +126,7 @@ abstract class Luna_Base_Utils {
 	 * Check to see if youtube video.
 	 *
 	 * @param  string $url A URL to check.
-	 * @return boolean Whetyehr the URL is from YouTube.
+	 * @return boolean Whether the URL is from YouTube.
 	 */
 	public function is_youtube_url( $url ) {
 		return (bool) preg_match( '#^https?://(?:www\.)?youtube.com#', $url );
@@ -168,7 +168,7 @@ abstract class Luna_Base_Utils {
 	}
 
 	/**
-	 * Echos a summary of the searched query.
+	 * Echo a summary of the searched query.
 	 *
 	 * @param string $template output template.
 	 */
@@ -260,7 +260,7 @@ abstract class Luna_Base_Utils {
 		if ( $title ) {
 			$markup .= '<title id="title-' . $unique_id . '">' . esc_html__( $title, 'luna' ) . '</title>';
 
-			// Add decription tag.
+			// Add description tag.
 			if ( $description ) {
 				$markup .= '<desc id="desc-' . $unique_id . '">' . esc_html__( $description, 'luna' ) . '</desc>';
 			}
@@ -283,7 +283,7 @@ abstract class Luna_Base_Utils {
 	}
 
   /**
-	 * Truncate text to a certian character length.
+	 * Truncate text to a certain character length.
 	 *
 	 * @param string $string The string to truncate.
 	 * @param int    $length The character length of the truncated string.

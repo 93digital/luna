@@ -22,7 +22,7 @@ final class Luna_Global_Options extends Luna_Base_Global_Options {
       return;
 		}
 
-		// Regisyer the base Global Options.
+		// Register the base Global Options.
 		parent::__construct();
 
 		/**

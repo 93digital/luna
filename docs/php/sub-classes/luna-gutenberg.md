@@ -1,16 +1,17 @@
 # Luna Gutenberg
 
-All Gutenberg related PHP including custom theme support, adding block categories and registering ACF blocks should be done in the `Luna_Gutenberg` class.
+All Gutenberg related PHP including custom theme support, adding block categories and registering ACF blocks should be done in the `Luna_Gutenberg` class (found in `/inc/class-luna-gutenberg.php`).
 
 The parent class `Luna_Base_Gutenberg` adds some general theme Gutenberg setup, including the enqueuing of Gutenberg-specific scripts.
 
 ## ACF blocks
 
-Should the site require a large number of ACF blocks it would be advised to create a new sub-class, e.g. `Luna_Gutenberg_Acf_Blocks`. The instantiation of this new class should be done within the `__construct()` of `Luna` alongside the rest of the sub classes.
+Should the site require a large number of ACF blocks it would be advised to create a new sub-class, e.g. `Luna_Gutenberg_Acf_Blocks`. The instantiation of this new class should be done within the `__construct()` of `Luna` or `Luna_Gutenberg` and the class file should reside in the root of the `/inc` directory.
 
-Anytime ACF blocks are used, be sure to check that ACF is installed and active before using the register block function.
+> *Note:*<br />
+>Anytime ACF blocks are used, be sure to check that ACF is installed and active before using the register block function!
 
-### Regsiter ACF blocks
+### Register ACF blocks
 
 **Usage:**
 ```php

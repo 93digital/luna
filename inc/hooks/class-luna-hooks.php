@@ -2,7 +2,7 @@
 /**
  * Luna general hooks class.
  * 
- * All hooks requried for both the front and back end should be added to this class.
+ * All hooks required for both the front and back end should be added to this class.
  *
  * @package luna
  * @subpackage luna-hooks

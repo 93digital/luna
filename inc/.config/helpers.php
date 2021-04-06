@@ -34,7 +34,7 @@ function dump( $data, $exit = false, $styles = '' ) {
 /**
  * File data dumper.
  * Writes a dump of data to a file in the /_dump relative to the theme root.
- * This can be very useful when debuggin PHP called asynchronously. 
+ * This can be very useful when debugging PHP called asynchronously. 
  *
  * @param mixed  $data The data to dump.
  * @param string $filename A custom dump file filename.
@@ -47,7 +47,7 @@ function dump_to_file( $data, $filename = 'dump' ) {
 		mkdir( $dump_dir );
 	}
 
-	// Open a filestream for writing.
+	// Open a file stream for writing.
 	$file = fopen( get_stylesheet_directory() . '/_dump/_' . $filename, 'w' ); // phpcs:ignore
 
 	// Take a dump...

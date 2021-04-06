@@ -63,7 +63,7 @@ abstract class Luna_Base_Global_Options {
 		add_filter( 'luna_localize_script', [ $this, 'localise_civic_data' ] );
 
 		// Register Google Maps API script.
-		add_filter( 'luna_register_script', [ $this, 'register_google_maps_api_script' ] );
+		add_filter( 'luna_enqueue_script', [ $this, 'register_google_maps_api_script' ] );
 
 		// Add any custom header scripts.
 		add_action( 'wp_head', [ $this, 'add_custom_header_scripts' ] );
@@ -73,6 +73,9 @@ abstract class Luna_Base_Global_Options {
 
 		// Add any custom footer scripts.
 		add_action( 'wp_footer', [ $this, 'add_custom_footer_scripts' ] );
+
+		// Add required security headers to the front end.
+		add_action( 'send_headers', [ $this, 'add_security_headers' ], 0 );
 	}
 
 	/**
@@ -182,10 +185,10 @@ abstract class Luna_Base_Global_Options {
 	}
 
 	/**
-	 * 'luna_register_script' filter hook callback.
+	 * 'luna_enqueue_script' filter hook callback.
 	 * Register the Google Maps API script if an API key has been provided in Global Options.
 	 *
-	 * @param array $deps Main theme script dependecies.
+	 * @param array $deps Main theme script dependencies.
 	 * @return array $deps Script dependencies with GMaps added, if an API key is found.
 	 */
 	public function register_google_maps_api_script( $deps ) {
@@ -253,5 +256,68 @@ abstract class Luna_Base_Global_Options {
 		echo '<!-- Custom Footer Code -->';
 		echo $footer_scripts; // phpcs:ignore
 		echo '<!-- End Custom Footer Code -->';
+	}
+
+	/**
+	 * 'security_headers' action hook callback.
+	 * Add the security headers set in Global Options.
+	 */
+	public function add_security_headers() {
+		if ( is_admin() ) {
+			// Security headers can cause issues in the admin area.
+			return;
+		}
+
+		
+		// HSTS security header.
+		$hsts = get_field( 'hsts_header', 'general_options' );
+		if ( $hsts ) { 
+			header( 'Strict-Transport-Security: max-age=31536000;' );
+		}
+		
+		// X-Frame-Options security header.
+		$x_frame_options = get_field( 'x-frame-options_header', 'general_options' );
+		if ( $x_frame_options ) {
+			header( 'X-Frame-Options: SAMEORIGIN' );
+		}
+		
+		// X-XSS-Protection security header.
+		$x_xss_protection        = get_field( 'x-xss-protection_header', 'general_options' );
+		if ( $x_xss_protection ) {
+			header( 'X-XSS-Protection: 1; mode=block' );
+		}
+		
+		// X-Content-Type-Options security header.
+		$x_content_type_options = get_field( 'x-content-type-options_header', 'general_options' );
+		if ( $x_content_type_options ) {
+			header( 'X-Content-Type-Options: nosniff' );
+		}
+		
+		// Referrer Policy security header.
+		$referrer_policy = get_field( 'referrer_policy_header', 'general_options' );
+		if ( $referrer_policy ) {
+			header( 'Referrer-Policy: no-referrer' );
+		}
+
+		// Permissions Policy security header.
+		$permissions_policy = get_field( 'permissions_policy_header', 'general_options' );
+		if ( $permissions_policy ) {
+			header( 'Permissions-Policy: geolocation=(self "*.googleapis.com")' );
+		}
+
+		// Content Security Policy security header.
+		$content_security_policy = get_field( 'content_security_policy_header', 'general_options' );
+		if ( $content_security_policy === 'report' ) {
+			header( 'Content-Security-Policy-Report-Only: default-src' );
+		} elseif ( $content_security_policy === 'on' ) {
+			// If CSP is on then a list of allowed domains should have been added.
+			$csp_allowed_domains = get_field( 'csp_allowed_domains', 'general_options' );
+			if ( is_array( $csp_allowed_domains ) ) {
+				$domains = implode( ' ', wp_list_pluck( $csp_allowed_domains, 'url' ) );
+				header(
+					'Content-Security-Policy: default-src \'self\' \'unsafe-inline\' ' . $domains . ';'
+				);
+			}
+		}
 	}
 }

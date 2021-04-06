@@ -98,7 +98,7 @@ abstract class Luna_Base_Cpts {
 		// Register cpts and taxonomies.
 		add_action( 'init', [ $this, 'register_cpts_and_taxonomies' ], 0 );
 
-		// Unregister default post types and txonomies (if required).
+		// Unregister default post types and taxonomies (if required).
 		add_action( 'init', [ $this, 'unregister_cpts_and_taxonomies' ], 1 );
 
 		// Add a property containing a post type object for the default post type.
@@ -177,7 +177,7 @@ abstract class Luna_Base_Cpts {
 
 	/**
 	 * 'init' action hook callback.
-	 * Unregsiters any unrequired post types or taxonomies.
+	 * Unregister any not required post types or taxonomies.
 	 */
 	public function unregister_cpts_and_taxonomies() {
 		foreach ( $this->tax_remove_list as $tax => $object_type ) {
@@ -196,7 +196,7 @@ abstract class Luna_Base_Cpts {
 
 	/**
 	 * 'init' action hook callback.
-	 * Attach a post type object for the defualt post type, Posts, to the CPT object as a property.
+	 * Attach a post type object for the default post type, Posts, to the CPT object as a property.
 	 */
 	public function get_default_post_type_object() {
 		$default_post_type = get_post_type_object( 'post' );
@@ -311,7 +311,7 @@ abstract class Luna_Base_Cpts {
 	/**
    * Luna wrapper for the core WordPress register_post_type() function.
 	 * This essentially works in the same way as WordPress' register_post_type() function.
-   * Some extra, bespoke 93digtial functionality is layered on top within this method.
+   * Some extra, bespoke 93digital functionality is layered on top within this method.
 	 * Specifically custom default args and the creation of a CPT options page.
    *
    * @see https://developer.wordpress.org/reference/functions/register_post_type/
@@ -349,7 +349,7 @@ abstract class Luna_Base_Cpts {
 	/**
    * Luna wrapper for the core WordPress register_taxonomy() function.
 	 * This essentially works in the same way as WordPress' register_taxonomy() function.
-   * Some extra, bespoke 93digtial functionality is layered on top within this method.
+   * Some extra, bespoke 93digital functionality is layered on top within this method.
 	 * Specifically custom default args.
 	 * 
 	 * @see https://developer.wordpress.org/reference/functions/register_post_type/

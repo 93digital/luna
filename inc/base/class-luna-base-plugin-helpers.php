@@ -50,8 +50,21 @@ abstract class Luna_Base_Plugin_Helpers {
 		// Add a custom load location for ACF Local JSON files.
 		add_filter( 'acf/settings/load_json', [ $this, 'acf_json_load_location' ] );
 
-		// Add a dropdown list of Gravity Forms for ACF fields named 'gravity_form'
-		add_filter( 'acf/load_field/name=gravity_form', [ $this, 'acf_gravity_forms_dropdown' ] );
+		/**
+		 * 'luna_gform_fields' filter hook.
+		 * Allows Gravity form dropdowns to be added to custom ACF fields.
+		 *
+		 * @param array $gform_fields Default gravity form fields (basically just 'gravity_form');
+		 * @return array $gform_fields Updated list of fields which will contain a gform dropdown. 
+		 */
+		$gform_fields = [ 'gravity_form' ];
+		$gform_fields = apply_filters( 'luna_gform_fields', $gform_fields );
+
+		// Loop through the list of Gravity Form fields returned from the filter.
+		foreach ( $gform_fields as $gform_field ) {
+			// Add a dropdown list of Gravity Forms to the ACF field.
+			add_filter( 'acf/load_field/name=' . $gform_field, [ $this, 'acf_gravity_forms_dropdown' ] );
+		}
 
 		/**
 		 * Gravity Forms hooks.
@@ -81,7 +94,7 @@ abstract class Luna_Base_Plugin_Helpers {
 	 * Removes the 'deactivate' link from the ACF and ACF Pro plugin as the theme relies on ACF.
 	 *
 	 * @param array $actions A list of the available action links for the plugin.
-	 * @return array $actions The updated actions list with the 'deativate' link removed.
+	 * @return array $actions The updated actions list with the 'deactivate' link removed.
 	 */
 	public function acf_remove_disable_link( $actions ) {
 		if ( ! isset( $actions['deactivate'] ) ) {
@@ -227,7 +240,7 @@ abstract class Luna_Base_Plugin_Helpers {
 	 * The spinner element is then styled and animated.
 	 *
 	 * @param string $image_src The default spinner image URL.
-	 * @param array  $form A Gravity Froms form array.
+	 * @param array  $form A Gravity Forms form array.
 	 * @return string A 1px by 1px transparent PNG!
 	 */
 	public function gravity_forms_replace_spinner( $image_src, $form ) {
@@ -248,11 +261,11 @@ abstract class Luna_Base_Plugin_Helpers {
 	/**
 	 * 'manage_edit-post_columns' filter hook callback.
 	 * 'manage_edit-page_columns' filter hook callback.
-	 * Yoast adds loads of bulky, uneeded columns to edit.php pages in the admin area!
+	 * Yoast adds loads of bulky, unneeded columns to edit.php pages in the admin area!
 	 * These look ugly and clutter the page, especially when custom columns are added.
 	 * This function removes all the Yoast columns.
 	 *
-	 * @param array $columns Defualt list of post columns.
+	 * @param array $columns Default list of post columns.
 	 * @return array $columns Updated list of post
 	 */
 	public function yoast_remove_columns( $columns ) {

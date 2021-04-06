@@ -1,6 +1,28 @@
 # Luna Utilities
 
-The `Luna_Utils` class sole purpose is to house utility functions which may be required throughout the theme. There is no `__construct()` so instantiation just makes the utility methods of this class (and it's parent) available via the `$luna->utils` object.
+The `Luna_Utils` class (found in `/inc/class-luna-utils.php`) is used to house utility functions which may be required throughout the theme.
+
+There is no `__construct()` method so instantiation just makes the utility methods of this class (and it's parent) available via the `$luna->utils` object.
+
+## Adding utility functions
+
+To add a utility function, simply add a public method to the `Luna_Utils` class. Be sure to add a PHP docblock!
+
+**Example:**
+```php
+/**
+ * Get the Luna distance.
+ * 
+ * @return int $distance The distance to the moon!
+ */
+public function get_luna_distance( $echo = false ) {
+  return '384,400km';
+}
+```
+
+```php
+echo $luna->utils->get_luna_distance( true );
+```
 
 ## Built-in utilities
 

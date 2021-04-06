@@ -92,7 +92,7 @@ final class Luna_config {
 		 * Format the filename.
 		 * 1. Remove any namespacing by exploding into an array with a \ delimiter.
 		 * 2. Aet all chars to lowercase.
-		 * 3. Replace underscores with hypens.
+		 * 3. Replace underscores with hyphens.
 		 * 4. Prepend with 'class-'. All class files should start like this.
 		 */
 		$classname_array = explode( '\\', $class );
@@ -104,7 +104,7 @@ final class Luna_config {
 
 	/**
 	 * This function traverses through a directory and looks for the passed filename.
-	 * Once found it will return true and halt anymore searching.
+	 * Once found it will return true and halt any more searching.
 	 *
 	 * @param string $dir The path of a directory to check.
 	 * @param string $filename

@@ -62,14 +62,11 @@ abstract class Luna_Base {
 		// Remove the users REST API endpoints.
 		add_filter( 'rest_endpoints', [ $this, 'base_remove_user_rest_api_endpoints' ] );
 
-		// Add required security headers to the front end.
-		add_action( 'send_headers', [ $this, 'base_add_security_headers' ], 0 );
-
 		// Defer all external scripts.
 		add_filter( 'script_loader_tag', [ $this, 'base_set_defer_attribute' ], 10, 3 );
 
 		// Disable author archive and single pages.
-		add_action( 'template_redirect', [ $this, 'base_disbale_author_pages' ] );
+		add_action( 'template_redirect', [ $this, 'base_disable_author_pages' ] );
 
 		// Remove comments for pages and posts.
 		add_action( 'admin_init', [ $this, 'base_remove_comment_support' ] );
@@ -154,12 +151,16 @@ abstract class Luna_Base {
 		$script_path       = get_template_directory() . '/build/index.js';
 		$script_asset_path = get_template_directory() . '/build/index.asset.php';
 
+		// WP Scripts is required for the main theme script file.
 		if ( ! file_exists( $script_asset_path ) ) {
-			throw new Error( 'You need to run `npm run watch` or `npm run build` first.' );
+			trigger_error(
+				'You need to run `npm run watch` or `npm run build` first.',
+				E_USER_ERROR
+			);
 		}
 		$script_asset = require $script_asset_path;
 
-		// Localised data for use witin the JS.
+		// Localised data for use within the JS.
 		$data = [
 			'homeUrl' => home_url(),
 			'ajaxUrl' => admin_url( 'admin-ajax.php' ),
@@ -168,10 +169,10 @@ abstract class Luna_Base {
 
 		/**
 		 * 'luna_localize_script' filter hook.
-		 * Allows custom localised data to be added to the luna JavaScript object.
+		 * Filter the data to be localised as the `luna` JavaScript object.
 		 *
 		 * @param array $data The default localised data.
-		 * @return array $data An updated data array containing custom data alonside the default data.
+		 * @return array $data An updated data array containing custom data alongside the default data.
 		 */
 		$data = apply_filters( 'luna_localize_script', $data );
 
@@ -179,14 +180,14 @@ abstract class Luna_Base {
 		$this->script_deps = $script_asset['dependencies'];
 
 		/**
-		 * 'luna_register_script' filter hook.
-		 * All custom scripts for a site should be added via this filter hook.
+		 * 'luna_enqueue_script' filter hook.
+		 * All custom script enqueues for a site should be added via this filter hook.
 		 * Any dependencies for the main theme script file must be added to $this->script_deps and returned.
 		 *
-		 * @param array $this->script_deps Default script dependenies.
-		 * @return array $this->script_depts An updated array of script dependencies.
+		 * @param array $this->script_deps Default script dependencies.
+		 * @return array $this->script_deps An updated array of script dependencies.
 		 */
-		$this->script_deps = apply_filters( 'luna_register_script', $this->script_deps );
+		$this->script_deps = apply_filters( 'luna_enqueue_script', $this->script_deps );
 
 		// Add Civic remote script if required.
 		if ( $data['civic']['licenseKey'] ) {
@@ -212,7 +213,7 @@ abstract class Luna_Base {
 		wp_localize_script( 'luna-script', 'luna', $data );
 		wp_enqueue_script( 'luna-script' );
 
-		// Comment reply styelsheet.
+		// Comment reply stylesheet.
 		if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
 			wp_enqueue_script( 'comment-reply' );
 		}
@@ -230,14 +231,14 @@ abstract class Luna_Base {
 		$style_deps = [];
 
 		/**
-		 * 'luna_register_style' filter hook.
+		 * 'luna_enqueue_style' filter hook.
 		 * All custom stylesheets for a site should be added via this filter hook.
 		 * Any dependencies for the main theme stylesheet must be added to $style_deps and returned.
 		 *
-		 * @param array $style_deps Default stylesheet dependenies.
+		 * @param array $style_deps Default stylesheet dependencies.
 		 * @return array $style_deps An updated array of stylesheet dependencies.
 		 */
-		$style_deps = apply_filters( 'luna_register_style', $style_deps );
+		$style_deps = apply_filters( 'luna_enqueue_style', $style_deps );
 
 		// A stylish enqueue.
 		wp_enqueue_style(
@@ -257,16 +258,34 @@ abstract class Luna_Base {
 		$admin_style_path = get_template_directory() . '/style-admin.css';
 
 		if ( ! file_exists( $admin_style_path ) ) {
-			// Admin styleseheet missing.
+			// Admin stylesheet missing.
 			return;
 		}
 
+		// Dependencies for the admin stylesheet.
+		$admin_style_deps = [];
+
+		/**
+		 * 'luna_enqueue_admin_style' filter hook.
+		 * All custom admin stylesheets for a site should be added via this filter hook.
+		 * Any dependencies for the admin stylesheet must be added to $style_deps and returned.
+		 *
+		 * @param array $admin_style_deps Default admin stylesheet dependencies.
+		 * @return array $admin_style_deps An updated array of admin stylesheet dependencies.
+		 */
+		$admin_style_deps = apply_filters( 'luna_enqueue_admin_style', $admin_style_deps );
+
 		// A stylish enqueue.
-		wp_enqueue_style( 'luna-admin-style', $admin_style_src, [], filemtime( $admin_style_path ) ); // phpcs:ignore
+		wp_enqueue_style(
+			'luna-admin-style',
+			$admin_style_src,
+			$admin_style_deps,
+			filemtime( $admin_style_path )
+		);
 	}
 
 	/**
-	 * 'rest_endpoints' filter hook calback.
+	 * 'rest_endpoints' filter hook callback.
 	 * Remove the users REST API endpoint which publicly reveals all WP user names.
 	 * Not a vulnerability as such, but still a good idea to remove as it is not required.
 	 *
@@ -290,36 +309,13 @@ abstract class Luna_Base {
 	}
 
 	/**
-	 * 'security_headers' action hook callback.
-	 * Add default Luna security headers to the site.
-	 * These should all be added to every site and will be reqruied 99% of the time.
-	 */
-	public function base_add_security_headers() {
-		if ( is_admin() ) {
-			// This can cause issues in the admin area.
-			return;
-		}
-
-		// HSTS Security Header.
-		header( 'Strict-Transport-Security: max-age=31536000;' );
-		// X-Frame-Options Security Header.
-		header( 'X-Frame-Options: SAMEORIGIN' );
-		// X-XSS-Protection Security Header.
-		header( 'X-XSS-Protection: 1; mode=block' );
-		// X-Content-Type-Options Security Header.
-		header( 'X-Content-Type-Options: nosniff' );
-		// Referrer Policy Security Header.
-		header( 'Referrer-Policy: no-referrer' );
-	}
-
-	/**
 	 * Add defer attribute to all the external JS files (that are not loaded by from the theme).
 	 * Plugins like GF use inline JS when enabling ajax feature and so we cannot defer jQuery.
 	 *
 	 * @param string $tag Default HTML script tag.
 	 * @param string $handle The script handle.
 	 * @param string $src The script source.
-	 * @return string The updated HTML sctipt tag.
+	 * @return string The updated HTML script tag.
 	 */
 	public function base_set_defer_attribute( $tag, $handle, $src ) {
 		if ( is_admin() ) {
@@ -327,13 +323,26 @@ abstract class Luna_Base {
 			return $tag;
 		}
 
-		if ( in_array( $handle, $this->script_deps ) ) {
-			// Do not defer any dependencies of the main theme script.
+		if ( $handle === 'luna-script' ) {
+			// Do not defer the main Luna script!
 			return $tag;
 		}
 
 		if ( stripos( $src, 'jquery' ) !== false ) {
 			// Do not defer jQuery.
+			return $tag;
+		}
+
+		/**
+		 * 'luna_no_defer' filter hook.
+		 * Allow custom script handles to be added to the list to not defer.
+		 *
+		 * @param array $this->script_deps Dependencies of the theme script, which are not deferred.
+		 * @return array $no_defer_handles Updated array of handles to not defer.
+		 */
+		$no_defer_handles = apply_filters( 'luna_no_defer', $this->script_deps );
+		if ( in_array( $handle, $no_defer_handles ) ) {
+			// Do not defer any given script handles.
 			return $tag;
 		}
 
@@ -345,7 +354,7 @@ abstract class Luna_Base {
 	 * 'template_redirect' action hook callback.
 	 * Disable the author pages by triggering a 404.
 	 */
-	public function base_disbale_author_pages() {
+	public function base_disable_author_pages() {
 		if ( is_author() ) {
 			global $wp_query;
     	$wp_query->set_404();
@@ -378,7 +387,7 @@ abstract class Luna_Base {
 
 	/**
 	 * 'wp_footer' action hook callback.
-	 * Add the compiled SVG spritesheet to the footer of the HTML doc.
+	 * Add the compiled SVG sprite sheet to the footer of the HTML doc.
 	 */
 	public function base_include_svg_sprites() {
 		// Sprite sheet filepath.
@@ -394,7 +403,7 @@ abstract class Luna_Base {
 
 	/**
 	 * 'init' action hook callback.
-	 * Disbale generally unneeded emoji actions and scripts.
+	 * Disable  unneeded emoji actions and scripts.
 	 */
 	public function base_disable_wp_emojicons() {
 		// Remove all actions related to emojis.

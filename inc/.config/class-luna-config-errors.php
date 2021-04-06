@@ -80,8 +80,8 @@ class Luna_Config_Errors {
 		 * @var array
 		 * @param int    'type' The error type number.
 		 * @param string 'message' The error message.
-		 * @param string 'file' The file where the error occured.
-		 * @param string 'line' The line which the error occured on.
+		 * @param string 'file' The file where the error occurred.
+		 * @param string 'line' The line which the error occurred on.
 		 */
 		$error = error_get_last();
 		if ( ! $this->is_nine3_error( $error['file'] )	) {
@@ -117,8 +117,8 @@ class Luna_Config_Errors {
 	 *
 	 * @param int    $error_num The error type number.
 	 * @param string $error_string The error message.
-	 * @param string $error_file The file where the error occured.
-	 * @param string $error_line The line which the error occured on.
+	 * @param string $error_file The file where the error occurred.
+	 * @param string $error_line The line which the error occurred on.
 	 * @return bool False will be returned if the custom handler criteria is not met,
 	 *              this then causes PHP to fall back to the default error handler.
 	 */
@@ -157,7 +157,7 @@ class Luna_Config_Errors {
 	 * @param string $error_type The error type (already converted from the error number).
 	 * @param string $error_string The error message.
 	 * @param string $error_file The error file path
-	 * @param string $error_line The line in the file where the error occured.
+	 * @param string $error_line The line in the file where the error occurred.
 	 */
 	private function log_error( $error_type, $error_line, $error_file, $error_string ) {
 		error_log(
@@ -174,7 +174,7 @@ class Luna_Config_Errors {
 	 * @param string $error_type The error type (already converted from the error number).
 	 * @param string $error_string The error message.
 	 * @param string $error_file The error file path
-	 * @param string $error_line The line in the file where the error occured.
+	 * @param string $error_line The line in the file where the error occurred.
 	 * @param int    $error_num  The error types constant value.  
 	 * @param bool   $exit Whether or not to halt the script following the output.
 	 */

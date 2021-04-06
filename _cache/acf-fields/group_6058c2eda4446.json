@@ -72,7 +72,7 @@
                 "PRO": "Pro",
                 "PRO_MULTISITE": "Pro Multisite"
             },
-            "default_value": false,
+            "default_value": "COMMUNITY",
             "allow_null": 0,
             "multiple": 0,
             "ui": 0,
@@ -106,7 +106,14 @@
             "type": "group",
             "instructions": "",
             "required": 0,
-            "conditional_logic": 0,
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_6058c45c3f018",
+                        "operator": "!=empty"
+                    }
+                ]
+            ],
             "wrapper": {
                 "width": "",
                 "class": "",
@@ -120,14 +127,14 @@
                     "name": "title",
                     "type": "text",
                     "instructions": "",
-                    "required": 0,
+                    "required": 1,
                     "conditional_logic": 0,
                     "wrapper": {
                         "width": "",
                         "class": "",
                         "id": ""
                     },
-                    "default_value": "",
+                    "default_value": "This site uses cookies to store information on your computer.",
                     "placeholder": "",
                     "prepend": "",
                     "append": "",
@@ -139,14 +146,14 @@
                     "name": "intro",
                     "type": "textarea",
                     "instructions": "",
-                    "required": 0,
+                    "required": 1,
                     "conditional_logic": 0,
                     "wrapper": {
                         "width": "",
                         "class": "",
                         "id": ""
                     },
-                    "default_value": "",
+                    "default_value": "Some of these cookies are essential, while others help us to improve your experience by providing insights into how the site is being used.",
                     "placeholder": "",
                     "maxlength": "",
                     "rows": 3,
@@ -158,14 +165,14 @@
                     "name": "privacy_policy_description",
                     "type": "textarea",
                     "instructions": "The privacy policy link & date must be set in order for this to show.",
-                    "required": 0,
+                    "required": 1,
                     "conditional_logic": 0,
                     "wrapper": {
                         "width": "",
                         "class": "",
                         "id": ""
                     },
-                    "default_value": "",
+                    "default_value": "This site uses cookies to improve your browsing experience, perform analytics and research, and conduct advertising. To change your preferences, see our",
                     "placeholder": "",
                     "maxlength": "",
                     "rows": 3,
@@ -177,7 +184,7 @@
                     "name": "privacy_policy_link",
                     "type": "link",
                     "instructions": "Will always open in a new tab.",
-                    "required": 0,
+                    "required": 1,
                     "conditional_logic": 0,
                     "wrapper": {
                         "width": "",
@@ -192,7 +199,7 @@
                     "name": "privacy_policy_date",
                     "type": "date_picker",
                     "instructions": "Updating this causes the cookie popup to reset for all users.",
-                    "required": 0,
+                    "required": 1,
                     "conditional_logic": 0,
                     "wrapper": {
                         "width": "",
@@ -209,14 +216,14 @@
                     "name": "accept_button_text",
                     "type": "text",
                     "instructions": "",
-                    "required": 0,
+                    "required": 1,
                     "conditional_logic": 0,
                     "wrapper": {
                         "width": "",
                         "class": "",
                         "id": ""
                     },
-                    "default_value": "",
+                    "default_value": "Accept recommended settings",
                     "placeholder": "",
                     "prepend": "",
                     "append": "",
@@ -228,14 +235,14 @@
                     "name": "necessary_cookies_title",
                     "type": "text",
                     "instructions": "",
-                    "required": 0,
+                    "required": 1,
                     "conditional_logic": 0,
                     "wrapper": {
                         "width": "",
                         "class": "",
                         "id": ""
                     },
-                    "default_value": "",
+                    "default_value": "Necessary Cookies",
                     "placeholder": "",
                     "prepend": "",
                     "append": "",
@@ -247,14 +254,14 @@
                     "name": "necessary_cookies_description",
                     "type": "textarea",
                     "instructions": "",
-                    "required": 0,
+                    "required": 1,
                     "conditional_logic": 0,
                     "wrapper": {
                         "width": "",
                         "class": "",
                         "id": ""
                     },
-                    "default_value": "",
+                    "default_value": "Necessary cookies enable core functionality such as page navigation and access to secure areas. The website cannot function properly without these cookies, and can only be disabled by changing your browser preferences.",
                     "placeholder": "",
                     "maxlength": "",
                     "rows": 3,
@@ -265,15 +272,15 @@
                     "label": "Optional cookies title",
                     "name": "optional_cookies_title",
                     "type": "text",
-                    "instructions": "Defaults to 'Marketing cookies' if left blank.",
-                    "required": 0,
+                    "instructions": "",
+                    "required": 1,
                     "conditional_logic": 0,
                     "wrapper": {
                         "width": "",
                         "class": "",
                         "id": ""
                     },
-                    "default_value": "",
+                    "default_value": "Marketing Cookies",
                     "placeholder": "",
                     "prepend": "",
                     "append": "",
@@ -285,14 +292,14 @@
                     "name": "optional_cookies_description",
                     "type": "textarea",
                     "instructions": "",
-                    "required": 0,
+                    "required": 1,
                     "conditional_logic": 0,
                     "wrapper": {
                         "width": "",
                         "class": "",
                         "id": ""
                     },
-                    "default_value": "",
+                    "default_value": "We use marketing cookies to help us improve the relevancy of marketing campaigns and to track the results.",
                     "placeholder": "",
                     "maxlength": "",
                     "rows": 3,
@@ -304,14 +311,14 @@
                     "name": "save_preferences_button_text",
                     "type": "text",
                     "instructions": "",
-                    "required": 0,
+                    "required": 1,
                     "conditional_logic": 0,
                     "wrapper": {
                         "width": "",
                         "class": "",
                         "id": ""
                     },
-                    "default_value": "",
+                    "default_value": "Save Cookie Preferences and Close",
                     "placeholder": "",
                     "prepend": "",
                     "append": "",
@@ -394,7 +401,7 @@
         },
         {
             "key": "field_605b76931ba15",
-            "label": "API & License Keys",
+            "label": "API & license keys",
             "name": "",
             "type": "tab",
             "instructions": "",
@@ -529,6 +536,223 @@
                 "id": ""
             },
             "default_value": ""
+        },
+        {
+            "key": "field_606c7d1276c8c",
+            "label": "Security headers",
+            "name": "",
+            "type": "tab",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "placement": "top",
+            "endpoint": 0
+        },
+        {
+            "key": "field_606c7d4976c8d",
+            "label": "Security headers",
+            "name": "",
+            "type": "message",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "message": "For adding HTTP security headers. It is recommended that all of these are left on for security purposes.",
+            "new_lines": "wpautop",
+            "esc_html": 0
+        },
+        {
+            "key": "field_606c7d6276c8e",
+            "label": "HSTS",
+            "name": "hsts_header",
+            "type": "true_false",
+            "instructions": "Enforces the use of HTTPS.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "message": "",
+            "default_value": 1,
+            "ui": 1,
+            "ui_on_text": "On",
+            "ui_off_text": "Off"
+        },
+        {
+            "key": "field_606c7e69a842f",
+            "label": "X-Frame-Options",
+            "name": "x-frame-options_header",
+            "type": "true_false",
+            "instructions": "Prevents Clickjacking.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "message": "",
+            "default_value": 1,
+            "ui": 1,
+            "ui_on_text": "On",
+            "ui_off_text": "Off"
+        },
+        {
+            "key": "field_606c7ef9a8431",
+            "label": "X-XSS-Protection",
+            "name": "x-xss-protection_header",
+            "type": "true_false",
+            "instructions": "Blocks Access If XSS Attack Is Suspected.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "message": "",
+            "default_value": 1,
+            "ui": 1,
+            "ui_on_text": "On",
+            "ui_off_text": "Off"
+        },
+        {
+            "key": "field_606c7f16a8432",
+            "label": "X-Content-Type-Options",
+            "name": "x-content-type-options_header",
+            "type": "true_false",
+            "instructions": "Prevents MIME-Type Sniffing.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "message": "",
+            "default_value": 1,
+            "ui": 1,
+            "ui_on_text": "On",
+            "ui_off_text": "Off"
+        },
+        {
+            "key": "field_606c7f36a8433",
+            "label": "Referrer Policy",
+            "name": "referrer_policy_header",
+            "type": "true_false",
+            "instructions": "Referrer Policy.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "message": "",
+            "default_value": 1,
+            "ui": 1,
+            "ui_on_text": "On",
+            "ui_off_text": "Off"
+        },
+        {
+            "key": "field_606c7f50a8434",
+            "label": "Permissions Policy",
+            "name": "permissions_policy_header",
+            "type": "true_false",
+            "instructions": "Permisssions Policy.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "message": "",
+            "default_value": 1,
+            "ui": 1,
+            "ui_on_text": "On",
+            "ui_off_text": "Off"
+        },
+        {
+            "key": "field_606c7f85a8436",
+            "label": "Content Security Policy",
+            "name": "content_security_policy_header",
+            "type": "radio",
+            "instructions": "Allows the Content Security Policy header to be enabled or disabled or set to 'report-only'.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "choices": {
+                "off": "Off",
+                "report": "Report",
+                "on": "On"
+            },
+            "allow_null": 0,
+            "other_choice": 0,
+            "default_value": "off",
+            "layout": "vertical",
+            "return_format": "value",
+            "save_other_choice": 0
+        },
+        {
+            "key": "field_606c7fd5a8437",
+            "label": "CSP Allowed Domains",
+            "name": "csp_allowed_domains",
+            "type": "repeater",
+            "instructions": "Adds these domains to the (default-src) CSP",
+            "required": 0,
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_606c7f85a8436",
+                        "operator": "==",
+                        "value": "on"
+                    }
+                ]
+            ],
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "collapsed": "field_606c800aa8438",
+            "min": 0,
+            "max": 0,
+            "layout": "table",
+            "button_label": "",
+            "sub_fields": [
+                {
+                    "key": "field_606c800aa8438",
+                    "label": "URL",
+                    "name": "url",
+                    "type": "url",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "placeholder": ""
+                }
+            ]
         }
     ],
     "location": [
@@ -548,5 +772,5 @@
     "hide_on_screen": "",
     "active": 1,
     "description": "",
-    "modified": 1616764545
+    "modified": 1617725537
 }

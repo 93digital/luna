@@ -40,17 +40,30 @@ abstract class Luna_Base_Gutenberg{
   public function gutenberg_scripts() {
     $script_asset_path = get_template_directory() . '/build/blocks.asset.php';
 
+		// WP Scripts is required for the Gutenberg script file.
     if ( ! file_exists( $script_asset_path ) ) {
-      throw new Error( 'You need to run `npm start` or `npm run build` first.' );
+      trigger_error(
+				'You need to run `npm start` or `npm run build` first.',
+				E_USER_ERROR
+			);
     }
-    
-    $script_asset = require( $script_asset_path );
+    $script_asset = require $script_asset_path;
+
+		/**
+		 * 'luna_enqueue_blocks_script' filter hook.
+		 * All custom blocks script enqueues for a site should be added via this filter hook.
+		 * Any dependencies for the main theme script file must be added to $this->script_deps and returned.
+		 *
+		 * @param array $script_asset['dependencies'] Default script dependencies, set in WP Scripts.
+		 * @return array $script_deps An updated array of script dependencies.
+		 */
+		$script_deps = apply_filters( 'luna_enqueue_blocks_script', $script_asset['dependencies'] );
   
     // Register Luna Blocks.
     wp_register_script(
       'luna-blocks',
       get_template_directory_uri() . '/build/blocks.js',
-      $script_asset['dependencies'],
+      $script_deps,
       $script_asset['version']
     );
   

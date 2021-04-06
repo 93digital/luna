@@ -1,12 +1,12 @@
 # Luna CPTs and taxonomies
 
-All custom post types and taxonomies should be registered within `Luna_Cpts`. The parent class `Luna_Base_Cpts` contains all the functionality requried to register custom post types and taxonomies, automatically register CPT option pages and add the CPTs to the `$luna->cpts` object as properties.
+All custom post types and taxonomies should be registered within the `Luna_Cpts` class (found in `/inc/class-luna-cpts.php`).
 
-The base class also adds the default post type object to the `$luna->cpts` object and registers an option page for the default post type (under the Posts menu item).
+The parent `Luna_Base_Cpts` class contains functionality that register custom post types and taxonomies, automatically registers CPT archive option pages and adds the CPTs to the `$luna->cpts` object as properties. The base class also adds the default post type object to the `$luna->cpts` object and registers an option page for the default post type (under the Posts menu item).
 
 ## Built-in CPT and taxonomy functions
 
-These post type and taxonomy functions are protected methods of the base class, intended to be used in the `__construct()` of `Luna_Cpts` class.
+These post type and taxonomy functions are protected methods of the base class, intended for use in the `__construct()` method of the `Luna_Cpts` class.
 
 ### Register a CPT
 
@@ -17,7 +17,7 @@ These post type and taxonomy functions are protected methods of the base class, 
  * @param array  $args      [optional] Custom post type args.
  *
  * @return void This does not need to be assigned to a variable.
- *              The WP_Post_Type object will be added to the $luna->cpts object.
+ *              The WP_Post_Type object will automatically be added to the $luna->cpts object.
  */
 $this->add_post_type( $post_type, $args = [] );
 ```
@@ -27,7 +27,6 @@ $this->add_post_type( $post_type, $args = [] );
 /**
  * Luna default post type args, set within the base class.
  * These override any core WordPress default args.
- * @see https://developer.wordpress.org/reference/functions/register_post_type/
  */
 private $default_cpt_args = [
   'has_archive'   => $plural, // derived from the passed $post_type slug.
@@ -52,9 +51,11 @@ private $default_cpt_args = [
 ];
 ```
 
-#### CPT settings
+The list of WordPress default post type args can be seen [here](https://developer.wordpress.org/reference/functions/register_post_type/#parameter-detail-information).
 
-A post type settings page is added as a sub menu item under the post type menu item if the `has_archive` page is set to true (which is the default). This requires ACF to be activated.
+**CPT settings**
+
+A post type settings page is added as a sub menu item under the post type menu item if `has_archive` is set to true (which is the Luna default). This requires ACF to be activated.
 
 ### Register a taxonomy
 
@@ -66,7 +67,7 @@ A post type settings page is added as a sub menu item under the post type menu i
  * @param array        $args       [optional] Custom taxonomy args.
  *
  * @return void This does not need to be assigned to a variable.
- *              The WP_Taxonomy object will be added to each of the associated post type objects in $luna->cpts.
+ *              The WP_Taxonomy object will automatically be added to each of the associated post type objects in $luna->cpts.
  */
 $this->add_taxonomy( $taxonomy, $post_types, $args = [] );
 ```
@@ -76,6 +77,7 @@ $this->add_taxonomy( $taxonomy, $post_types, $args = [] );
 /**
  * Luna default taxonomy args, set within the base class.
  * These override any core WordPress default args.
+ *
  * @see https://developer.wordpress.org/reference/functions/register_taxonomy/
  */
 private $default_tax_args = [
@@ -89,8 +91,9 @@ private $default_tax_args = [
   ],
   'show_in_rest' => true,
 ];
-
 ```
+
+The list of WordPress default taxonomy args can be seen [here](https://developer.wordpress.org/reference/functions/register_taxonomy/#additional-parameter-information).
 
 ### Unregister a taxonomy
 
@@ -98,7 +101,7 @@ private $default_tax_args = [
 ```php
 /**
  * @param string       $taxonomy   [required] A taxonomy slug.
- * @param array|string $post_types [reqruied] An array of post type slugs or a single slug string.
+ * @param array|string $post_types [required] An array of post type slugs or a single slug string.
  *
  * @return void
  */

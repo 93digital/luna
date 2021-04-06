@@ -25,7 +25,11 @@ final class Luna extends Luna_Base {
 	 */
 	public $global_options;
 
-	public $guteneberg;
+	/**
+	 * A Luna_Gutenberg object.
+	 * @var object
+	 */
+	public $gutenberg;
 
 	/**
 	 * A Luna_Plugin_Helpers object.
