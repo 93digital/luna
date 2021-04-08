@@ -92,5 +92,10 @@ We use several [PostCSS](https://postcss.org/) plugins to enhance our CSS and al
 When updating the core codebase of Luna, please update the theme version in the following places:
 
 - The top of this file (`README.md`)
+<<<<<<< HEAD
 - `readme.txt` (Also add a brief summary of the changes to the Changelog)
+=======
+- `readme.txt`
+  - Also add a brief summary of the changes to the Changelog
+>>>>>>> 50f6484e1ffe47abc6e9bc316590b8ef554a2072
 - `/sass/style.scss` 
