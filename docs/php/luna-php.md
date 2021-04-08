@@ -153,6 +153,22 @@ The defined development environments are currently sites which include one of th
 - `luna`
 - `.wpengine.com`
 
+### Example code
+
+The core theme does have a splattering of `@example` code snippets to help you get started when first using the theme. These examples do stuff like dumping the "Luna" class name on the front and back end, registering a couple of post types and a taxonomy, registering a Global Options sub-page, various Gutenberg modifications, declaring a test utils function and lastly registering a test shortcode.
+
+These example pieces of code can be found in the following classes:
+
+- `Luna_Cpts`
+- `Luna_Global_Options`
+- `Luna_Gutenberg`
+- `Luna_Utils`
+- `Luna_Back_End_Hooks`
+- `Luna_Front_End_Hooks`
+- `Luna_Shortcodes`
+
+It is recommended that these are all removed when using the theme on a project.
+
 ## Advanced Custom Fields
 
 While the theme is very much geared towards custom Gutenberg development, ACF still very much has a place in hearts!

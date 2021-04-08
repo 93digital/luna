@@ -34,6 +34,39 @@ More sub-pages can be added to the `__construct()` of `Luna_Global_Options` clas
 $this->add_sub_page( $title );
 ```
 
+### Getting field data
+
+Unlike the previous starter theme Stella, fields are not actually added to the Global Options page as this just acts as a grouping object for the sub-pages mentioned above. In order using the `add_sub_page()` method sets the option slug to: `sanitize_title( $sub_page_title ) . '-options'`
+
+The pre-set sub-page slugs are as follows:
+
+| Sub-page title | Slug |
+| ----------- | ----------- |
+| General | `general-options` |
+| Header | `header-options` |
+| Footer | `footer-options` |
+| Social | `social-options` |
+| 404 | `404-options` |
+| Search | `search-options` |
+
+**Example:**
+
+*Example for setting and getting a custom sub page. This assumes a field called "Mission Name" has been added to the sub-page in the CMS.*
+
+```php
+public function __construct() {
+  ...
+
+  $this->add_sub_page( 'Luna Mission' );
+
+  ...
+}
+```
+
+```php
+$mission_name = get_field( 'mission_name', 'luna-mission-options' );
+```
+
 ## Handling Global Options data
 
 If possible, 

@@ -98,7 +98,7 @@ abstract class Luna_Base_Global_Options {
 		$this->page_settings = acf_add_options_page(
 			[
 				'page_title' => 'Global Options',
-				'post_id'    => 'global_options',
+				'post_id'    => 'global-options',
 				'capability' => 'manage_options',
 				'position'   => 60,
 			]
@@ -122,7 +122,7 @@ abstract class Luna_Base_Global_Options {
 			$this->sub_page_settings[ $sub_page_slug ] = acf_add_options_sub_page(
 				[
 					'page_title'  => $sub_page_title,
-					'post_id'     => $sub_page_slug . '_options',
+					'post_id'     => $sub_page_slug . '-options',
 					'capability'  => 'manage_options',
 					'parent_slug' => 'acf-options-global-options',
 				]
