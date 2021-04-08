@@ -1,6 +1,6 @@
 # Luna
 
-***v0.2***
+***v0.2.1***
 
 A WordPress starter theme lovingly created by the 93digital development team. It is the boilerplate for all our WordPress projects from April 2021 onwards and replaces the older starter theme, Stella.
 
@@ -89,4 +89,8 @@ We use several [PostCSS](https://postcss.org/) plugins to enhance our CSS and al
 
 ## Luna updates
 
-When updating the core codebase of Luna, please update the version at the top of this file and in `readme.txt` and `/sass/style.scss` 
+When updating the core codebase of Luna, please update the theme version in the following places:
+
+- The top of this file (`README.md`)
+- `readme.txt` (Also add a brief summary of the changes to the Changelog)
+- `/sass/style.scss` 
