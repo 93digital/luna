@@ -13,7 +13,7 @@ These hook declarations should be added to the `__construct()` method of the `Lu
 **Usage:**
 ```php
 public function __construct() {
-	add_action( 'acf/init', [ $this, 'acf_initialised' ] );\
+	add_action( 'acf/init', [ $this, 'acf_initialised' ] );
 }
 ```
 
