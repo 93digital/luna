@@ -152,13 +152,13 @@ abstract class Luna_Base_Global_Options {
       return;
 		}
 
-		$license_key = get_field( 'civic_license_key', 'general_options' );
+		$license_key = get_field( 'civic_license_key', 'general-options' );
 		if ( ! $license_key ) {
 			// Do not append anything if not license key has been entered.
 			return $data;
 		}
 
-		$options = get_field( 'civic_options', 'general_options' );
+		$options = get_field( 'civic_options', 'general-options' );
 
 		// Check if a privacy policy date has been set, it is required to show the pp link.
 		if ( empty( $options['privacy_policy_date'] ) ) {
@@ -168,15 +168,15 @@ abstract class Luna_Base_Global_Options {
 			$options['privacy_policy_date'] = $date;
 
 			// Update the options array.
-			$result = update_field( 'civic_options', $options, 'general_options' );
+			$result = update_field( 'civic_options', $options, 'general-options' );
 		}
 
 		// Create a Civic array that will be localised for use in JS.
 		$civic = [
 			'licenseKey'      => $license_key,
-			'productType'     => get_field( 'civic_product_type', 'general_options' ),
-			'googleAnalytics' => get_field( 'google_analytics_id', 'general_options' ),
-			'options'         => get_field( 'civic_options', 'general_options' ),
+			'productType'     => get_field( 'civic_product_type', 'general-options' ),
+			'googleAnalytics' => get_field( 'google_analytics_id', 'general-options' ),
+			'options'         => get_field( 'civic_options', 'general-options' ),
 		];
 
 		// Add the new Civic object and return it.
@@ -192,7 +192,7 @@ abstract class Luna_Base_Global_Options {
 	 * @return array $deps Script dependencies with GMaps added, if an API key is found.
 	 */
 	public function register_google_maps_api_script( $deps ) {
-		$gmaps_api_key = get_field( 'google_maps_api_key', 'general_options' );
+		$gmaps_api_key = get_field( 'google_maps_api_key', 'general-options' );
 		if ( ! $gmaps_api_key ) {
 			return $deps;
 		}
@@ -216,7 +216,7 @@ abstract class Luna_Base_Global_Options {
 	 * Warning: This code is not controlled by Civic Cookie Control.
 	 */
 	public function add_custom_header_scripts() {
-		$header_scripts = get_field( 'custom_header_scripts', 'general_options' );
+		$header_scripts = get_field( 'custom_header_scripts', 'general-options' );
 		if ( ! $header_scripts ) {
 			return;
 		}
@@ -232,7 +232,7 @@ abstract class Luna_Base_Global_Options {
 	 * Warning: This code is not controlled by Civic Cookie Control.
 	 */
 	public function add_custom_body_scripts() {
-		$body_scripts = get_field( 'custom_body_scripts', 'general_options' );
+		$body_scripts = get_field( 'custom_body_scripts', 'general-options' );
 		if ( ! $body_scripts ) {
 			return;
 		}
@@ -248,7 +248,7 @@ abstract class Luna_Base_Global_Options {
 	 * Warning: This code is not controlled by Civic Cookie Control.
 	 */
 	public function add_custom_footer_scripts() {
-		$footer_scripts = get_field( 'custom_footer_scripts', 'general_options' );
+		$footer_scripts = get_field( 'custom_footer_scripts', 'general-options' );
 		if ( ! $footer_scripts ) {
 			return;
 		}
@@ -270,48 +270,48 @@ abstract class Luna_Base_Global_Options {
 
 		
 		// HSTS security header.
-		$hsts = get_field( 'hsts_header', 'general_options' );
+		$hsts = get_field( 'hsts_header', 'general-options' );
 		if ( $hsts ) { 
 			header( 'Strict-Transport-Security: max-age=31536000;' );
 		}
 		
 		// X-Frame-Options security header.
-		$x_frame_options = get_field( 'x-frame-options_header', 'general_options' );
+		$x_frame_options = get_field( 'x-frame-options_header', 'general-options' );
 		if ( $x_frame_options ) {
 			header( 'X-Frame-Options: SAMEORIGIN' );
 		}
 		
 		// X-XSS-Protection security header.
-		$x_xss_protection        = get_field( 'x-xss-protection_header', 'general_options' );
+		$x_xss_protection        = get_field( 'x-xss-protection_header', 'general-options' );
 		if ( $x_xss_protection ) {
 			header( 'X-XSS-Protection: 1; mode=block' );
 		}
 		
 		// X-Content-Type-Options security header.
-		$x_content_type_options = get_field( 'x-content-type-options_header', 'general_options' );
+		$x_content_type_options = get_field( 'x-content-type-options_header', 'general-options' );
 		if ( $x_content_type_options ) {
 			header( 'X-Content-Type-Options: nosniff' );
 		}
 		
 		// Referrer Policy security header.
-		$referrer_policy = get_field( 'referrer_policy_header', 'general_options' );
+		$referrer_policy = get_field( 'referrer_policy_header', 'general-options' );
 		if ( $referrer_policy ) {
 			header( 'Referrer-Policy: no-referrer' );
 		}
 
 		// Permissions Policy security header.
-		$permissions_policy = get_field( 'permissions_policy_header', 'general_options' );
+		$permissions_policy = get_field( 'permissions_policy_header', 'general-options' );
 		if ( $permissions_policy ) {
 			header( 'Permissions-Policy: geolocation=(self "*.googleapis.com")' );
 		}
 
 		// Content Security Policy security header.
-		$content_security_policy = get_field( 'content_security_policy_header', 'general_options' );
+		$content_security_policy = get_field( 'content_security_policy_header', 'general-options' );
 		if ( $content_security_policy === 'report' ) {
 			header( 'Content-Security-Policy-Report-Only: default-src' );
 		} elseif ( $content_security_policy === 'on' ) {
 			// If CSP is on then a list of allowed domains should have been added.
-			$csp_allowed_domains = get_field( 'csp_allowed_domains', 'general_options' );
+			$csp_allowed_domains = get_field( 'csp_allowed_domains', 'general-options' );
 			if ( is_array( $csp_allowed_domains ) ) {
 				$domains = implode( ' ', wp_list_pluck( $csp_allowed_domains, 'url' ) );
 				header(

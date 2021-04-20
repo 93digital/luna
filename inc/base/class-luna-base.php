@@ -190,7 +190,7 @@ abstract class Luna_Base {
 		$this->script_deps = apply_filters( 'luna_enqueue_script', $this->script_deps );
 
 		// Add Civic remote script if required.
-		if ( $data['civic']['licenseKey'] ) {
+		if ( isset( $data['civic'] ) && $data['civic']['licenseKey'] ) {
 			// The Civic remote script is only required if a license key has been added.
 			wp_enqueue_script(
 				'cookie-control',

@@ -5,7 +5,7 @@ Tags: Luna, 93digital, 93devs, starter-theme, boilerplate
 
 Requires at least: 5.5
 Tested up to: 5.6
-Stable tag: 0.2.1
+Stable tag: 0.2.2
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -24,6 +24,7 @@ License URI: https://www.gnu.org/licenses/gpl-2.0.html
 0.1 - Luna starter theme rewritten, formally 'Stella'.
 0.2 - Bulk of the documentation now written and some structural changes to the PHP code.
 0.2.1 - Small update to Global Options and some documentation updates
+0.2.2 - Bug fix to the get_field calls in the global options & civic cookie field data checked in the Luna Base. Also made an update to the docs.
 
 == Credits ==
 93digital Development Team

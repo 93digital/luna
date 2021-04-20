@@ -69,7 +69,7 @@ $mission_name = get_field( 'mission_name', 'luna-mission-options' );
 
 ## Handling Global Options data
 
-If possible, 
+If possible, Global Options data which isn't used directly in a template or template part file should be processed within the Global Options class, including the use of hooks.
 
 ### Default options
 
