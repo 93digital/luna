@@ -46,7 +46,7 @@ abstract class Luna_Base_Utils {
 		$primary_term_id = get_post_meta( $post_id, '_yoast_wpseo_primary_' . $taxonomy, true );
 
 		// set a default value if there is no matching primary term.
-		$primary_term = ( count( $terms ) > 0 ) ? $terms[0] : false;
+		$primary_term = ( is_array( $terms ) && count( $terms ) > 0 ) ? $terms[0] : false;
 
 		if ( is_array( $terms ) ) {
 			foreach ( $terms as $term ) {
@@ -133,13 +133,60 @@ abstract class Luna_Base_Utils {
 	}
 
 	/**
+	 * Pagination function for archive pages.
+	 *
+	 * @param bool $show_ends Whether to show links to the first and last page (where applicable).
+	 */
+	public function pagination( $show_ends = true ) {
+		global $wp_query, $wp;
+	
+		$total_pages = $wp_query->max_num_pages;
+		if ( $total_pages < 2 ) {
+			return;
+		}
+	
+		$current_page = max( 1, get_query_var( 'paged' ) );
+	
+		// Get any custom $_GET params from the url, these will be appended to page links further down.
+		$custom_params = count( $_GET ) > 0 ? '?' . http_build_query( $_GET ) : '';
+	
+		// get the base url of the current archive/taxonomy/whatever page without any pagination queries.
+		$base_url = explode( '?', get_pagenum_link( 1 ) )[0];
+	
+		// current category / taxonomy / archive url for first link.
+		$first_page = $base_url . $custom_params;
+		$last_page  = $base_url . 'page/' . $total_pages . $custom_params;
+	
+		$args = [
+			'base'      => $base_url . '%_%' . $custom_params,
+			'format'    => 'page/%#%',
+			'current'   => $current_page,
+			'total'     => $total_pages,
+			'prev_text' => '<span class="nav-inline-dash">&lsaquo;</span>',
+			'next_text' => '<span class="nav-inline-dash">&rsaquo;</span>',
+		];
+
+		get_template_part(
+			'template-parts/pagination.php',
+			[
+				'args'         => $args,
+				'show_ends'    => $show_ends,
+				'current_page' => $current_page,
+				'total_pages'  => $total_pages,
+				'first_page'   => $first_page,
+				'last_page'    => $last_page,
+			]
+		);
+	}
+
+	/**
 	 * Parse an associative array into a HTML attributes string.
 	 * @example $key="$value"
 	 *
-	 * @param array $atts_array An $atts => $val key value pair associative array.
+	 * @param array $atts An $att => $val key value pair associative array.
 	 * @return array A string of HTML attributes.
 	 */
-	public function parse_atts_array( $atts_array ) {
+	public function parse_atts_array( $atts ) {
 		return implode( ' ',
 			array_map(
 				function( $att, $val ) {
@@ -279,7 +326,7 @@ abstract class Luna_Base_Utils {
 		if ( $echo ) {
 			echo $markup; // phpcs:ignore
 		}
-		return $svg;
+		return $markup;
 	}
 
   /**

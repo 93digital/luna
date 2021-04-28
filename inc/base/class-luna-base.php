@@ -82,6 +82,9 @@ abstract class Luna_Base {
 		// Add media resources to wp admin.
 		add_action( 'admin_enqueue_scripts', [ $this, 'base_load_admin_media_files' ] );
 
+		// Check that the admin email is not set to a 93digital account.
+		add_action( 'admin_notices', [ $this, 'base_admin_email_notice' ], 0, 1 );
+
 		// Disable xmlrpc, it wont be needed and is a vulnerability.
 		add_filter( 'xmlrpc_enabled', '__return_false' );
 	}
@@ -391,7 +394,7 @@ abstract class Luna_Base {
 	 */
 	public function base_include_svg_sprites() {
 		// Sprite sheet filepath.
-		$filepath = get_template_directory() . '/dist/symbol/svg/sprite.symbol.svg';
+		$filepath = get_template_directory() . '/build/symbol/svg/sprite.symbol.svg';
 
 		// Include it if it exists.
 		if ( file_exists( $filepath ) ) {
@@ -425,5 +428,28 @@ abstract class Luna_Base {
 	 */
 	public function base_load_admin_media_files() {
 		wp_enqueue_media();
+	}
+
+	/**
+	 * 'admin_notices' action hook callback.
+	 * Once live, the main site admin address should not be a 93digital address.
+	 * So this high priority notice is added in.
+	 */
+	public function base_admin_email_notice() {
+		$email = get_option( 'admin_email' );
+
+		if ( stripos( $email, '@93digital.co.uk' ) !== false ) {
+			ob_start();
+			?>
+			<div class="notice notice-error">
+				<p>
+					<?php esc_html_e( 'Admin email is set to', 'luna' ); ?>: 
+					<?php echo esc_html( $email ); ?>, 
+					<?php esc_html_e( 'please amend it', 'luna' ); ?>!
+				</p>
+			</div>
+			<?php
+			ob_get_flush();
+		}
 	}
 }

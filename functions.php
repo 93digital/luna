@@ -7,7 +7,6 @@
  * All theme functionality should be added to the relevant classes in /inc.
  *
  * @package luna
- * @version v0.1
  */
 
 require_once 'inc/.config/class-luna-config.php';

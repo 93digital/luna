@@ -101,6 +101,20 @@ $luna->utils->image( $id_or_url, $size = 'large', $size_retina = false, $class =
 $luna->utils->is_youtube_url( $url );
 ```
 
+### Archive pagination
+
+Echos pagination on archive pages. This uses the default query so can only be used within archive templates.
+
+**Usage:**
+```php
+/**
+ * @param bool $show_ends [optional] Whether to show links to the first and last page (where applicable).
+ *
+ * @return void
+ */
+$luna->utils->pagination( $show_ends = true );
+```
+
 ### Array to HTML attributes
 
 Convert an array into a string of HTML attributes.
@@ -108,11 +122,11 @@ Convert an array into a string of HTML attributes.
 **Usage:**
 ```php
 /**
- * @param array $atts_array [required] An $atts => $val key value pair associative array.
+ * @param array $atts [required] An $att => $val key value pair associative array.
  *
  * @return array A string of HTML attributes.
  */
-$luna->utils->parse_atts_array( $atts_array );
+$luna->utils->parse_atts_array( $atts );
 ```
 
 **Example:**
