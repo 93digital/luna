@@ -84,7 +84,7 @@ class Luna_Config_Errors {
 		 * @param string 'line' The line which the error occurred on.
 		 */
 		$error = error_get_last();
-		if ( ! $this->is_nine3_error( $error['file'] )	) {
+		if ( ! is_array( $error ) || ( is_array( $error ) && ! $this->is_nine3_error( $error['file'] ) ) ) {
 			// Catch only the errors in the theme or a nine3 plugin.
 			return;
 		}

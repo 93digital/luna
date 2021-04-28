@@ -58,6 +58,7 @@ final class Luna extends Luna_Base {
 		$this->global_options = new Luna_Global_Options();
 		$this->gutenberg      = new Luna_Gutenberg();
 		$this->plugin_helpers = new Luna_Plugin_Helpers();
+		// $this->terra          = new Luna_Terra();
 		$this->utils          = new Luna_Utils();
 	}
 }

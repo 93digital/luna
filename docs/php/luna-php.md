@@ -56,6 +56,9 @@ The `/.config` directory contains a couple of configuration files which are requ
 
 The primary purpose of the main `Luna` class is to be a grouping object for the sub-classes, which are instantiated as properties of the `$luna` object.
 
+> ***Note:***
+> The `$luna` object is a PHP global variable and is globalised just after instantiation (by adding it to the  built in `$GLOBALS` array). However sometimes the `$luna` object may be undefined when used in template, template-part or acf-block files. In this instance you will just need to re-globalise the object using `global $luna;`.
+
 The parent class `Luna_Base` handles a lot of general theme set up (such as enqueuing styles and scripts, custom theme support, instantiating hook classes etc.) via the `parent::__construct()` method call. This base class, along with all other base classes are *abstract* classes which means they cannot be instantiated on their own and can only provide inheritance to another class.
 
 All theme code should be associated with the `$luna` object. This helps add context to custom theme functionality, limits visibility outside of the scope of the theme and negates the need for PHP namespaced which, while useful, can get a tad ugly at times.

@@ -7,11 +7,11 @@
     "build": "run-s \"build:*\"",
     "build:scripts": "wp-scripts build js/index.js js/blocks/blocks.js",
     "build:styles": "sass sass:",
-    "build:svg": "svg-sprite --symbol --svg-xmldecl=false --dest=build assets/*.svg",
+    "build:svg": "svg-sprite --symbol --svg-xmldecl=false --dest=build assets/*/*.svg",
     "build:postcss": "postcss -r style.css",
     "watch": "run-p \"watch:*\"",
     "watch:styles": "sass --watch sass:",
-    "watch:svg": "svg-sprite --symbol --svg-xmldecl=false --dest=build assets/*.svg",
+    "watch:svg": "svg-sprite --symbol --svg-xmldecl=false --dest=build assets/*/*.svg",
     "watch:scripts": "wp-scripts start js/index.js js/blocks/blocks.js"
   },
   "repository": {
