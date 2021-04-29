@@ -109,7 +109,7 @@ abstract class Luna_Base_Utils {
 		// Add other required image attributes.
 		$atts['class'] = $class . ' lazy';
 		$atts['alt']   = is_int( $id_or_url )
-			? get_post_meta( $id, '_wp_attachment_image_alt', true )
+			? get_post_meta( $id_or_url, '_wp_attachment_image_alt', true )
 			: '';
 		
 		// Create the image element and either return or echo it.

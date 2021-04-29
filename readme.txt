@@ -26,6 +26,7 @@ License URI: https://www.gnu.org/licenses/gpl-2.0.html
 0.2.1 - Small update to Global Options and some documentation updates
 0.2.2 - Bug fix to the get_field calls in the global options & civic cookie field data checked in the Luna Base. Also made an update to the docs.
 0.2.3 - A few more small bug fixes picked up with the theme being used on a couple of prodiction sites for the first time. Also added in the legacy pagination utility function and updated some of the documentation.
+0.2.4 - One small bug fix - a typo in a variable name
 
 == Credits ==
 93digital Development Team
