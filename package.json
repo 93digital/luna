@@ -61,6 +61,7 @@
     "stylelint-order": "^4.1.0",
     "stylint": "^2.0.0",
     "svg-sprite": "^1.5.0",
+    "svg-spritemap-webpack-plugin": "^3.9.1",
     "uuid": "^8.3.2",
     "vanilla-lazyload": "^17.3.1"
   },
