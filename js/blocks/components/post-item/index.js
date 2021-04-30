@@ -3,6 +3,18 @@ import { Flex, FlexBlock, FlexItem, TextHighlight, Button, Card, CardBody } from
 import { safeDecodeURI, filterURLForDisplay } from '@wordpress/url';
 import { decodeEntities } from '@wordpress/html-entities';
 
+/**
+ * Post Card
+ * Card element used in both PostItem & PostItemPreview components.
+ *
+ * @param {Array} props PostCard props
+ * @example
+ * <PostCard
+ *   id={ uniqueId }
+ *   post={ postObject }
+ *   searchTerm="identifying string"
+ * />
+ */
 export const PostCard = props => {
   const {
     id = '',
@@ -68,8 +80,12 @@ export const PostCard = props => {
  * Post Item
  * Displays a simple card view of a post item.
  *
- * @param {Object} props react props
- * @return {*} React JSX
+ * @param {Array} props PostItem Props
+ * @example
+ * <PostItem
+ *   isSelected={ boolean }
+ *   onClick={ () => handleEventSelection(postObject) }
+ * />
  */
 export const PostItem = props => {
   const {
@@ -101,8 +117,13 @@ export const PostItem = props => {
  * Post Item Preview
  * Displays a preview with a defined label.
  *
- * @param {Object} props react props
- * @return {*} React JSX
+ * @param {Array} props PostItemPreview props
+ * @example
+ * <PostItemPreview
+ *   post={ selectedPost }
+ *   setAttributes={ setAttributes }
+ *   label={ __('Selected Post:', 'luna') }
+ * />
  */
 export function PostItemPreview(props) {
   const {
