@@ -61,6 +61,26 @@ const ImageElementSave = props => {
   );
 };
 
+/**
+ * LunaImage - React component for adding inline images to Gutenberg blocks.
+ *
+ * @param {Array} props - LunaImage properties.
+ * @example
+ * const { size, mediaID, image, className, onImageSelect } = props;
+ *
+ * <LunaImage
+ *   size="large"
+ *   mediaID={ mediaID }
+ *   image={ mediaObject }
+ *   className="m02__media"
+ *   onImageSelect={
+ *     (imageObject, imageID) => setAttributes({
+ *       mediaObject: imageObject,
+ *       mediaID: imageID
+ *     })
+ *   }
+ * />
+ */
 export const LunaImage = props => {
   const {
     mediaID,
@@ -139,6 +159,27 @@ export const LunaImage = props => {
   );
 };
 
+/**
+ * LunaInspectorImage - React component for adding images to Gutenberg block inspector.
+ *
+ * @param {Array} props - LunaInspectorImage properties.
+ * @example
+ * const { size, mediaID, image, className, onImageSelect } = props;
+ *
+ * <LunaInspectorImage
+ *   label={ __('Background Image', 'luna') }
+ *   size="large"
+ *   mediaID={ mediaID }
+ *   image={ mediaObject }
+ *   className="m02__media"
+ *   onImageSelect={
+ *     (imageObject, imageID) => setAttributes({
+ *       mediaObject: imageObject,
+ *       mediaID: imageID
+ *     })
+ *   }
+ * />
+ */
 export const LunaInspectorImage = props => {
   const {
     label,
@@ -231,6 +272,18 @@ export const LunaInspectorImage = props => {
   );
 };
 
+/**
+ * LunaImage.Content - React component for adding images to save function.
+ *
+ * @param {Array} props - LunaImage.Content properties.
+ * @example
+ * const { className, image } = props;
+ *
+ * <LunaImage.Content
+ *   className="custom-image"
+ *   image={ mediaObject }
+ * />
+ */
 LunaImage.Content = props => {
   const { className, image } = props;
   return (
