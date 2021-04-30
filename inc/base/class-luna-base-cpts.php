@@ -325,7 +325,7 @@ abstract class Luna_Base_Cpts {
 		$post_type = sanitize_title( $post_type );
 
 		// Set some default labels.
-		$singular       = ucfirst( str_replace( [ '-', '_' ], ' ', strtolower( $post_type ) ) );
+		$singular       = ucwords( str_replace( [ '-', '_' ], ' ', strtolower( $post_type ) ) );
 		$plural         = $this->pluralise( $singular );
 		$default_labels = [
 			'name'          => _x( $plural, 'Post type general name', 'luna' ),
@@ -364,7 +364,7 @@ abstract class Luna_Base_Cpts {
 		$taxonomy = sanitize_title( $taxonomy );
 
 		// Set some default labels.
-		$singular       = ucfirst( str_replace( [ '-', '_' ], ' ', strtolower( $taxonomy ) ) );
+		$singular       = ucwords( str_replace( [ '-', '_' ], ' ', strtolower( $taxonomy ) ) );
 		$plural         = $this->pluralise( $singular );
 		$default_labels = [
 			'name'          => _x( $plural, 'taxonomy general name', 'luna' ),

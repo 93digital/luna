@@ -143,7 +143,7 @@ final class Luna_Gutenberg extends Luna_Base_Gutenberg {
 	 *
 	 * @see https://www.advancedcustomfields.com/resources/acf_register_block_type/
 	 */
-	function register_acf_block_types() {
+	public function register_acf_block_types() {
 		if ( ! function_exists( 'acf_register_block_type' ) ) {
 			// ACF is required to register ACF blocks!
 			return;

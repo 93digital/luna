@@ -29,7 +29,7 @@ final class Luna_Cpts extends Luna_Base_Cpts {
 		/**
 		 * @example Register post types.
 		 */
-		$this->add_post_type( 'book' );
+		$this->add_post_type( 'book', [] );
 		$this->add_post_type( 'dvd' );
 
 		/**
