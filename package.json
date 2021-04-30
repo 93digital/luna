@@ -7,12 +7,10 @@
     "build": "run-s \"build:*\"",
     "build:scripts": "wp-scripts build js/index.js js/blocks/blocks.js",
     "build:styles": "sass sass:",
-    "build:svg": "svg-sprite --symbol --svg-xmldecl=false --dest=build assets/*/*.svg",
     "build:postcss": "postcss -r style.css",
     "watch": "run-p \"watch:*\"",
-    "watch:styles": "sass --watch sass:",
-    "watch:svg": "svg-sprite --symbol --svg-xmldecl=false --dest=build assets/*/*.svg",
-    "watch:scripts": "wp-scripts start js/index.js js/blocks/blocks.js"
+    "watch:scripts": "wp-scripts start js/index.js js/blocks/blocks.js",
+    "watch:styles": "sass --watch sass:"
   },
   "repository": {
     "type": "git",
@@ -64,7 +62,7 @@
     "stylelint-config-wordpress": "^17.0.0",
     "stylelint-order": "^4.1.0",
     "stylint": "^2.0.0",
-    "svg-sprite": "^1.5.0",
+    "svg-spritemap-webpack-plugin": "^3.9.1",
     "uuid": "^8.3.2",
     "vanilla-lazyload": "^17.3.1"
   },

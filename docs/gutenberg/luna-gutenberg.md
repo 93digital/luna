@@ -29,4 +29,3 @@ ACF blocks use custom fields allowing developers more familiar with PHP developm
 ├── acf-blocks
 │   └── m01-example.php // Block code for both  Front & BackEnd.
 ```
-
