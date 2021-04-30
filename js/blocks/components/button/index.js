@@ -12,6 +12,7 @@ import './editor.scss';
  * @param {Array} props - LunaButton properties.
  * @example
  * const { buttonURL, buttonLabel, buttonTarget } = props;
+ *
  * <LunaButton
  *   className="button"
  *   url={ buttonURL }
@@ -33,8 +34,8 @@ export const LunaButton = props => {
     onTargetChange
   } = props;
 
+  // Checks state of URL input box.
   const [isURL, setIsURL] = useState(false);
-
   const toggleURL = () => setIsURL(! isURL);
 
   return (
@@ -102,6 +103,20 @@ export const LunaButton = props => {
   );
 };
 
+/**
+ * LunaButton.Content - React component for outputting custom Gutenberg links in save function.
+ *
+ * @param {Array} props - LunaButton.Content properties.
+ * @example
+ * const { buttonURL, buttonLabel, buttonTarget } = props;
+ *
+ * <LunaButton.Content
+ *   className="button"
+ *   url={ buttonURL }
+ *   label={ buttonLabel }
+ *   target={ buttonTarget }
+ * />
+ */
 LunaButton.Content = props => {
   const {
     className,
