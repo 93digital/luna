@@ -38,10 +38,12 @@ Transform your code to provide it's ready for production and optimized, needed t
 {
   "scripts": {
     "build": "run-s \"build:*\"",
-    "build:styles": "sass sass:",
     "build:scripts": "wp-scripts build js/index.js js/blocks/blocks.js",
-    "build:svg": "svg-sprite --symbol --svg-xmldecl=false --dest=build images/*.svg",
-    "build:postcss": "postcss -r style.css"
+    "build:styles": "sass sass:",
+    "build:postcss": "postcss -r style.css",
+    "watch": "run-p \"watch:*\"",
+    "watch:scripts": "wp-scripts start js/index.js js/blocks/blocks.js",
+    "watch:styles": "sass --watch sass:"
   },
 }
 ```
@@ -49,7 +51,6 @@ Transform your code to provide it's ready for production and optimized, needed t
 - `npm run build` - Builds the code for production (Runs through all scripts prepended with `build:`).
 - `npm run build:scripts` - Builds the JavaScript assets ready for production.
 - `npm run build:styles` - Builds the SASS assets ready for production.
-- `npm run build:svg` - Compiles and builds an svg sprite.
 - `npm run build:postcss` - Runs PostCSS through our main Theme and Editor stylesheets for better optimization. 
 
 
@@ -61,16 +62,14 @@ Watches your code and generates development friendly assets not meant for produc
 {
   "scripts": {
     "watch": "run-p \"watch:*\"",
-    "watch:styles": "sass --watch sass:",
-    "watch:svg": "svg-sprite --symbol --svg-xmldecl=false --dest=build images/*.svg",
-    "watch:scripts": "wp-scripts start js/index.js js/blocks/blocks.js"
+    "watch:scripts": "wp-scripts start js/index.js js/blocks/blocks.js",
+    "watch:styles": "sass --watch sass:"
   },
 }
 ```
 
 - `npm run watch` - Watches and builds the code for development (Runs through all scripts prepended with `watch:`).
 - `npm run watch:styles` - Specifically watches only SASS assets. It does not run PostCSS like `build` to help with debugging.
-- `npm run watch:svg` - Compiles and builds an svg sprite.
 - `npm run watch:scripts` - Specifically watches only JavaScript assets.
 
 ## Configurations
