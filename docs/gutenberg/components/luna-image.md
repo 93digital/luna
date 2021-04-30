@@ -42,12 +42,11 @@ registerBlockType('luna/blockname', {
 	...
 	attributes: {
     mediaID: {
-			type: 'number'
-		},
-		mediaObject: {
-			type: 'object',
-			source: 'html',
-		},
+      type: 'number'
+    },
+    mediaObject: {
+      type: 'object'
+    }
 	},
   ...
 });
@@ -101,8 +100,8 @@ registerBlockType('luna/blockname', {
     <img
       data-src="mobile.png"
       alt="alt for image"
-      width=375
-      height=280
+      width="375"
+      height="280"
       class="custom-class-name__image"
     />
   </picture>

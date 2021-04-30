@@ -1,5 +1,6 @@
 import classnames from 'classnames';
 import { v4 as uuidv4 } from 'uuid';
+import LazyLoad from 'vanilla-lazyload';
 
 import { __ } from '@wordpress/i18n';
 import { Button } from '@wordpress/components';
@@ -8,15 +9,12 @@ import { close } from '@wordpress/icons';
 
 import './editor.scss';
 
-/**
- * Image Element
- * Figure Image output from LunaImage component.
- *
- * @param {Object} props Props
- * @return {*} React JSX
- */
 const ImageElement = props => {
   const { item, className } = props;
+
+  if (item === undefined) {
+    return;
+  }
 
   return (
     <figure className={ className }>
@@ -35,12 +33,53 @@ const ImageElement = props => {
   );
 };
 
+const ImageElementSave = props => {
+  const { item, className } = props;
+
+  if (item === undefined) {
+    return;
+  }
+
+  new LazyLoad({
+    elements_selector: '.lazy'
+  });
+
+  return (
+    <figure className={ className }>
+      <picture>
+        <source data-srcset={ item.src } media="(min-width: 768px)" />
+        <source data-srcset={ item.tabletSrc } media="(min-width: 375px)" />
+        <img
+          data-src={ item.mobileSrc }
+          alt={ item.alt }
+          width={ item.width }
+          height={ item.height }
+          className={ classnames(`${ className }__image lazy`) }
+        />
+      </picture>
+    </figure>
+  );
+};
+
 /**
- * LunaImage
- * Image component for use in custom blocks.
+ * LunaImage - React component for adding inline images to Gutenberg blocks.
  *
- * @param {Object} props Props
- * @return {*} React JSX
+ * @param {Array} props - LunaImage properties.
+ * @example
+ * const { size, mediaID, image, className, onImageSelect } = props;
+ *
+ * <LunaImage
+ *   size="large"
+ *   mediaID={ mediaID }
+ *   image={ mediaObject }
+ *   className="m02__media"
+ *   onImageSelect={
+ *     (imageObject, imageID) => setAttributes({
+ *       mediaObject: imageObject,
+ *       mediaID: imageID
+ *     })
+ *   }
+ * />
  */
 export const LunaImage = props => {
   const {
@@ -56,7 +95,7 @@ export const LunaImage = props => {
   const mediaRender = ({ open }) => (
     <>
       { ! mediaID
-        ? <Button id={ labelId } className={ className } onClick={ open }><span>{ __('Set image', 'stella') }</span></Button>
+        ? <Button id={ labelId } className={ className } onClick={ open }><span>{ __('Set image', 'luna') }</span></Button>
         : (
           <Button
             className="luna-image-button"
@@ -110,7 +149,7 @@ export const LunaImage = props => {
       { mediaID &&
         <Button
           icon={ close }
-          label={ __('Remove image', 'stella') }
+          label={ __('Remove image', 'luna') }
           className="luna-image-remove"
           onClick={ () => onImageSelect(null, null) }
         />
@@ -121,11 +160,25 @@ export const LunaImage = props => {
 };
 
 /**
- * LunaInspectorImage
- * Image component for use in custom blocks inspector.
+ * LunaInspectorImage - React component for adding images to Gutenberg block inspector.
  *
- * @param {Object} props Props
- * @return {*} React JSX
+ * @param {Array} props - LunaInspectorImage properties.
+ * @example
+ * const { size, mediaID, image, className, onImageSelect } = props;
+ *
+ * <LunaInspectorImage
+ *   label={ __('Background Image', 'luna') }
+ *   size="large"
+ *   mediaID={ mediaID }
+ *   image={ mediaObject }
+ *   className="m02__media"
+ *   onImageSelect={
+ *     (imageObject, imageID) => setAttributes({
+ *       mediaObject: imageObject,
+ *       mediaID: imageID
+ *     })
+ *   }
+ * />
  */
 export const LunaInspectorImage = props => {
   const {
@@ -155,7 +208,7 @@ export const LunaInspectorImage = props => {
         </label>
       }
       { ! mediaID
-        ? <Button id={ labelId } className="editor-post-featured-image__toggle" onClick={ open }><span>{ __('Set image', 'stella') }</span></Button>
+        ? <Button id={ labelId } className="editor-post-featured-image__toggle" onClick={ open }><span>{ __('Set image', 'luna') }</span></Button>
         : (
           <Button
             className="luna-image-button"
@@ -196,7 +249,6 @@ export const LunaInspectorImage = props => {
 
   return (
     <div className="luna-image-wrap">
-
       <MediaUploadCheck>
         <MediaUpload
           type="image"
@@ -207,35 +259,34 @@ export const LunaInspectorImage = props => {
       </MediaUploadCheck>
 
       { mediaID &&
-        <>
-          <div>
-            <Button isSecondary onClick={ open }>{ __('Replace Image', 'luna') }</Button>
-          </div>
-          <Button
-            isLink
-            isDestructive
-            style={ { marginTop: '1em' } }
-            onClick={ () => onImageSelect(null, null) }
-          >
-            { __('Remove image', 'stella') }
-          </Button>
-        </>
+        <Button
+          isLink
+          isDestructive
+          style={ { marginTop: '1em' } }
+          onClick={ () => onImageSelect(null, null) }
+        >
+          { __('Remove image', 'luna') }
+        </Button>
       }
-
     </div>
   );
 };
 
 /**
- * LunaImage Content
- * Image component output.
+ * LunaImage.Content - React component for adding images to save function.
  *
- * @param {Object} props Props
- * @return {*} React JSX
+ * @param {Array} props - LunaImage.Content properties.
+ * @example
+ * const { className, image } = props;
+ *
+ * <LunaImage.Content
+ *   className="custom-image"
+ *   image={ mediaObject }
+ * />
  */
 LunaImage.Content = props => {
+  const { className, image } = props;
   return (
-    <ImageElement { ...props } />
+    <ImageElementSave className={ className } item={ image } />
   );
 };
-

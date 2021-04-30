@@ -5,10 +5,15 @@ import { decodeEntities } from '@wordpress/html-entities';
 
 /**
  * Post Card
- * Displays a simple card component with post props.
+ * Card element used in both PostItem & PostItemPreview components.
  *
- * @param {Object} props Props
- * @return {*} React JSX
+ * @param {Array} props PostCard props
+ * @example
+ * <PostCard
+ *   id={ uniqueId }
+ *   post={ postObject }
+ *   searchTerm="identifying string"
+ * />
  */
 export const PostCard = props => {
   const {
@@ -75,8 +80,12 @@ export const PostCard = props => {
  * Post Item
  * Displays a simple card view of a post item.
  *
- * @param {Object} props Props
- * @return {*} React JSX
+ * @param {Array} props PostItem Props
+ * @example
+ * <PostItem
+ *   isSelected={ boolean }
+ *   onClick={ () => handleEventSelection(postObject) }
+ * />
  */
 export const PostItem = props => {
   const {
@@ -108,8 +117,13 @@ export const PostItem = props => {
  * Post Item Preview
  * Displays a preview with a defined label.
  *
- * @param {Object} props Props
- * @return {*} React JSX
+ * @param {Array} props PostItemPreview props
+ * @example
+ * <PostItemPreview
+ *   post={ selectedPost }
+ *   label={ __('Selected Post:', 'luna') }
+ *   onRemove={ () => setAttributes({ selectedPost: null }) }
+ * />
  */
 export function PostItemPreview(props) {
   const {

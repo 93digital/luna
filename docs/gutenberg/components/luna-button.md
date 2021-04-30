@@ -1,10 +1,10 @@
 # LunaButton
-Link button component.
+Custom link button component.
 
 ## Props
 
 ### url
-URLto the desired location.
+URL to the desired location.
 
 - Type: `String`
 - Required: No
@@ -16,7 +16,7 @@ The button label, text that appears inside the button.
 - Required: No
 
 ### target
-Toggle whether the button opens in a new tab
+Toggle whether the link opens in a new tab.
 
 - Type: `Boolean`
 - Required: Yes
@@ -35,10 +35,11 @@ Function to update the button label on change.
 - Required: Yes
 
 ### onInputChange
-Function to update the button url on input change.
+Function to update the button URL on input change.
 
 - Type: `Function`
 - Required: Yes
+
 ### onTargetChange
 Function to update the button target on change.
 
@@ -51,16 +52,17 @@ registerBlockType('luna/blockname', {
 	...
 	attributes: {
     buttonURL: {
-			type: 'string'
-		},
-		buttonLabel: {
-			type: 'string',
-			source: 'html',
-		},
-		buttonTarget: {
-			type: 'boolean',
-			default: false
-		},
+      type: 'string'
+    },
+    buttonLabel: {
+      type: 'string',
+      selector: '.button a',
+      default: __('Find out more', 'luna')
+    },
+    buttonTarget: {
+      type: 'boolean',
+      default: false
+    }
 	},
   ...
 });

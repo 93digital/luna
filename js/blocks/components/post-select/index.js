@@ -7,8 +7,14 @@ import { PostItem } from '../post-item/index.js';
 /**
  * Post Select
  *
- * @param {Object} props react props
- * @return {*} React JSX
+ * @param {Array} props PostSelect props
+ * @example
+ * <PostSelect
+ *   label={ __('Search page/post', 'luna') }
+ *   postTypes={ ['posts', 'pages'] }
+ *   placeholder={ __('Search…', 'luna') }
+ *   onSelectPost={ post => setAttributes({ selectedPost: post }) }
+ * />
  */
 export const PostSelect = props => {
   const {
