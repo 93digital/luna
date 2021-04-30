@@ -1,6 +1,6 @@
 # Luna
 
-***v0.2.4***
+***v0.2.5***
 
 A WordPress starter theme lovingly created by the 93digital development team. It is the boilerplate for all our WordPress projects from April 2021 onwards and replaces the older starter theme, Stella.
 
@@ -18,7 +18,7 @@ Required PHP version 7.0 or later. Untested with version 8.
 ### Node
 Use node version 14 or later.
 
-### npm
+### NPM
 The theme uses npm to include third party modules as well as for bundling assets. This theme requires npm version 6 or later.
 
 To install the theme dependencies, run: `npm install` or `npm i`.
@@ -29,6 +29,7 @@ Composer is required to install third-party PHP packages. This is not imperative
 To install Composer packages, run: `composer update`.
 
 ## Available npm scripts
+Luna utilises WordPress's own wp-scripts for it's main development workflow. This uses Webpack to bundle assets together. Documentation on what is included can be found here. [WP Scripts](https://developer.wordpress.org/block-editor/reference-guides/packages/packages-scripts/).
 
 ### npm build
 Transform your code to provide it's ready for production and optimized, needed to run before deployment.
@@ -75,6 +76,9 @@ Watches your code and generates development friendly assets not meant for produc
 
 ## Configurations
 
+### Webpack
+Extended the default wp-scripts to include svg spritemaps.
+
 ### Stylelint
 Extends on Stylelint SASS config [Stylelint](https://github.com/bjankord/stylelint-config-sass-guidelines). See `.stylelintrc.json` for more details.
 
@@ -94,3 +98,4 @@ When updating the core codebase of Luna, please update the theme version in the 
 - The top of this file (`README.md`)
 - `readme.txt` (Also add a brief summary of the changes to the Changelog)
 - `/sass/style.scss` 
+- `package.json`
