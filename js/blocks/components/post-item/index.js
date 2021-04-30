@@ -121,8 +121,8 @@ export const PostItem = props => {
  * @example
  * <PostItemPreview
  *   post={ selectedPost }
- *   setAttributes={ setAttributes }
  *   label={ __('Selected Post:', 'luna') }
+ *   onRemove={ () => setAttributes({ selectedPost: null }) }
  * />
  */
 export function PostItemPreview(props) {

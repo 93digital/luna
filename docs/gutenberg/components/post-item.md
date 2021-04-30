@@ -66,11 +66,17 @@ Label for the previewed post item. Will default to `Selected Post:`.
 - Required: No
 - Default: `Selected Post:`
 
+#### onRemove
+Adds remove button so the user can update the postObject.
+
+- Type: `Function`
+- Required: Yes
 
 ### Usage
 ```javascript
 <PostItemPreview
   post={ postObject }
   label={ __('Selected Post:', 'luna') }
+  onRemove={ setAttributes({ postObject: null }) }
 />
 ```
