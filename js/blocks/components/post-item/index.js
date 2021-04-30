@@ -3,13 +3,6 @@ import { Flex, FlexBlock, FlexItem, TextHighlight, Button, Card, CardBody } from
 import { safeDecodeURI, filterURLForDisplay } from '@wordpress/url';
 import { decodeEntities } from '@wordpress/html-entities';
 
-/**
- * Post Card
- * Displays a simple card component with post props.
- *
- * @param {Object} props Props
- * @return {*} React JSX
- */
 export const PostCard = props => {
   const {
     id = '',
@@ -75,7 +68,7 @@ export const PostCard = props => {
  * Post Item
  * Displays a simple card view of a post item.
  *
- * @param {Object} props Props
+ * @param {Object} props react props
  * @return {*} React JSX
  */
 export const PostItem = props => {
@@ -108,7 +101,7 @@ export const PostItem = props => {
  * Post Item Preview
  * Displays a preview with a defined label.
  *
- * @param {Object} props Props
+ * @param {Object} props react props
  * @return {*} React JSX
  */
 export function PostItemPreview(props) {

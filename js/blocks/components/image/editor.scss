@@ -25,9 +25,10 @@
   min-height: 1px;
   padding: 4px !important;
   position: absolute;
-  top: 0;
+  bottom: 0;
   right: 0;
-  transform: translate(50%, -50%);
+  z-index: 1;
+  transform: translate(-50%, -50%);
 
   &:hover {
     color: #fff;

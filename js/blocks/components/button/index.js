@@ -1,4 +1,3 @@
-// import classnames from 'classnames';
 import { __ } from '@wordpress/i18n';
 import { useState } from '@wordpress/element';
 import { Button, ToggleControl, Card, CardBody, CardFooter } from '@wordpress/components';
@@ -8,11 +7,20 @@ import { link, keyboardReturn } from '@wordpress/icons';
 import './editor.scss';
 
 /**
- * Luna Button
- * Custom Button Component.
+ * LunaButton - React component for outputting custom Gutenberg links.
  *
- * @param {Object} props Props
- * @return {*} React JSX
+ * @param {Array} props - LunaButton properties.
+ * @example
+ * const { buttonURL, buttonLabel, buttonTarget } = props;
+ * <LunaButton
+ *   className="button"
+ *   url={ buttonURL }
+ *   label={ buttonLabel }
+ *   target={ buttonTarget }
+ *   onLabelChange={ value => setAttributes({ buttonLabel: value }) }
+ *   onInputChange={ value => setAttributes({ buttonURL: value }) }
+ *   onTargetChange={ value => setAttributes({ buttonTarget: value }) }
+ * />
  */
 export const LunaButton = props => {
   const {
@@ -31,16 +39,17 @@ export const LunaButton = props => {
 
   return (
     <div className="luna-button-wrap">
-      <RichText
-        tagName="a"
-        aria-label={ __('Button text', 'luna') }
-        placeholder={ __('Add text…', 'luna') }
-        value={ label }
-        onChange={ onLabelChange }
-        withoutInteractiveFormatting
-        className={ className }
-        identifier="text"
-      />
+
+      <span className={ className }>
+        <RichText
+          tag="a"
+          value={ label }
+          className="luna-button-label"
+          placeholder={ __('Button label…', 'luna') }
+          keepPlaceholderOnFocus={ true }
+          onChange={ onLabelChange }
+        />
+      </span>
 
       <Button
         isPrimary
@@ -93,13 +102,6 @@ export const LunaButton = props => {
   );
 };
 
-/**
- * Luna Button Content
- * Output preivew of the LunaButton Component.
- *
- * @param {Object} props Props
- * @return {*} React JSX
- */
 LunaButton.Content = props => {
   const {
     className,
@@ -109,13 +111,13 @@ LunaButton.Content = props => {
   } = props;
 
   return (
-    <RichText.Content
-      tagName="a"
-      className={ className }
+    <a
       href={ url }
-      value={ label }
+      className={ className }
       target={ target && '_blank' }
       rel={ target && 'noopener noreferrer' }
-    />
+    >
+      { label }
+    </a>
   );
 };
