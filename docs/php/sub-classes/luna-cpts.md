@@ -53,10 +53,6 @@ private $default_cpt_args = [
 
 The list of WordPress default post type args can be seen [here](https://developer.wordpress.org/reference/functions/register_post_type/#parameter-detail-information).
 
-**CPT settings**
-
-A post type settings page is added as a sub menu item under the post type menu item if `has_archive` is set to true (which is the Luna default). This requires ACF to be activated.
-
 ### Register a taxonomy
 
 **Usage:**
@@ -107,3 +103,15 @@ The list of WordPress default taxonomy args can be seen [here](https://developer
  */
 $this->remove_taxonomy( $taxonomy, $post_types );
 ```
+
+## CPT settings page
+
+A custom post type options page is added as a sub menu item under the post type's menu item if the `has_archive` has been set to true when registering the custom post type (which is the Luna default). This requires ACF to be activated.
+
+### Option page slug
+
+The page slug for each of these settings page will be in the format of `$post_type_slug . '-settings'`, e.g. `book-settings` for a registered custom post type called Books (notice the singular format for the slug).
+
+### Default post type
+
+For consistency, there is code within the `Luna_Base_Cpts` base class which automatically adds a settings page for Posts. So all settings for this default post type and the main Blog page will need to be set here. An admin notice is added to the Posts page (which still needs to be set in WordPress Settings) to prompt WordPress users to use the settings page.
