@@ -324,7 +324,7 @@ abstract class Luna_Base_Utils {
 		 *
 		 * @see https://core.trac.wordpress.org/ticket/38387.
 		 */
-		$markup .= ' <use href="#' . esc_html( $icon ) . '" xlink:href="#' . esc_html( $icon ) . '"></use> ';
+		$markup .= ' <use href="#' . esc_html( 'sprite-' . $icon ) . '" xlink:href="#' . esc_html( 'sprite-' . $icon ) . '"></use> ';
 		$markup .= '</svg>';
 
 		// Echo and return.

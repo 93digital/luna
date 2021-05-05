@@ -29,30 +29,3 @@ ACF blocks use custom fields allowing developers more familiar with PHP developm
 ├── acf-blocks
 │   └── m01-example.php // Block code for both  Front & BackEnd.
 ```
-
-## Advanced Usage
-
-### Using SVG
-
-**JavaScript (Gutenberg) Example:**
-
-```javascript
-import { ReactComponent as Icon } from './icon.svg';
-
-const App = () => (
-  <article className="m01">
-    <Icon />
-  </article>
-);
-```
-
-**PHP Example:**
-
-```php
-<?php use function Luna\Icons\svg; ?>
-
-<article class="m01">
-  <?php svg( 'icon' ); ?>
-</article>
-?>
-```

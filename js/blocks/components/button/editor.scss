@@ -6,9 +6,20 @@
   color: initial;
 }
 
+.luna-button-label {
+  font-size: inherit !important;
+  line-height: inherit !important;
+
+  &:focus {
+    border: 0 !important;
+    outline: 0 !important;
+    box-shadow: none !important;
+  }
+}
+
 .luna-button-url {
   opacity: .5;
-  margin-left: .5em;
+  margin-left: .5em !important;
 
   &.is-active {
     opacity: 1;

@@ -1,5 +1,5 @@
 # PostItem & PostItemPreview
-Post object React components for displaying a selected post object.
+React components for displaying a selected post object.
 
 ## Post Item
 Displays a simple card view of a post item.
@@ -53,24 +53,30 @@ Displays a preview of a post item card with a defined label.
 
 ### Props
 
-#### `post` - object
+#### post
 The selected post object, can be added via the REST api.
 
 - Type: `Object`
 - Required: Yes
 
-#### `label` - string
-Label for the previewed post item. Will fallback to `Selected Post:`.
+#### label
+Label for the previewed post item. Will default to `Selected Post:`.
 
 - Type: `String`
 - Required: No
 - Default: `Selected Post:`
 
+#### onRemove
+Adds remove button so the user can update the postObject.
+
+- Type: `Function`
+- Required: Yes
 
 ### Usage
 ```javascript
 <PostItemPreview
   post={ postObject }
   label={ __('Selected Post:', 'luna') }
+  onRemove={ setAttributes({ postObject: null }) }
 />
 ```

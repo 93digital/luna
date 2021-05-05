@@ -6,15 +6,12 @@
 # Node artifact files
 node_modules/
 dist/
-<<<<<<< HEAD
-=======
 build/
 style.css
 style.css.map
 style-editor.css
 style-editor.css.map
 
->>>>>>> a398469f9c7cd0ad2d3181e0ae3417b324a77f66
 
 # Compiled Java class files
 *.class

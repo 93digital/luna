@@ -18,7 +18,7 @@ Required PHP version 7.0 or later. Untested with version 8.
 ### Node
 Use node version 14 or later.
 
-### npm
+### NPM
 The theme uses npm to include third party modules as well as for bundling assets. This theme requires npm version 6 or later.
 
 To install the theme dependencies, run: `npm install` or `npm i`.
@@ -29,6 +29,7 @@ Composer is required to install third-party PHP packages. This is not imperative
 To install Composer packages, run: `composer update`.
 
 ## Available npm scripts
+Luna utilises WordPress's own wp-scripts for it's main development workflow. This uses Webpack to bundle assets together. Documentation on what is included can be found here. [WP Scripts](https://developer.wordpress.org/block-editor/reference-guides/packages/packages-scripts/).
 
 ### npm build
 Transform your code to provide it's ready for production and optimized, needed to run before deployment.
@@ -38,10 +39,12 @@ Transform your code to provide it's ready for production and optimized, needed t
 {
   "scripts": {
     "build": "run-s \"build:*\"",
-    "build:styles": "sass sass:",
     "build:scripts": "wp-scripts build js/index.js js/blocks/blocks.js",
-    "build:svg": "svg-sprite --symbol --svg-xmldecl=false --dest=build images/*.svg",
-    "build:postcss": "postcss -r style.css"
+    "build:styles": "sass sass:",
+    "build:postcss": "postcss -r style.css",
+    "watch": "run-p \"watch:*\"",
+    "watch:scripts": "wp-scripts start js/index.js js/blocks/blocks.js",
+    "watch:styles": "sass --watch sass:"
   },
 }
 ```
@@ -49,7 +52,6 @@ Transform your code to provide it's ready for production and optimized, needed t
 - `npm run build` - Builds the code for production (Runs through all scripts prepended with `build:`).
 - `npm run build:scripts` - Builds the JavaScript assets ready for production.
 - `npm run build:styles` - Builds the SASS assets ready for production.
-- `npm run build:svg` - Compiles and builds an svg sprite.
 - `npm run build:postcss` - Runs PostCSS through our main Theme and Editor stylesheets for better optimization. 
 
 
@@ -61,19 +63,20 @@ Watches your code and generates development friendly assets not meant for produc
 {
   "scripts": {
     "watch": "run-p \"watch:*\"",
-    "watch:styles": "sass --watch sass:",
-    "watch:svg": "svg-sprite --symbol --svg-xmldecl=false --dest=build images/*.svg",
-    "watch:scripts": "wp-scripts start js/index.js js/blocks/blocks.js"
+    "watch:scripts": "wp-scripts start js/index.js js/blocks/blocks.js",
+    "watch:styles": "sass --watch sass:"
   },
 }
 ```
 
 - `npm run watch` - Watches and builds the code for development (Runs through all scripts prepended with `watch:`).
 - `npm run watch:styles` - Specifically watches only SASS assets. It does not run PostCSS like `build` to help with debugging.
-- `npm run watch:svg` - Compiles and builds an svg sprite.
 - `npm run watch:scripts` - Specifically watches only JavaScript assets.
 
 ## Configurations
+
+### Webpack
+Extended the default wp-scripts to include svg spritemaps.
 
 ### Stylelint
 Extends on Stylelint SASS config [Stylelint](https://github.com/bjankord/stylelint-config-sass-guidelines). See `.stylelintrc.json` for more details.
@@ -94,3 +97,4 @@ When updating the core codebase of Luna, please update the theme version in the 
 - The top of this file (`README.md`)
 - `readme.txt` (Also add a brief summary of the changes to the Changelog)
 - `/sass/style.scss` 
+- `package.json`

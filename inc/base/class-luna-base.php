@@ -394,7 +394,7 @@ abstract class Luna_Base {
 	 */
 	public function base_include_svg_sprites() {
 		// Sprite sheet filepath.
-		$filepath = get_template_directory() . '/build/symbol/svg/sprite.symbol.svg';
+		$filepath = get_template_directory() . '/build/spritemap.svg';
 
 		// Include it if it exists.
 		if ( file_exists( $filepath ) ) {
