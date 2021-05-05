@@ -219,16 +219,19 @@ abstract class Luna_Base_Utils {
 	 *
 	 * @param string $template output template.
 	 */
-	public function search_query_summary( $template = 'Showing %1$s - %2$s of %3$s' ) {
+	public function search_query_summary( $template = false ) {
 		global $wp_query;
+		\luna\dump( $wp_query->query_vars );
 
-		$query = $wp_query->query_vars;
-		$terms = implode( ', ', $query['search_terms'] );
-		$page  = array_key_exists( 'paged', $query ) && $query['paged'] ? $query['paged'] : 1;
+		// Create a comma seperated string from the search terms.
+		$terms = implode( ', ', $wp_query->query_vars['search_terms'] );
+
+		// Get the current search results page number.
+		$page = max( 1, get_query_var( 'paged' ) );
 
 		$page_total = (
-			$query['posts_per_page'] < $wp_query->found_posts
-			? $query['posts_per_page']
+			$wp_query->query_vars['posts_per_page'] < $wp_query->found_posts
+			? $wp_query->query_vars['posts_per_page']
 			: $wp_query->found_posts
 		);
 
@@ -239,7 +242,9 @@ abstract class Luna_Base_Utils {
 		}
 
 		if ( $wp_query->found_posts === 0 ) {
-			$template = 'Showing %3$s for "%4$s"';
+			$template = __( 'Showing %3$s for "%4$s"', 'luna' );
+		} elseif ( ! $template ) {
+			$template = __( 'Showing %1$s - %2$s of %3$s', 'luna' );
 		}
 
 		echo '<div class="search-results__count">';
