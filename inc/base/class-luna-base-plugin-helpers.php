@@ -73,7 +73,7 @@ abstract class Luna_Base_Plugin_Helpers {
 		add_filter( 'gform_field_css_class', [ $this, 'gravity_forms_custom_input_classes' ], 10, 3 );
 
 		// Remove the default ugly Gravity Forms spinner.
-		add_filter( 'gform_ajax_spinner_url', 'gravity_forms_replace_spinner', 10, 2 );
+		add_filter( 'gform_ajax_spinner_url', [ $this, 'gravity_forms_replace_spinner' ], 10, 2 );
 
 		// Disable tabindex on all Gravity Forms.
 		add_filter( 'gform_tabindex', '__return_false' );

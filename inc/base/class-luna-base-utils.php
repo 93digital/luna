@@ -181,7 +181,7 @@ abstract class Luna_Base_Utils {
 
 	/**
 	 * Parse an associative array into a HTML attributes string.
-	 * @example $key="$value"
+	 * Output format: $key="$value"
 	 *
 	 * @param array $atts An $att => $val key value pair associative array.
 	 * @return array A string of HTML attributes.
@@ -221,34 +221,41 @@ abstract class Luna_Base_Utils {
 	 */
 	public function search_query_summary( $template = false ) {
 		global $wp_query;
-		\luna\dump( $wp_query->query_vars );
 
 		// Create a comma seperated string from the search terms.
 		$terms = implode( ', ', $wp_query->query_vars['search_terms'] );
 
 		// Get the current search results page number.
-		$page = max( 1, get_query_var( 'paged' ) );
+		$page_num = max( 1, get_query_var( 'paged' ) );
 
-		$page_total = (
+		// Get the number of posts on the curent page.
+		$page_total_posts =
 			$wp_query->query_vars['posts_per_page'] < $wp_query->found_posts
 			? $wp_query->query_vars['posts_per_page']
-			: $wp_query->found_posts
-		);
+			: $wp_query->found_posts;
 
-		$current = ( $page - 1 ) * $page_total + 1;
-		$total   = $wp_query->found_posts;
-		if ( ( $page_total * $page ) < $wp_query->found_posts ) {
-			$total = ( $page_total * $page );
+		// Get index number of first post on current page.
+		$from = ( $page_num - 1 ) * $page_total_posts + 1;
+
+		// Index number for last post on the current page.
+		$to = $page_total_posts * $page_num;
+
+		// If this is the last page, then the $to value will be the total number of found posts.
+		if ( $to > $wp_query->found_posts ) {
+			$to = $wp_query->found_posts;
 		}
 
 		if ( $wp_query->found_posts === 0 ) {
-			$template = __( 'Showing %3$s for "%4$s"', 'luna' );
+			// No posts found template string.
+			$template = __( 'No results found for "%4$s"', 'luna' );
 		} elseif ( ! $template ) {
+			// Default temaplte string, if one hasn't been passed.
 			$template = __( 'Showing %1$s - %2$s of %3$s', 'luna' );
 		}
 
+		// Output.
 		echo '<div class="search-results__count">';
-		echo sprintf( $template, $current, $total, $wp_query->found_posts, $terms ); // phpcs:ignore
+		echo sprintf( $template, $from, $to, $wp_query->found_posts, $terms ); // phpcs:ignore
 		echo '</div>';
 	}
 
