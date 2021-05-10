@@ -21,7 +21,7 @@ namespace luna;
 function dump( $data, $error_log = false, $exit = false, $styles = '' ) {
 	if ( $error_log ) {
 		// dump data to debug.log (only if WP_DEBUG and WP_DEBUG_LOG is true).
-		error_log( print_r( $data ), true );
+		error_log( print_r( $data, true ) );
 	}
 
 	if ( ! defined( 'LUNA_DEBUG' ) || ! LUNA_DEBUG ) {

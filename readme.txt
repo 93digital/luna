@@ -28,6 +28,7 @@ License URI: https://www.gnu.org/licenses/gpl-2.0.html
 0.2.3 - A few more small bug fixes picked up with the theme being used on a couple of prodiction sites for the first time. Also added in the legacy pagination utility function and updated some of the documentation.
 0.2.4 - One small bug fix - a typo in a variable name
 1.0 - *OFFICIAL RELEASE* Updated some docs and a few last bug fixes before ticking over to v1.
+1.0.1 - Small bug fix in the \luna\dump() helper function.
 
 == Credits ==
 93digital Development Team
