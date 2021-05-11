@@ -29,6 +29,7 @@ License URI: https://www.gnu.org/licenses/gpl-2.0.html
 0.2.4 - One small bug fix - a typo in a variable name
 1.0 - *OFFICIAL RELEASE* Updated some docs and a few last bug fixes before ticking over to v1.
 1.0.1 - Small bug fix in the \luna\dump() helper function.
+1.0.2 - Small bug fix to move a remove_menu_page() call into the correct hook callback.
 
 == Credits ==
 93digital Development Team

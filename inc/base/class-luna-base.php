@@ -70,6 +70,7 @@ abstract class Luna_Base {
 
 		// Remove comments for pages and posts.
 		add_action( 'admin_init', [ $this, 'base_remove_comment_support' ] );
+		add_action( 'admin_menu', [ $this, 'base_remove_comment_menu_page' ] );
 		add_filter( 'manage_edit-post_columns', [ $this, 'base_remove_comment_columns' ] );
 
 		// Include the compiled SVG sprite sheet in the theme footer and admin footer.
@@ -367,12 +368,18 @@ abstract class Luna_Base {
 	/**
 	 * 'admin_init' acton hook callback.
 	 * WP comments are often not required in site builds.
-	 * This removes the meta box from pages and posts and also removes the Comments menu item.
+	 * This removes the meta box from pages and posts.
 	 */
 	public function base_remove_comment_support() {
 		remove_post_type_support( 'post', 'comments' );
 		remove_post_type_support( 'page', 'comments' );
+	}
 
+	/**
+	 * 'admin_menu' action hook callback.
+	 * Remove the Comments menu item from the admin menu
+	 */
+	public function base_remove_comment_menu_page() {
 		remove_menu_page( 'edit-comments.php' );
 	}
 

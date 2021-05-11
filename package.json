@@ -1,6 +1,6 @@
 {
   "name": "luna-starter-theme",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "93Digital's development starter theme, the boilerplate for all our WordPress projects",
   "main": "build/index.js",
   "scripts": {
