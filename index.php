@@ -5,7 +5,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 get_header();
-$luna->utils->search_query_summary();
 
 if ( have_posts() ) :
   while ( have_posts() ) : the_post();
