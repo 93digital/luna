@@ -55,7 +55,10 @@ final class Luna_config {
 		new Luna_Config_Errors();
 
 		// Include the Composer autoloader.
-		@include_once get_template_directory() . '/vendor/autoload.php'; // phpcs:ignore
+		$composer_autoload_path = get_template_directory() . '/vendor/autoload.php';
+		if ( file_exists( $composer_autoload_path ) ) {
+			include_once $composer_autoload_path; // phpcs:ignore
+		}
 
 		/**
 		 * Luna autoloader.

@@ -30,6 +30,7 @@ License URI: https://www.gnu.org/licenses/gpl-2.0.html
 1.0 - *OFFICIAL RELEASE* Updated some docs and a few last bug fixes before ticking over to v1.
 1.0.1 - Small bug fix in the \luna\dump() helper function.
 1.0.2 - Small bug fix to move a remove_menu_page() call into the correct hook callback.
+1.0.3 - Small bug fix to not include the Composer autoader when it doesn't exist (the current iteration of the theme does not contain a composer.json file).
 
 == Credits ==
 93digital Development Team
