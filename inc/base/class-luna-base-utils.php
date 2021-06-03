@@ -223,7 +223,7 @@ abstract class Luna_Base_Utils {
 		global $wp_query;
 
 		// Create a comma seperated string from the search terms.
-		$terms = implode( ', ', $wp_query->query_vars['search_terms'] );
+		$terms = implode( ', ', esc_html( $wp_query->query_vars['search_terms'] ) );
 
 		// Get the current search results page number.
 		$page_num = max( 1, get_query_var( 'paged' ) );
