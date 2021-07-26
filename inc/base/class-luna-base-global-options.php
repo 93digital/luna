@@ -43,8 +43,8 @@ abstract class Luna_Base_Global_Options {
    * Register the Global Options page and fields if ACF is available.
 	 */
 	protected function __construct() {
-    if ( ! function_exists( 'get_field' ) ) {
-      // ACF isn't active!
+    if ( ! function_exists( 'acf_add_options_page' ) ) {
+      // ACF Pro isn't active!
       return;
 		}
 

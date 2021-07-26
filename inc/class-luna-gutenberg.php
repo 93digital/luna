@@ -34,7 +34,7 @@ final class Luna_Gutenberg extends Luna_Base_Gutenberg {
 		/**
 		 * @example add a custom block category.
 		 */
-		add_filter( 'block_categories', [ $this, 'register_block_category' ], 10, 2 );
+		add_filter( 'block_categories_all', [ $this, 'register_block_category' ], 10, 2 );
 
 		// All ACF-related functionality should be placed AFTER this check.
 		if ( ! function_exists( 'acf_register_block_type' ) ) {

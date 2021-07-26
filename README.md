@@ -2,6 +2,8 @@
 
 ***v1.0.4***
 
+***Authors:*** *Andrew Iontton & Matt Knight*
+
 A WordPress starter theme lovingly created by the 93digital development team. It is the boilerplate for all our WordPress projects from April 2021 onwards and replaces the older starter theme, Stella.
 
 Luna aims to clean up a lot of the legacy code which had grown in Stella over the years whilst also reinventing the theme to natively allow Gutenberg block development.

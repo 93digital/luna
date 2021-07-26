@@ -82,11 +82,12 @@ abstract class Luna_Base_Cpts {
 	 * @var array
 	 */
 	private $default_tax_args = [
-		'hierarchical' => true,
-		'rewrite'      => [
-			'with_front' => false,
+		'hierarchical'      => true,
+		'rewrite'           => [
+			'with_front'      => false,
 		],
-		'show_in_rest' => true,
+		'show_in_rest'      => true,
+		'show_admin_column' => true,
 	];
 
 	/**
