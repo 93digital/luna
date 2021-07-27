@@ -38,7 +38,7 @@ private $default_cpt_args = [
   'menu_position' => 20,
   'public'        => true,
   'rewrite'       => [
-    'with_front'  => false,
+    'with_front' => false,
   ],
   'show_in_rest'  => true,
   'supports'      => [
@@ -77,15 +77,16 @@ $this->add_taxonomy( $taxonomy, $post_types, $args = [] );
  * @see https://developer.wordpress.org/reference/functions/register_taxonomy/
  */
 private $default_tax_args = [
-  'hierarchical' => true,
-  'labels'        => [
+  'hierarchical'      => true,
+  'labels'            => [
     'name'          => $plural, // derived from the passed $taxonomy slug.
     'singular_name' => $singular, // derived from the passed $taxonomy slug.
   ],
-  'rewrite'      => [
+  'rewrite'           => [
     'with_front' => false,
   ],
-  'show_in_rest' => true,
+  'show_in_rest'      => true,
+  'show_admin_column' => true,
 ];
 ```
 
