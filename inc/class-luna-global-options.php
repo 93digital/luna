@@ -17,7 +17,7 @@ final class Luna_Global_Options extends Luna_Base_Global_Options {
    * Register the Global Options page and fields via the parent class if ACF is available.
 	 */
 	public function __construct() {
-    if ( ! function_exists( 'get_field' ) ) {
+    if ( ! function_exists( 'acf_add_options_page' ) ) {
       // ACF is required for this class.
       return;
 		}
