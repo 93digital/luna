@@ -32,7 +32,7 @@ License URI: https://www.gnu.org/licenses/gpl-2.0.html
 1.0.2 - Small bug fix to move a remove_menu_page() call into the correct hook callback.
 1.0.3 - Small bug fix to not include the Composer autoloader when it doesn't exist (the current iteration of the theme does not contain a composer.json file).
 1.0.4 - Small bug fix to escape search terms in a utils function
-1.1.0 - Edited the name of the theme to '93digital Luna' due to a clash with another Luna theme which was public. A few other additions include the re-introduction of custom login error messages, setting admin columns for taxonomies by default, a fix ti tge global options class and some documentation updates.
+1.1.0 - Edited the name of the theme to '93digital Luna' due to a clash with another Luna theme which was public. A few other additions include the re-introduction of custom login error messages, setting admin columns for taxonomies by default, a fix to the global options class and some documentation updates.
 
 == Credits ==
 93digital Development Team
