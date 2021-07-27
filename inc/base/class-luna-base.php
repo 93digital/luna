@@ -1,4 +1,5 @@
 <?php
+// phpcs:ignoreFile
 /**
  * Luna Base (ba-dum-tss!).
  *
@@ -85,6 +86,9 @@ abstract class Luna_Base {
 
 		// Check that the admin email is not set to a 93digital account.
 		add_action( 'admin_notices', [ $this, 'base_admin_email_notice' ], 0, 1 );
+
+		// Replace default login error messages which can reveal a valid user name.
+		add_filter( 'login_errors', [ $this, 'change_login_error_message' ] );
 
 		// Disable xmlrpc, it wont be needed and is a vulnerability.
 		add_filter( 'xmlrpc_enabled', '__return_false' );
@@ -458,5 +462,43 @@ abstract class Luna_Base {
 			<?php
 			ob_get_flush();
 		}
+	}
+
+	/**
+	 * 'login_errors' filter hook callback.
+	 * Replace default login messages with a custom one.
+	 * 
+	 * By default WP displays two different messages.
+	 * - When the user name or email is wrong
+	 * - When the the password is wrong - where it reveals if the input username is correct or not!
+	 * This is a huge security flaw as it gives potential hackers some extra info.
+	 * So this function changes that.
+	 *
+	 * @param string $error The default error message on an failed login attempt
+	 * @return string $error Our custom error message.
+	 */
+	public function change_login_error_message ( $error ) {
+		global $errors;
+		$err_codes = $errors->get_error_codes();
+
+		// Check for a username/email or password login error.
+		if (
+			in_array( 'invalid_username', $err_codes ) ||
+			in_array( 'invalid_email', $err_codes ) ||
+			in_array( 'incorrect_password', $err_codes )
+		) {
+			// Set our custom message which does not reveal which field has the error.
+			$error = '<strong>ERROR</strong> : Invalid username or password';
+		}
+
+		// Reset password error is disabled to improve security.
+		if ( in_array( 'invalidcombo', $err_codes ) ) {
+			// Redirect user to login and add confirmation key.
+			$url = get_home_url() . '/wp-login.php?checkemail=confirm';
+			wp_safe_redirect( $url );
+			exit;
+		}
+
+		return $error;
 	}
 }
