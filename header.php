@@ -17,7 +17,24 @@ $favicon_default = get_field( 'favicon_default', 'global_options' );
 
 ?><!DOCTYPE html>
 <html <?php language_attributes(); ?>>
+<!--
+Why, hello! Thanks for taking a look at our code.
+This site was designed and built by...
 
+    .d8888b.   .d8888b.       888 d8b          d8b 888             888
+   d88P  Y88b d88P  Y88b      888 Y8P          Y8P 888             888
+   888    888      .d88P      888                  888             888
+   Y88b. d888     8888"   .d88888 888  .d88b.  888 888888  8888b.  888
+    "Y888P888      "Y8b. d88" 888 888 d88P"88b 888 888        "88b 888
+          888 888    888 888  888 888 888  888 888 888    .d888888 888
+   Y88b  d88P Y88b  d88P Y88b 888 888 Y88b 888 888 Y88b.  888  888 888
+    "Y8888P"   "Y8888P"   "Y88888 888  "Y88888 888  "Y888 "Y888888 888
+                                           888
+                                      Y8b d88P
+                                       "Y88P"
+
+For more info, visit 93digital.co.uk.
+-->
 <head>
 	<meta charset="<?php bloginfo( 'charset' ); ?>">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
