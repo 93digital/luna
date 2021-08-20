@@ -12,6 +12,11 @@
  * @package luna
  */
 
+if ( ! defined( 'ABSPATH' ) ) {
+	// Oi, no peeking!
+  exit;
+}
+
 global $wp;
 
 // Log a warning and redirect to Homepage if this template is used.

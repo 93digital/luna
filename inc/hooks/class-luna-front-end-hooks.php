@@ -18,18 +18,6 @@ final class Luna_Front_End_Hooks {
 	 * Each hook's callback should be a public method of this class.
 	 */
 	public function __construct() {
-		/**
-		 * @example Add a hook.
-		 */
-		add_action( 'template_redirect', [ $this, 'example_front_end_hook' ] );
-	}
 
-	/**
-	 * 'template_redirect' action hook callback.
-	 * @example A hook callback. Outputs a dump of the $luna object.
-	 */
-	public function example_front_end_hook() {
-		global $luna;
-		\luna\dump( get_class( $luna ) );
 	}
 }

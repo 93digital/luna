@@ -19,20 +19,6 @@ final class Luna_Shortcodes {
 	 * Each shortcode callback should be a method of this class.
 	 */
 	public function __construct() {
-    /**
-		 * @example Add a shortcode.
-		 */
-		add_shortcode( 'example-luna-shortcode', [ $this, 'example_luna_shortcode_callback' ] );
-	}
-
-	/**
-	 * 'luna-shortcode' shortcode callback.
-	 * @example Outputs "Hello, Moon!".
-	 *
-	 * @param array $atts Shortcode attributes.
-	 * @param array $content Shortcode content.
-	 */
-	public function example_luna_shortcode_callback( $atts = [], $content = '' ) {
-		return "<strong>Hello, Moon!</strong>";
+		
 	}
 }

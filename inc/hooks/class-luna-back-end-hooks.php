@@ -17,18 +17,6 @@ final class Luna_Back_End_Hooks {
 	 * Each hook's callback should be a public method of this class.
 	 */
 	public function __construct() {
-		/**
-		 * @example Add a hook.
-		 */
-		add_action( 'admin_notices', [ $this, 'example_back_end_hook' ] );
-	}
 
-	/**
-	 * 'admin_notices' action hook callback.
-	 * @example A hook callback. Outputs a dump of the $luna object.
-	 */
-	public function example_back_end_hook() {
-		global $luna;
-		\luna\dump( get_class( $luna ) );
 	}
 }

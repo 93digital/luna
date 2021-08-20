@@ -14,7 +14,8 @@ All Luna PHP code is housed within the `/inc` directory, with the obvious except
 │   │   ├── class-luna-back-end-hooks.php
 │   │   ├── class-luna-front-end-hooks.php
 │   │   ├── class-luna-hooks.php
-│   │   └── class-luna-shortcodes.php
+│   │   ├── class-luna-shortcodes.php
+│   │   └── class-luna-terra-hooks.php
 │   ├── class-luna-cpts.php
 │   ├── class-luna-global-options.php
 │   ├── class-luna-gutenberg.php
@@ -87,8 +88,11 @@ The hook classes baked into Luna at the time of writing are:
 - `Luna_Front_End_Hooks`
 - `Luna_Hooks`
 - `Luna_Shortcodes`
+- `Luna_Terra_Hooks`
 
 The names of these are pretty self-explanatory, with the main `Luna_Hooks` class acting as a home for hooks which are required for both the front and back end.
+
+Most custom Terra configuration on a project will be via the hooks offered by Terra (see Terra documentation for more info). All these hooks and their callbacks should be placed in `Luna_Terra_Hooks`.
 
 Similarly the the sub-classes, more custom hook classes can be created here on a project-by-project basis should the need arise.
 
@@ -154,7 +158,6 @@ The defined development environments are currently sites which include one of th
 
 - `localhost`
 - `luna`
-- `.wpengine.com`
 
 ### Example code
 
@@ -166,11 +169,16 @@ These example pieces of code can be found in the following classes:
 - `Luna_Global_Options`
 - `Luna_Gutenberg`
 - `Luna_Utils`
-- `Luna_Back_End_Hooks`
-- `Luna_Front_End_Hooks`
-- `Luna_Shortcodes`
 
 It is recommended that these are all removed when using the theme on a project.
+
+### Terra
+
+As of Luna *v1.1.3* Terra is instantiated within `Luna_Base`. This is wrapped in a conditional `class_exists()`, in case it hasn't been added via Composer
+
+The Terre object is instantiated as the global `$terra` variable, as was the unofficial convention used in sites using Luna prior to this update.
+
+As mentioned earlier, any custom Terra configuration for a site can be done via the range of excellent hooks that Terra offers. A hooks class, `Luna_Terra_Hooks` has been added to `/inc/hooks` for this. 
 
 ## Advanced Custom Fields
 

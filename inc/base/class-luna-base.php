@@ -35,11 +35,20 @@ abstract class Luna_Base {
 		 */
 		new Luna_Hooks();
 		new Luna_Shortcodes();
+		new Luna_Terra_Hooks();
 		if ( is_admin() ) {
 			new Luna_Back_End_Hooks();
 		}
 		if ( ! is_admin() || wp_doing_ajax() ) {
 			new Luna_Front_End_Hooks();
+		}
+
+		/**
+		 * Instantiate Terra.
+		 * If not found, please include via Composer.
+		 */
+		if ( class_exists( '\Nine\Terra' ) ) {
+			$GLOBALS['terra'] = new \Nine3\Terra();
 		}
 
 		/**
