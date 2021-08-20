@@ -35,6 +35,7 @@ License URI: https://www.gnu.org/licenses/gpl-2.0.html
 1.1.0 - Edited the name of the theme to '93digital Luna' due to a clash with another Luna theme which was public. A few other additions include the re-introduction of custom login error messages, setting admin columns for taxonomies by default, a fix to the global options class and some documentation updates.
 1.1.1 - Added composer.json which contains the Terra package required for most new builds using the theme. Also made a small adjustment to is_debug_mode
 1.1.2 - Added some default templates to the theme (index.php, archive.php, home.php, singular.php, search.php, 404.php). These should be retained for all projects.
+1.1.3 - Added documentation relating the the templates added in the last iteration. Also added Terra instantiation into the base and a new hooks class for Terra.
 
 == Credits ==
 93digital Development Team

@@ -1,6 +1,6 @@
 # Luna
 
-***v1.1.2***
+***v1.1.3***
 
 ***Authors:*** *Andrew Iontton & Matt Knight*
 
@@ -101,4 +101,4 @@ When updating the core codebase of Luna, please update the theme version in the 
 - `/sass/style.scss` 
 - `package.json`
 
-Also, it is advised to call name the branch after the new version you are working on. So if the theme is currently at `1.0.1` and your are fixing a bug, the branch for this bug should be `1.0.2`. If multiple developers are working on different things at the same time then they will need to collaborate as to which version they are working on.
+Also, it is advised to call name the branch after the new version you are working on. So if the theme is currently at `v1.0.1` and your are fixing a bug, the branch for this bug should be `v1.0.2`. If multiple developers are working on different things at the same time then they will need to collaborate as to which version they are working on.
