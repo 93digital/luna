@@ -8,6 +8,8 @@
  * @subpackage template-parts
  */
 
+global $luna;
+
 $args = array(
 	'prev_text' => $luna->utils->svg( 'ico_next' ),
 	'next_text' => $luna->utils->svg( 'ico_next' ),

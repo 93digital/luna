@@ -34,6 +34,11 @@ Include SASS files you want to include into the editor.
 @import './components/components';
 
 /* ---------------------------------------
+# Gutenberg Core Blocks
+---------------------------------------- */
+@import './gutenberg/gutenberg';
+
+/* ---------------------------------------
 # Blocks
 ---------------------------------------- */
 @import './blocks/blocks';
@@ -42,3 +47,29 @@ Include SASS files you want to include into the editor.
 # Template Parts
 ---------------------------------------- */
 @import './template-parts/template-parts';
+
+.break-out,
+.wp-block-group {
+  margin-left: 0 !important;
+  max-width: none !important;
+  width: 100% !important;
+  left: 0 !important;
+}
+
+.wp-block-group__inner-container,
+[data-type='core/block'],
+[data-type*='acf'] {
+  max-width: none;
+
+  a {
+    pointer-events: none;
+  }
+}
+
+.wp-block-columns {
+  margin-left: auto;
+  margin-right: auto;
+  max-width: none;
+  left: 0;
+  width: 90%;
+}

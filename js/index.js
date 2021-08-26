@@ -14,3 +14,6 @@ import './src/cookie-control';
 import './src/lazyload';
 import './src/skip-link-focus';
 import './src/smooth-scroller';
+
+// ACF JavaScript files.
+import './acf-blocks';

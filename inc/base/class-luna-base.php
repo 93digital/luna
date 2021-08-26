@@ -126,6 +126,7 @@ abstract class Luna_Base {
 		// Add custom image sizes.
 		add_image_size( 'mobile', 375 );
   	add_image_size( 'tablet', 768 );
+		add_image_size( 'max-width', 1440 );
 
     // Switch default markup for search form, comment form, and comment to output valid HTML5.
     add_theme_support(

@@ -8,3 +8,27 @@
     transform: rotate(360deg);
   }
 }
+@keyframes fadeUp {
+
+  0% {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+
+  100% {
+    transform: none;
+    opacity: 1;
+  }
+}
+@keyframes slideDown {
+
+  0% {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+
+  100% {
+    transform: none;
+    opacity: 1;
+  }
+}

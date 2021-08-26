@@ -74,11 +74,13 @@ final class Luna_config {
 	 * Checks whether the site is running in an environment where debugging is allowed.
 	 * These environments are:
 	 * - localhost
+	 * - sites using the '.wpengine.com' domain
+	 * - Any environment running the base starter theme (domain containing 'luna').
 	 *
 	 * @return bool Whether the site is in 'debug mode'.
 	 */
 	private function is_debug_mode() {
-		return stripos( home_url(), 'localhost' );
+		return stripos( home_url(), 'localhost' ) || stripos( home_url(), 'luna' );
 	}
 
 	/**

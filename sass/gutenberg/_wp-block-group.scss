@@ -1,0 +1,8 @@
+.wp-block-group {
+
+  &__inner-container {
+    @extend .container;
+    position: relative;
+    max-width: 840px;
+  }
+}

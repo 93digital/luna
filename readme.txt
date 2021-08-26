@@ -36,6 +36,7 @@ License URI: https://www.gnu.org/licenses/gpl-2.0.html
 1.1.1 - Added composer.json which contains the Terra package required for most new builds using the theme. Also made a small adjustment to is_debug_mode
 1.1.2 - Added some default templates to the theme (index.php, archive.php, home.php, singular.php, search.php, 404.php). These should be retained for all projects.
 1.1.3 - Added documentation relating the the templates added in the last iteration. Also added Terra instantiation into the base and a new hooks class for Terra.
+1.1.4 - Added share links template part. Updated SCSS files that fix small bugs in the editor. Include base gutenberg block styles. Unregister Gutenberg blocks & update JS files. Add extra image size. Add picture function. Updated SVG icons.
 
 == Credits ==
 93digital Development Team

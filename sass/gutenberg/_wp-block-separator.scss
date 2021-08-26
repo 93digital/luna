@@ -1,0 +1,9 @@
+.wp-block-separator {
+  margin: 3em auto;
+  border-bottom: 0 !important;
+  border-color: currentColor !important;
+
+  &.has-text-color {
+    border-color: currentColor !important;
+  }
+}

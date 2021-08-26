@@ -1,6 +1,6 @@
 # Luna
 
-***v1.1.3***
+***v1.1.4***
 
 ***Authors:*** *Andrew Iontton & Matt Knight*
 
@@ -41,11 +41,11 @@ Transform your code to provide it's ready for production and optimized, needed t
 {
   "scripts": {
     "build": "run-s \"build:*\"",
-    "build:scripts": "wp-scripts build js/index.js js/blocks/blocks.js",
+    "build:scripts": "wp-scripts build js/index.js js/blocks/blocks.js js/acf-blocks.js",
     "build:styles": "sass sass:",
     "build:postcss": "postcss -r style.css",
     "watch": "run-p \"watch:*\"",
-    "watch:scripts": "wp-scripts start js/index.js js/blocks/blocks.js",
+    "watch:scripts": "wp-scripts start js/index.js js/blocks/blocks.js js/acf-blocks.js",
     "watch:styles": "sass --watch sass:"
   },
 }
@@ -65,7 +65,7 @@ Watches your code and generates development friendly assets not meant for produc
 {
   "scripts": {
     "watch": "run-p \"watch:*\"",
-    "watch:scripts": "wp-scripts start js/index.js js/blocks/blocks.js",
+    "watch:scripts": "wp-scripts start js/index.js js/blocks/blocks.js js/acf-blocks.js",
     "watch:styles": "sass --watch sass:"
   },
 }

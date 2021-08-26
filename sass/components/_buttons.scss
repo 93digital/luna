@@ -1,13 +1,25 @@
+// Default Link styling for posts.
+a {
+
+  &:not([class]) {
+    transition: color .3s ease;
+    color: currentColor;
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+  }
+}
+
 .button {
   position: relative;
   display: inline-flex;
   text-align: center;
+  text-decoration: none;
   max-width: 100%;
-  background-color: transparent;
   border: 0;
+  background-color: transparent;
 
   // Hide empty buttons.
-  &:not(input[type='submit']):empty {
+  &:not(input[type='submit']):not(input[type='button']):empty {
     display: none;
   }
 }

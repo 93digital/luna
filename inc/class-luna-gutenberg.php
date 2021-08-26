@@ -61,19 +61,34 @@ final class Luna_Gutenberg extends Luna_Base_Gutenberg {
 			'editor-font-sizes',
 			[
 				[
-					'name' => __( 'Small', 'luna' ),
-					'size' => 14,
-					'slug' => 'small'
+					'name' => __( 'H1', 'luna' ),
+					'size' => 48,
+					'slug' => 'h1',
 				],
 				[
-					'name' => __( 'Regular', 'luna' ),
-					'size' => 16,
-					'slug' => 'regular'
+					'name' => __( 'H2', 'luna' ),
+					'size' => 36,
+					'slug' => 'h2',
 				],
 				[
-					'name' => __( 'Large', 'luna' ),
+					'name' => __( 'H3', 'luna' ),
 					'size' => 32,
-					'slug' => 'large'
+					'slug' => 'h3',
+				],
+				[
+					'name' => __( 'H4', 'luna' ),
+					'size' => 28,
+					'slug' => 'h4',
+				],
+				[
+					'name' => __( 'H5', 'luna' ),
+					'size' => 20,
+					'slug' => 'h5',
+				],
+				[
+					'name' => __( 'H6', 'luna' ),
+					'size' => 14,
+					'slug' => 'h6',
 				]
 			]
 		);

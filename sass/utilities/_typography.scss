@@ -5,6 +5,10 @@
   font-style: normal;
   word-wrap: break-word;
 
+  .has-text-color & {
+    color: inherit;
+  }
+
   &:empty {
     display: none;
   }
@@ -20,37 +24,46 @@ h6 {
 }
 
 h1,
-.heading--1 {
+.heading--1,
+.has-h-1-font-size {
   font-size: 2em;
 }
 
 h2,
-.heading--2 {
+.heading--2,
+.has-h-2-font-size {
   font-size: 1.5em;
 }
 
 h3,
-.heading--3 {
+.heading--3,
+.has-h-3-font-size {
   font-size: 1.17em;
 }
 
 h4,
-.heading--4 {
+.heading--4,
+.has-h-4-font-size {
   font-size: 1em;
 }
 
 h5,
-.heading--5 {
+.heading--5,
+.has-h-5-font-size {
   font-size: .83em;
 }
 
 h6,
-.heading--6 {
+.heading--6,
+.has-h-6-font-size {
   font-size: .67em;
 }
 
-.align-center {
+.align-center,
+.has-text-align-center {
   text-align: center;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .align-left {
@@ -72,7 +85,6 @@ h6,
 .underline {
   text-decoration: underline;
 }
-
 
 .font-weight--100 {
   font-weight: 100;

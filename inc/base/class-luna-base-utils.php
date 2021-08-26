@@ -97,6 +97,7 @@ abstract class Luna_Base_Utils {
 		if ( is_admin() ) {
 			$atts['src'] = esc_url( $url );
 		} else {
+			$atts['src'] = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 0 0"%3E%3C/svg%3E';
 			$atts['data-src'] = esc_url( $url );
 		}
 
@@ -120,6 +121,50 @@ abstract class Luna_Base_Utils {
 			echo $image_elem; // phpcs:ignore
 		}
 		return $image_elem;
+	}
+
+	/**
+	 * Return optimised picture markup.
+	 * This works in tandem with the npm LazyLoad image package which is integrated into the theme.
+	 *
+	 * @param int|string  $image_id The attachment ID.
+	 * @param string      $size The image size (defaults to 'large').
+	 * @param string      $class CSS class names for the <img> tag.
+	 * @return string     $image_element The image element markup.
+	 */
+	public function picture( $image_id, $size = 'large', $class = 'luna-image', $echo = true ) {
+		$image_alt       = get_post_meta( $image_id, '_wp_attachment_image_alt', true );
+		$image_attr      = wp_get_attachment_image_src( $image_id, $size );
+		$mobile_src      = wp_get_attachment_image_url( $image_id, 'mobile' );
+		$tablet_src      = wp_get_attachment_image_url( $image_id, 'tablet' );
+		$desktop_src     = wp_get_attachment_image_url( $image_id, $size );
+		$width           = ( is_array( $image_attr ) ) ? $image_attr[1] : '';
+		$height          = ( is_array( $image_attr ) ) ? $image_attr[2] : '';
+		$placeholder_src = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ' . $width . ' ' . $height . '"%3E%3C/svg%3E';
+
+		if ( is_admin() ) :
+			$image_element  = '<figure class="' . esc_attr( $class ) . '">';
+			$image_element .= '<picture>';
+			$image_element .= '<source srcset="' . esc_url( $desktop_src ) . '" media="(min-width: 768px)" />';
+			$image_element .= '<source srcset="' . esc_url( $tablet_src ) . '" media="(min-width: 375px)" />';
+			$image_element .= '<img src="' . esc_url( $mobile_src ) . '" alt="' . esc_attr( $image_alt ) . '" width="' . esc_attr( $width ) . '" height="' . esc_attr( $height ) . '" class="' . esc_attr( $class . '__image' ) . '" />';
+			$image_element .= '</picture>';
+			$image_element .= '</figure>';
+		else :
+			$image_element  = '<figure class="' . esc_attr( $class ) . '">';
+			$image_element .= '<picture>';
+			$image_element .= '<source data-srcset="' . esc_url( $desktop_src ) . '" media="(min-width: 768px)" />';
+			$image_element .= '<source data-srcset="' . esc_url( $tablet_src ) . '" media="(min-width: 375px)" />';
+			$image_element .= '<img src="' . esc_attr( $placeholder_src ) . '" data-src="' . esc_url( $mobile_src ) . '" alt="' . esc_attr( $image_alt ) . '" width="' . esc_attr( $width ) . '" height="' . esc_attr( $height ) . '" class="' . esc_attr( $class . '__image lazy' ) . '" />';
+			$image_element .= '</picture>';
+			$image_element .= '</figure>';
+		endif;
+
+		if ( $echo ) {
+			echo $image_element;
+		} else {
+			return $image_element;
+		}
 	}
 
 	/**
@@ -223,7 +268,7 @@ abstract class Luna_Base_Utils {
 		global $wp_query;
 
 		// Create a comma seperated string from the search terms.
-		$terms = implode( ', ', esc_html( $wp_query->query_vars['search_terms'] ) );
+		$terms = implode( ', ', $wp_query->query_vars['search_terms'] );
 
 		// Get the current search results page number.
 		$page_num = max( 1, get_query_var( 'paged' ) );

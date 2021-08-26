@@ -10,10 +10,14 @@
  * <div class="lazy" data-bg="https://via.placeholder.com/150"></div>
  */
 
-import LazyLoad from 'vanilla-lazyload';
+import * as $ from 'jquery';
+import { lazyLoadInstance } from '../helpers/lazyload-instance';
 
 (() => {
-  const lazyLoadInstance = new LazyLoad({ // eslint-disable-line
-    elements_selector: '.lazy'
+  // eslint-disable-next-line no-unused-expressions
+  lazyLoadInstance;
+
+  $('body').on('terraDone', () => {
+    lazyLoadInstance.update();
   });
 })();
