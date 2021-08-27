@@ -99,6 +99,9 @@ abstract class Luna_Base {
 		// Replace default login error messages which can reveal a valid user name.
 		add_filter( 'login_errors', [ $this, 'change_login_error_message' ] );
 
+		// Replace excerpt end string output.
+		add_filter( 'excerpt_more', [ $this, 'custom_excerpt_more' ] );
+
 		// Disable xmlrpc, it wont be needed and is a vulnerability.
 		add_filter( 'xmlrpc_enabled', '__return_false' );
 	}
@@ -510,5 +513,12 @@ abstract class Luna_Base {
 		}
 
 		return $error;
+	}
+
+	/**
+	 * Replaces the return 'read more' excerpt cut off.
+	 */
+	public function custom_excerpt_more() {
+    return '...';
 	}
 }

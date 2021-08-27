@@ -76,6 +76,9 @@ abstract class Luna_Base_Global_Options {
 
 		// Add required security headers to the front end.
 		add_action( 'send_headers', [ $this, 'add_security_headers' ], 0 );
+
+		// Register the Google Maps API key within ACF.
+		add_action( 'acf/init', [ $this, 'google_maps_api' ] );
 	}
 
 	/**
@@ -318,6 +321,18 @@ abstract class Luna_Base_Global_Options {
 					'Content-Security-Policy: default-src \'self\' \'unsafe-inline\' ' . $domains . ';'
 				);
 			}
+		}
+	}
+
+	/**
+	 * 'acf/init' action hook callback.
+	 * ACF Register Google API key.
+	 */
+	public function google_maps_api() {
+		$api_key = get_field( 'google_maps_api_key', 'general-options' );
+
+		if ( $api_key ) {
+			acf_update_setting( 'google_api_key', $api_key );
 		}
 	}
 }

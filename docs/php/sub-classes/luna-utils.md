@@ -9,10 +9,11 @@ There is no `__construct()` method so instantiation just makes the utility metho
 To add a utility function, simply add a public method to the `Luna_Utils` class. Be sure to add a PHP docblock!
 
 **Example:**
+
 ```php
 /**
  * Get the Luna distance.
- * 
+ *
  * @return int $distance The distance to the moon!
  */
 public function get_luna_distance( $echo = false ) {
@@ -33,6 +34,7 @@ A number of useful utility methods are inherited from the base class `Luna_Base_
 Converts a filename or filepath to a human readable string.
 
 **Usage:**
+
 ```php
 /**
  * @param string $filepath [required] The filepath to convert.
@@ -48,6 +50,7 @@ $luna->utils->filename2text( $filepath );
 Returns a post's primary term within a given taxonomy. The primary term functionality is provided by Yoast and used when a post has more than one term of a certain taxonomy.
 
 **Usage:**
+
 ```php
 /**
  * @param int    $post_id  [required] ID of the post we need the primary term for.
@@ -62,6 +65,7 @@ $luna->utils->get_the_primary_term( $post_id, $taxonomy );
 ### Get a YouTube ID from a URL
 
 **Usage:**
+
 ```php
 /**
  * @param string $youtube_url [required] A YouTube video URL.
@@ -76,13 +80,14 @@ $luna->utils->get_youtube_url( $youtube_url );
 Returns the markup for an image element which will work with the npm Lazyload package used byt the theme.
 
 **Usage:**
+
 ```php
 /**
  * @param int|string  $id_or_url   [required] The attachment ID or file URL for the image.
  * @param string      $size        [optional] A WordPress image size.
  * @param string|bool $size_retina [optional] A WordPress image size for retina screens.
  * @param string      $css_class   [optional] CSS class names for the <img> tag.
- * @param bool        $echo        [optional] Whether to output the resulting SVG markup.
+ * @param bool        $echo        [optional] Whether to output the resulting <img> element or just return it.
  *
  * @return string $image_elem The image element markup.
  */
@@ -92,6 +97,7 @@ $luna->utils->image( $id_or_url, $size = 'large', $size_retina = false, $class =
 ### Check if a URL is from YouTube
 
 **Usage:**
+
 ```php
 /**
  * @param string $url [required] A URL to check.
@@ -106,6 +112,7 @@ $luna->utils->is_youtube_url( $url );
 Echos pagination on archive pages. This uses the default query so can only be used within archive templates.
 
 **Usage:**
+
 ```php
 /**
  * @param bool $show_ends [optional] Whether to show links to the first and last page (where applicable).
@@ -120,6 +127,7 @@ $luna->utils->pagination( $show_ends = true );
 Convert an array into a string of HTML attributes.
 
 **Usage:**
+
 ```php
 /**
  * @param array $atts [required] An $att => $val key value pair associative array.
@@ -130,6 +138,7 @@ $luna->utils->parse_atts_array( $atts );
 ```
 
 **Example:**
+
 ```php
 $atts = [
   'src'   => 'https://bit.ly/3rFcsWT',
@@ -138,9 +147,29 @@ $atts = [
 ];
 echo '<img ' . $luna->utils->parse_atts_array( $atts ) . ' />';
 ```
+
 Outputs as:
+
 ```html
 <img src="https://bit.ly/3rFcsWT" class="rr-image" alt="Unexpected image" />
+```
+
+### Optimised picture element
+
+Returns the markup for a picture element which will work with the npm Lazyload package used byt the theme.
+
+**Usage:**
+
+```php
+/**
+ * @param int|string  $image_id [required] The attachment ID.
+ * @param string      $size     [optional] A WordPress image size.
+ * @param string      $class    [optional] CSS class names for the <img> tag.
+ * @param bool        $echo      [optional] Whether to output the resulting <picture> element or just return it.
+ *
+ * @return string The picture element markup.
+ */
+$luna->utils->picture( $image_id, $size = 'large', $class = 'luna-image', $echo = true )
 ```
 
 ### Remove HTTP from URL
@@ -148,6 +177,7 @@ Outputs as:
 Strip the `http://` or `https://` from a URL.
 
 **Usage:**
+
 ```php
 /**
  * @param string $url [required] URL to strip.
@@ -162,6 +192,7 @@ $luna->utils->remove_http( $url );
 Output a summary of a search query displaying the current index of results on the page and the total number of reasults. This should only be used on a search or archive page as it checks the default `$wp_query` object.
 
 **Usage:**
+
 ```php
 /**
  * @param string $template [optional] The output template for the summary string.

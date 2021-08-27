@@ -19,9 +19,6 @@ final class Luna_Hooks {
 	public function __construct() {
 		// Register menus.
 		add_action( 'after_setup_theme', [ $this, 'register_nav_menus' ] );
-
-		// Replace excerpt end string output.
-		add_filter( 'excerpt_more', [ $this, 'custom_excerpt_more' ] );
 	}
 
 	/**
@@ -35,12 +32,5 @@ final class Luna_Hooks {
 				'primary' => esc_html__( 'Primary Menu', 'luna' ),
 			]
 		);
-	}
-
-	/**
-	 * Replaces the return 'read more' excerpt cut off.
-	 */
-	public function custom_excerpt_more() {
-    return '...';
 	}
 }
