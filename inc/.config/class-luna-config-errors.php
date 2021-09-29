@@ -209,6 +209,7 @@ class Luna_Config_Errors {
 			'font-family' => 'monospace',
 			'font-size'   => '1.5rem',
 			'line-height' => '1.3',
+			'color'       => 'black',
 			'transform'   => 'translateY(-50%)',
 			'max-height'  => '90%',
     	'overflow'    => 'auto',

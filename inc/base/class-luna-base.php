@@ -222,8 +222,8 @@ abstract class Luna_Base {
 			);
 			$this->script_deps[] = 'cookie-control';
 		}
+		// Register & localise the above data and enqueue.
 
-		// Register, localise the above data and enqueue.
 		wp_register_script(
 			'luna-script',
 			$script_src,
