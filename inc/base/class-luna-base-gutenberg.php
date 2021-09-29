@@ -49,6 +49,18 @@ abstract class Luna_Base_Gutenberg{
     }
     $script_asset = require $script_asset_path;
 
+		// An array for localised data.
+		$data = [];
+		
+		/**
+		 * 'luna_localize_blocks_script' filter hook.
+		 * Filter the data to be localised as the `luna` JavaScript object.
+		 *
+		 * @param array $data The default localised data.
+		 * @return array $data An updated data array containing custom data alongside the default data.
+		 */
+		$data = apply_filters( 'luna_localize_blocks_script', $data );
+
 		/**
 		 * 'luna_enqueue_blocks_script' filter hook.
 		 * All custom blocks script enqueues for a site should be added via this filter hook.
@@ -58,21 +70,22 @@ abstract class Luna_Base_Gutenberg{
 		 * @return array $script_deps An updated array of script dependencies.
 		 */
 		$script_deps = apply_filters( 'luna_enqueue_blocks_script', $script_asset['dependencies'] );
-  
-    // Register Luna Blocks.
+
+		// Register & localise the above data and enqueue the Luna Blocks script.
     wp_register_script(
       'luna-blocks',
       get_template_directory_uri() . '/build/blocks.js',
       $script_deps,
       $script_asset['version']
     );
-  
+		wp_localize_script( 'luna-blocks', 'luna_blocks', $data );
+
     wp_register_style( 'luna-blocks', get_template_directory_uri() . '/build/blocks.css', [] );
-    
+
     // Set Script Translations.
     wp_set_script_translations( 'luna-blocks', 'luna' );
-  
-    // Enqueue Luna Blocks.
+
+    // Enqueue Luna Blocks scripts & styles.
     wp_enqueue_script( 'luna-blocks' );
     wp_enqueue_style( 'luna-blocks' );
   }

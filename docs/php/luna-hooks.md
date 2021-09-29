@@ -101,6 +101,51 @@ public function enqueue_custom_script( $deps ) {
 }
 ```
 
+## luna_localize_blocks_script
+
+Filters the list of core localised variables for the blocks script.
+
+**Usage:**
+```php
+/**
+ * 'luna_localize_blocks_script' filter hook.
+ * Allows custom localised data to be added to the luna_blocks JavaScript object.
+ *
+ * @param array $data The default localised data.
+ * @return array A filtered localised data array.
+ */
+apply_filters( 'luna_localize_blocks_script', $data );
+```
+
+**Example:**
+```php
+public function __construct() {
+  ...
+
+  add_filter( 'luna_localize_blocks_script', [ $this, 'localise_custom_data' ] );
+
+  ...
+}
+```
+
+```php
+/**
+ * 'luna_localize_blocks_script' filter hook callback.
+ * Add some custom data to be localised.
+ *
+ * @param array $data The default localised data.
+ * @return array $data An updated data array.
+ */
+public function localise_custom_data( $data ) {
+  $data['foo'] = 'bar';
+  return $data;
+}
+```
+
+```javascript
+console.log( luna_blocks.foo ); // Outputs 'bar'!
+```
+
 ## luna_enqueue_blocks_script
 
 Filers the list of script dependencies for the Gutenberg blocks script, `/build/blocks.js`. Similar to `luna_enqueue_script`.
