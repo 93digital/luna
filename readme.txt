@@ -5,7 +5,7 @@ Tags: Luna, 93digital, 93devs, starter-theme, boilerplate
 
 Requires at least: 5.5
 Tested up to: 5.6
-Stable tag: 1.1.5
+Stable tag: 1.1.6
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -38,6 +38,7 @@ License URI: https://www.gnu.org/licenses/gpl-2.0.html
 1.1.3 - Added documentation relating the the templates added in the last iteration. Also added Terra instantiation into the base and a new hooks class for Terra.
 1.1.4 - Added share links template part. Updated SCSS files that fix small bugs in the editor. Include base gutenberg block styles. Unregister Gutenberg blocks & update JS files. Add extra image size. Add picture function. Updated SVG icons.
 1.1.5 - Small update to the custom PHP error styling. Also added a new `luna_localize_blocks_script` filter.
+1.1.6 - Small updates to Post Select component to order by relevance. Include draggable component for Gutenberg repeaters & documentation.
 
 == Credits ==
 93digital Development Team

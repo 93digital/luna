@@ -1,0 +1,21 @@
+.drag-handle {
+  background: rgba(0, 0, 0, .1);
+  margin-left: 5px;
+  border-radius: 3px;
+  margin-bottom: 14px;
+  border: 1px solid rgba(0, 0, 0, .1);
+  cursor: grab;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  &__icon {
+    cursor: grab;
+    pointer-events: none;
+  }
+}
+
+.sort-item {
+  display: flex;
+}
