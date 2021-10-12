@@ -9,6 +9,17 @@ import { close } from '@wordpress/icons';
 
 import './editor.scss';
 
+const isGIF = image => {
+  const url = image.split('?')[0];
+  const parts = url.split('.');
+  const extension = parts[parts.length - 1];
+  //define some image types to test against
+  const imageTypes = ['gif'];
+  if (imageTypes.indexOf(extension) !== -1) {
+    return true;
+  }
+};
+
 const ImageElement = props => {
   const { item, className } = props;
 
@@ -17,19 +28,35 @@ const ImageElement = props => {
   }
 
   return (
-    <figure className={ className }>
-      <picture>
-        <source srcSet={ item.src } media="(min-width: 768px)" />
-        <source srcSet={ item.tabletSrc } media="(min-width: 375px)" />
-        <img
-          src={ item.mobileSrc }
-          alt={ item.alt }
-          width={ item.width }
-          height={ item.height }
-          className={ classnames(`${ className }__image`) }
-        />
-      </picture>
-    </figure>
+    <>
+      { isGIF(item.src) &&
+        <figure className={ className }>
+          <img
+            src={ item.mobileSrc }
+            data-src={ item.full }
+            alt={ item.alt }
+            width={ item.width }
+            height={ item.height }
+            className={ classnames(`${ className }__image lazy`) }
+          />
+        </figure>
+      }
+      { ! isGIF(item.src) &&
+        <figure className={ className }>
+          <picture>
+            <source srcSet={ item.src } media="(min-width: 768px)" />
+            <source srcSet={ item.tabletSrc } media="(min-width: 375px)" />
+            <img
+              src={ item.mobileSrc }
+              alt={ item.alt }
+              width={ item.width }
+              height={ item.height }
+              className={ classnames(`${ className }__image`) }
+            />
+          </picture>
+        </figure>
+      }
+    </>
   );
 };
 
@@ -44,20 +71,39 @@ const ImageElementSave = props => {
     elements_selector: '.lazy'
   });
 
+  const placeholderSrc = (width, height) => `data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${ width } ${ height }"%3E%3C/svg%3E`;
+
   return (
-    <figure className={ className }>
-      <picture>
-        <source data-srcset={ item.src } media="(min-width: 768px)" />
-        <source data-srcset={ item.tabletSrc } media="(min-width: 375px)" />
-        <img
-          data-src={ item.mobileSrc }
-          alt={ item.alt }
-          width={ item.width }
-          height={ item.height }
-          className={ classnames(`${ className }__image lazy`) }
-        />
-      </picture>
-    </figure>
+    <>
+      { isGIF(item.src) &&
+        <figure className={ className }>
+          <img
+            src={ placeholderSrc(item.width, item.height) }
+            data-src={ item.full }
+            alt={ item.alt }
+            width={ item.width }
+            height={ item.height }
+            className={ classnames(`${ className }__image lazy`) }
+          />
+        </figure>
+      }
+      { ! isGIF(item.src) &&
+        <figure className={ className }>
+          <picture>
+            <source data-srcset={ item.src } media="(min-width: 768px)" />
+            <source data-srcset={ item.tabletSrc } media="(min-width: 375px)" />
+            <img
+              src={ placeholderSrc(item.width, item.height) }
+              data-src={ item.mobileSrc }
+              alt={ item.alt }
+              width={ item.width }
+              height={ item.height }
+              className={ classnames(`${ className }__image lazy`) }
+            />
+          </picture>
+        </figure>
+      }
+    </>
   );
 };
 
@@ -124,6 +170,7 @@ export const LunaImage = props => {
     const mediaObject = {
       id: media.id,
       alt: media.alt,
+      full: media.url,
       width: customSize ? media.sizes[size].width : media.width,
       height: customSize ? media.sizes[size].height : media.height,
       src: customSize ? media.sizes[size].url : media.url,
@@ -237,6 +284,7 @@ export const LunaInspectorImage = props => {
     const mediaObject = {
       id: media.id,
       alt: media.alt,
+      full: media.url,
       width: customSize ? media.sizes[size].width : media.width,
       height: customSize ? media.sizes[size].height : media.height,
       src: customSize ? media.sizes[size].url : media.url,

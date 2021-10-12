@@ -1,7 +1,7 @@
 import { __ } from '@wordpress/i18n';
+import { decodeEntities } from '@wordpress/html-entities';
 import { Flex, FlexBlock, FlexItem, TextHighlight, Button, Card, CardBody } from '@wordpress/components';
 import { safeDecodeURI, filterURLForDisplay } from '@wordpress/url';
-import { decodeEntities } from '@wordpress/html-entities';
 
 /**
  * Post Card
@@ -21,6 +21,10 @@ export const PostCard = props => {
     post,
     searchTerm = ''
   } = props;
+
+  if (post && Object.keys(post).length === 0 && post.constructor === Object) {
+    return null;
+  }
 
   return (
     <Card size="small" id={ id }>

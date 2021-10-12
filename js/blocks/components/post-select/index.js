@@ -49,7 +49,7 @@ export const PostSelect = props => {
     setIsLoading(true);
 
     Promise.all(postTypes.map(postType => apiFetch({
-      path: `/wp/v2/${ postType }?search=${ keyword }`
+      path: `/wp/v2/${ postType }?search=${ keyword }&orderby=relevance&per_page=20`
     }))).then(results => {
       setSearchResults(
         results.reduce((result, final) => [...final, ...result], [])
