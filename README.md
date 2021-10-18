@@ -1,6 +1,6 @@
 # Luna
 
-***v1.1.6***
+***v1.1.7***
 
 ***Authors:*** *Andrew Iontton & Matt Knight*
 
