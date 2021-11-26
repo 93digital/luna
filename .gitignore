@@ -5,13 +5,15 @@
 
 # Node artifact files
 node_modules/
+vendor/
 dist/
 build/
 style.css
 style.css.map
 style-editor.css
 style-editor.css.map
-
+package-lock.json
+composer.lock
 
 # Compiled Java class files
 *.class
