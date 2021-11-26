@@ -1,5 +1,8 @@
 {
   "require": {
-    "93devs/terra": "dev-master"
+    "93devs/terra": "dev-master",
+    "93devs/nine3-instagram-api": "dev-master",
+    "93devs/nine3-twitter-api": "dev-master",
+    "93devs/nine3-workable-api": "dev-master"
   }
 }

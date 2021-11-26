@@ -59,6 +59,11 @@ abstract class Luna_Base_Global_Options {
 		$this->add_sub_page( '404' );
 		$this->add_sub_page( 'Search' );
 
+		// Add sub pages for required composer packages.
+		if ( class_exists( 'Nine3_Workable_Api' ) ) {
+			$this->add_sub_page( 'Workable API' );
+		}
+
 		// Localise data from the Civic global options so they can be inserted into the JS.
 		add_filter( 'luna_localize_script', [ $this, 'localise_civic_data' ] );
 

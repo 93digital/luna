@@ -1,0 +1,62 @@
+{
+    "key": "group_61a10aaeb0055",
+    "title": "Global Options – Workable API",
+    "fields": [
+        {
+            "key": "field_61a10b32e8ffc",
+            "label": "Workable subdomain",
+            "name": "workable_subdomain",
+            "type": "text",
+            "instructions": "Just the subdomain part of the Workable account URL. This is required as part of the API URL so that the Workable API class can query the correct account.",
+            "required": 1,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": "",
+            "maxlength": ""
+        },
+        {
+            "key": "field_61a10cf4e8ffd",
+            "label": "Workable access token",
+            "name": "workable_access_token",
+            "type": "text",
+            "instructions": "An access token generated within the Workable account which authenticates access to the API.",
+            "required": 1,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": "",
+            "maxlength": ""
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "options_page",
+                "operator": "==",
+                "value": "acf-options-workable-api"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": 1,
+    "description": "",
+    "modified": 1637944609
+}
